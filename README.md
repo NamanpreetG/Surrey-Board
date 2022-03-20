@@ -4,7 +4,7 @@
 
 1. Generate your own SSH keys:
 `ssh-keygen -t ed25519`
-2. Add your SSH key to Gitlab: `tr -d '\n' < ~/.ssh/id_ed25519.pub | pbcopy`
+2. Add your SSH key to Gitlab (for MacOS): `tr -d '\n' < ~/.ssh/id_ed25519.pub | pbcopy`
 3. Go to Gitlab, On the top bar, in the top right corner, select your avatar, On the left sidebar, select SSH Keys. In the Key box, paste the contents of your public key.
 
 Alternatively, visit this [link](https://docs.gitlab.com/ee/ssh/) for clearer instructions.
