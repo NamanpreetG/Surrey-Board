@@ -18,4 +18,5 @@ Alternatively, visit this [link](https://docs.gitlab.com/ee/ssh/) for clearer in
 4. Go to the server code with `cd server`
 5. Run the server with `npm start`
 6. Go to the front-end directory with `cd ../front-end`
-7. Run the front-end with `npm start`
+7. Run `npm install`
+8. Run the front-end with `npm start`
