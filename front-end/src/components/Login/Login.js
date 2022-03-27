@@ -22,14 +22,16 @@ function Login() {
     Axios.post("http://localhost:3005/login", {
       email: email,
       password: password,
-    }).then((res) => {
-      if (res.data.message) {
-        setLoginStatus(res.data.message);
-      } else {
-        setLoginStatus(res.data[0].name);
-        navigate("/homepage");
-      }
-    });
+    })
+      // TODO: add validation for if request comes back bad
+      .then((res) => {
+        if (res.data.message) {
+          setLoginStatus(res.data.message);
+        } else {
+          setLoginStatus(res.data[0].name);
+          navigate("/homepage");
+        }
+      });
   };
 
   return (

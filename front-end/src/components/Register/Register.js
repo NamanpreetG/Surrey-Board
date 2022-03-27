@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Axios from "axios";
 import "./Register.css";
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   FormGroup,
@@ -15,15 +16,18 @@ function Register() {
   const [regEmail, setRegEmail] = useState();
   const [regUsername, setRegUsername] = useState("");
   const [regPassword, setRegPassword] = useState("");
+  const navigate = useNavigate();
 
   const register = () => {
     Axios.post("http://localhost:3005/register", {
       email: regEmail,
       username: regUsername,
       password: regPassword,
-    }).then((res) => {
-      console.log(res);
-    });
+    })
+      // TODO: add validation for if request comes back bad
+      .then((res) => {
+        navigate("/login");
+      });
   };
 
   return (
@@ -40,6 +44,7 @@ function Register() {
                   type="email"
                   placeholder="Enter email"
                   onChange={(e) => {
+                    e.preventDefault();
                     setRegEmail(e.target.value);
                   }}
                 />
@@ -55,6 +60,7 @@ function Register() {
                   type="text"
                   placeholder="Username"
                   onChange={(e) => {
+                    e.preventDefault();
                     setRegUsername(e.target.value);
                   }}
                 />
@@ -70,6 +76,7 @@ function Register() {
                   type="password"
                   placeholder="Password"
                   onChange={(e) => {
+                    e.preventDefault();
                     setRegPassword(e.target.value);
                   }}
                 />
