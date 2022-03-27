@@ -1,9 +1,12 @@
 import "../App.css";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { loginContext } from "./Login/LoginProvider";
+
 
 function NavBar() {
   const [message, setMessage] = useState("Bob");
+  const [loginStatus, setLoginStatus] = useContext(loginContext);
 
   return (
     <div className="App">
@@ -28,7 +31,7 @@ function NavBar() {
 
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Signed in as: <a href="#login">{message.message}</a>
+              Signed in as: <a href="#login">{loginStatus}</a>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
