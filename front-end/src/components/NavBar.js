@@ -3,13 +3,8 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 function NavBar() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("Bob");
 
-  useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((returnData) => setMessage(returnData));
-  }, []);
   return (
     <div className="App">
       {/* Navbar code */}
