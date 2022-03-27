@@ -77,7 +77,13 @@ function Register() {
             <Card.Body>
               <Form.Group className="mb-3" controlId="formBasicUsername">
                 <Form.Label>Username</Form.Label>
-                <Form.Control type="text" placeholder="Username" />
+                <Form.Control
+                  type="text"
+                  placeholder="Username"
+                  onChange={(e) => {
+                    setRegUsername(e.target.value);
+                  }}
+                />
               </Form.Group>
             </Card.Body>
           </Row>
@@ -92,7 +98,13 @@ function Register() {
             <Card.Body>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => {
+                    setRegPassword(e.target.value);
+                  }}
+                />
               </Form.Group>
             </Card.Body>
           </Row>
@@ -111,7 +123,7 @@ function Register() {
           </div>
           <br />
           <a id="align-center" href="/login">
-            Need to sign up?
+            Sign in instead?
           </a>
         </Card>
       </Form>
