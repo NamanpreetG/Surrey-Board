@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Axios from "axios";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import { loginContext } from "./LoginProvider";
 import {
   Form,
   FormGroup,
@@ -15,7 +16,7 @@ import {
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginStatus, setLoginStatus] = useState("");
+  const [loginStatus, setLoginStatus] = useContext(loginContext);
   const navigate = useNavigate();
 
   const login = () => {
