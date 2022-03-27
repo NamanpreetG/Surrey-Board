@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Axios from "axios";
-import "../Register.css";
+import "./Register.css";
 import {
   Form,
   FormGroup,
