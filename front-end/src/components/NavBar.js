@@ -1,25 +1,23 @@
-import "./App.css";
+import "../App.css";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { loginContext } from "./Login/LoginProvider";
 
-function App() {
-  const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((returnData) => setMessage(returnData));
-  }, []);
+function NavBar() {
+  const [message, setMessage] = useState("Bob");
+  const [loginStatus, setLoginStatus] = useContext(loginContext);
+
   return (
     <div className="App">
       {/* Navbar code */}
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">Surrey Board</Navbar.Brand>
+          <Navbar.Brand href="/">Surrey Board</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="/login">Sign In</Nav.Link>
               <Nav.Link href="#link">Your Boards</Nav.Link>
               <NavDropdown title="Actions" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action 1</NavDropdown.Item>
@@ -30,19 +28,16 @@ function App() {
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
-          <Navbar.Toggle />
+
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Signed in as: <a href="#login">{message.message}</a>
+              Signed in as: <a href="#login">{loginStatus}</a>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
-
-      
     </div>
   );
 }
 
-export default App;
+export default NavBar;
