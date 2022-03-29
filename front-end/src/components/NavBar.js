@@ -3,11 +3,21 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { loginContext } from "./Login/LoginProvider";
 
-
 function NavBar() {
-  const [message, setMessage] = useState("Bob");
-  const [loginStatus, setLoginStatus] = useContext(loginContext);
+  const [user, setUser] = useContext(loginContext);
 
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      console.log("is logged in");
+      setUser(loggedInUser);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    setUser({});
+    localStorage.clear();
+  };
   return (
     <div className="App">
       {/* Navbar code */}
@@ -17,7 +27,13 @@ function NavBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/login">Sign In</Nav.Link>
+              {user ? (
+                <Nav.Link onClick={handleLogout} href="/">
+                  Sign Out
+                </Nav.Link>
+              ) : (
+                <Nav.Link href="/login">Sign In</Nav.Link>
+              )}
               <Nav.Link href="#link">Your Boards</Nav.Link>
               <NavDropdown title="Actions" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action 1</NavDropdown.Item>
@@ -31,7 +47,10 @@ function NavBar() {
 
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Signed in as: <a href="#login">{loginStatus}</a>
+              Signed in as:{" "}
+              <a href="#login">
+                <b>edit later</b>
+              </a>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
