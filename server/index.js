@@ -37,6 +37,7 @@ app.get('/', (req, res)=>{
 
 })
 
+
 app.post('/register', (req, res)=>{
     const email = req.body.email
     const username = req.body.username
@@ -70,8 +71,25 @@ app.post('/login', (req, res)=>{
 
 
 })
+app.post('/createpost', (req, res) => {
+    const title = req.body.title
+    const text = req.body.text
+    
 
+    db.query('INSERT INTO posts (title, text) VALUES (?,?)', [title, text], (error) => {
+        console.log(error)
+    })
 
+})
+app.get('/posts', (req, res) => {
+    db.query('SELECT * FROM posts', (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        res.send(result)
+    }
+    );
+});
 app.listen(PORT, ()=>{
     console.log('Server is running on port ' + PORT)
 })

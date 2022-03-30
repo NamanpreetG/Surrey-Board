@@ -3,6 +3,8 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Homepage from "./components/Homepage/Homepage";
 import LoginProvider from "./components/Login/LoginProvider";
+import CreatePost from "./components/CreatePost/CreatePost";
+import Posts from "./components/CreatePost/ShowPost";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -18,7 +20,8 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-
+            <Route path="/createpost" element={<CreatePost />} />
+            <Route path="/posts" element={<Posts />} />
             {/* authenticated links */}
             <Route
               path="/homepage"
