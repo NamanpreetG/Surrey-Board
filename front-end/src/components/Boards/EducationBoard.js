@@ -14,7 +14,7 @@ function Homepage() {
   }, []);
   return (
     <div>
-      General Board, Write your enquires
+      Education Board, Write your enquires
     </div>);
 }
 

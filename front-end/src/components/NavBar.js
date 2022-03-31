@@ -2,6 +2,10 @@ import "../App.css";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { loginContext } from "./Login/LoginProvider";
+import { BrowserRouter as Router } from 'react-router-dom';
+import Sidebar from "./sidebar";
+
+
 
 function NavBar() {
   const [user, setUser] = useContext(loginContext);
@@ -19,10 +23,16 @@ function NavBar() {
     localStorage.clear();
   };
   return (
+
+    
     <div className="App">
       {/* Navbar code */}
-      <Navbar bg="light" expand="lg">
+
+      
+      <Navbar bg="light" expand="lg">  
+      <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} />
         <Container>
+          
           <Navbar.Brand href="/">Surrey Board</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -42,6 +52,7 @@ function NavBar() {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">Action 4</NavDropdown.Item>
               </NavDropdown>
+              
             </Nav>
           </Navbar.Collapse>
 
@@ -56,7 +67,9 @@ function NavBar() {
         </Container>
       </Navbar>
     </div>
+    
   );
+  
 }
 
 export default NavBar;
