@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-CreatePost",
+      "appliesTo": "front-end/src/components/CreatePost/CreatePost.js",
+      "type": "launch"
+    }
+  ]
+}
