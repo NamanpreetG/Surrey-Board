@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useEffect } from "react";
 import { loginContext } from "../Login/LoginProvider";
 
-function Homepage() {
+function SocietyBoard() {
   const [user, setUser] = useContext(loginContext);
 
   useEffect(() => {
@@ -14,8 +14,8 @@ function Homepage() {
   }, []);
   return (
     <div>
-      General Board, Write your enquires
+      Society Board, Write your enquires
     </div>);
 }
 
-export default Homepage;
+export default SocietyBoard;

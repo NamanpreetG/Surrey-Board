@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useEffect } from "react";
 import { loginContext } from "../Login/LoginProvider";
 
-function Homepage() {
+function EducationBoard() {
   const [user, setUser] = useContext(loginContext);
 
   useEffect(() => {
@@ -18,4 +18,4 @@ function Homepage() {
     </div>);
 }
 
-export default Homepage;
+export default EducationBoard;

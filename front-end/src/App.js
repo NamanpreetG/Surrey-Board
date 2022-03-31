@@ -3,6 +3,11 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Homepage from "./components/Homepage/Homepage";
 import LoginProvider from "./components/Login/LoginProvider";
+import EducationBoard from "./components/EducationBoard/EducationBoard";
+import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
+import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
+import Settings from "./components/Settings";
+
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
 
@@ -26,6 +31,12 @@ function App() {
           <Route exact path="/" element={<Login />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
+          
+          <Route exact path="/educationBoard" element={<EducationBoard />} />
+          <Route exact path="/generalBoard" element={<GeneralBoard />} />
+          <Route exact path="/societyBoard" element={<SocietyBoard />} />
+          <Route exact path="/settings" element={<Settings />} />
+         
 
           {/* authenticated links */}
           <Route
