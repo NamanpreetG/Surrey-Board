@@ -1,0 +1,12 @@
+.center-text {
+    text-align: center;
+  }
+#align-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-padding{
+    padding: 5%
+}
