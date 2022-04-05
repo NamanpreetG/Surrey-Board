@@ -24,8 +24,6 @@ function Register() {
       username: regUsername,
       password: regPassword,
     }).then((res) => {
-      {console.log("testing")}
-      {console.log(res.data)}
       navigate("/");
     
       });
