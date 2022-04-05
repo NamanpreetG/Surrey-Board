@@ -45,6 +45,22 @@ app.post('/register', (req, res)=>{
     db.query('INSERT INTO accounts (email, name, password) VALUES (?,?,?)', [email, username, password], (error)=>{
         console.log(error)
     })
+    
+    // Chnage logic to check if there is already a user and send response accordingly
+    db.query('SELECT * FROM accounts where email = ? and password = ?', [email, password], (error, result)=>{
+        if(error){
+            console.log(error)
+            console.send( {error: error} )
+        } 
+        if(result.length > 0){
+                console.log(result)
+                res.send(result)
+        } else{
+            res.send( {message : "Invalid username or pass"} )
+
+        }
+        
+    })
 
 })
 

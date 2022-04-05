@@ -23,10 +23,11 @@ function Register() {
       email: regEmail,
       username: regUsername,
       password: regPassword,
-    })
-      // TODO: add validation for if request comes back bad
-      .then((res) => {
-        navigate("/login");
+    }).then((res) => {
+      {console.log("testing")}
+      {console.log(res.data)}
+      navigate("/");
+    
       });
   };
 
