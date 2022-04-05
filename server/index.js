@@ -20,15 +20,24 @@ const db = mysql.createConnection({
     database : process.env.DATABASE
 })
 
-
-db.connect( (error, res)=>{
-    if(error){
-        console.log(error)
-    } else{
-        console.log('SQL CONNECTED')
-    }
-    
-})
+//database schema
+db.connect(function(err) {
+    //console.log("Connected yet no db is selected yet!");
+    //db.query("CREATE DATABASE IF NOT EXISTS surreyboard", function (err, result) {
+    if (err) throw err;
+    console.log("Connected to database");
+    //});
+    var accounts = "CREATE TABLE IF NOt EXISTS accounts (id INT AUTO_INCREMENT, email TEXT(45), name TEXT(15), password TEXT(15), PRIMARY KEY (id))";
+    db.query(accounts, function (err, result) {
+      if (err) throw err;
+      console.log("Accounts table ok");
+    });
+    var accounts = "CREATE TABLE IF NOt EXISTS posts (idposts INT AUTO_INCREMENT, title TINYTEXT, text TEXT, PRIMARY KEY (idposts))";
+    db.query(accounts, function (err, result) {
+      if (err) throw err;
+      console.log("Posts table ok");
+    });
+  });
 
 app.get('/', (req, res)=>{
 
@@ -81,6 +90,7 @@ app.post('/createpost', (req, res) => {
     })
 
 })
+//posts page
 app.get('/posts', (req, res) => {
     db.query('SELECT * FROM posts', (err, result) => {
         if (err) {

@@ -40,7 +40,7 @@ function CreatePost() {
                             <Form.Group className="mb-3" controlId="formTitle">
                                 <Form.Label>Title</Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="title"
                                     placeholder="Enter title"
                                     onChange={(e) => {
                                         e.preventDefault();
