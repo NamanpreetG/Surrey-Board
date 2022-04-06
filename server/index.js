@@ -4,8 +4,10 @@ const mysql = require('mysql')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const AccountsModel = require('./models/accounts')
+const PostsModel = require('./models/posts')
 
 const dotenv = require('dotenv')
+const Accounts = require('./models/accounts')
 dotenv.config( { path: './.env' } )
 
 const PORT = 3005
@@ -44,27 +46,32 @@ mongoose.connect("mongodb+srv://newuser:newpassword@cluster0.mmkhh.mongodb.net/s
   //});
 
 app.get('/', async (req, res)=>{
-    const accounts = new AccountsModel({ email: "test1@email.com", username: "test1", password: "test1"});
+    //const accounts = new AccountsModel({ email: "test1@email.com", username: "test1", password: "test1"});
 
-    //res.send('HELLLLLOOOOOO')
-    try {
-        await accounts.save();
-    } catch (err) {
-        console.log(err);
-    }
+    
+    //try {
+        //await accounts.save();
+        //res.send('Inserted into accounts')
+    
+    //} catch (err) {
+        //console.log(err);
+    //}
 });
 
 
-app.post('/register', (req, res)=>{
+app.post('/register', async (req, res)=>{
     const email = req.body.email
     const username = req.body.username
     const password = req.body.password
 
-    db.query('INSERT INTO accounts (email, name, password) VALUES (?,?,?)', [email, username, password], (error)=>{
-        console.log(error)
-    })
-
-})
+    const createaccount = new AccountsModel({ email: email, username: username, password: password});
+    try {
+        await createaccount.save();
+        res.send('Inserted into accounts')
+    } catch (err) {
+        console.log(err);
+    }
+    });
 
 app.post('/login', (req, res)=>{
     const email = req.body.email
@@ -88,25 +95,31 @@ app.post('/login', (req, res)=>{
 
 
 })
-app.post('/createpost', (req, res) => {
+   
+
+//
+app.post('/createpost', async (req, res) => {
     const title = req.body.title
     const text = req.body.text
-    
 
-    db.query('INSERT INTO posts (title, text) VALUES (?,?)', [title, text], (error) => {
-        console.log(error)
-    })
-
-})
-//posts page
-app.get('/posts', (req, res) => {
-    db.query('SELECT * FROM posts', (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        res.send(result)
+    const createpost = new PostsModel({ title: title, text: text});
+    try {
+        await createpost.save();
+        res.send('Inserted into posts')
+    } catch (err) {
+        console.log(err);
     }
-    );
+    });
+
+
+//posts page
+app.get('/posts', async (req, res) => {
+   PostsModel.find({}, (err, result)=>{
+       if (err){
+           res.send(err)
+       }
+       res.send(result)
+   })
 });
 app.listen(PORT, ()=>{
     console.log('Server is running on port ' + PORT)
