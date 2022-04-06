@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const mysql = require('mysql')
 const cors = require('cors')
+const mongoose = require('mongoose')
+const AccountsModel = require('./models/accounts')
 
 const dotenv = require('dotenv')
 dotenv.config( { path: './.env' } )
@@ -11,40 +13,46 @@ const PORT = 3005
 app.use(express.json())
 app.use(cors())
 
+mongoose.connect("mongodb+srv://newuser:newpassword@cluster0.mmkhh.mongodb.net/surreyboard?retryWrites=true&w=majority",
+ {
+  useNewUrlParser: true,
+});
 
-const db = mysql.createConnection({
 
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password : process.env.DATABASE_PASSWORD,
-    database : process.env.DATABASE
-})
+//const db = mysql.createConnection({
+
+    //host: process.env.DATABASE_HOST,
+    //user: process.env.DATABASE_USER,
+    //password : process.env.DATABASE_PASSWORD,
+    //database : process.env.DATABASE
+//})
 
 //database schema
-db.connect(function(err) {
-    //console.log("Connected yet no db is selected yet!");
-    //db.query("CREATE DATABASE IF NOT EXISTS surreyboard", function (err, result) {
-    if (err) throw err;
-    console.log("Connected to database");
+//db.connect(function(err) {
+    //if (err) throw err;
+    //console.log("Connected to database");
+    //var accounts = "CREATE TABLE IF NOt EXISTS accounts (id INT AUTO_INCREMENT, email TEXT(45), name TEXT(15), password TEXT(15), PRIMARY KEY (id))";
+    //db.query(accounts, function (err, result) {
+      //if (err) throw err;
+      //console.log("Accounts table ok");
     //});
-    var accounts = "CREATE TABLE IF NOt EXISTS accounts (id INT AUTO_INCREMENT, email TEXT(45), name TEXT(15), password TEXT(15), PRIMARY KEY (id))";
-    db.query(accounts, function (err, result) {
-      if (err) throw err;
-      console.log("Accounts table ok");
-    });
-    var accounts = "CREATE TABLE IF NOt EXISTS posts (idposts INT AUTO_INCREMENT, title TINYTEXT, text TEXT, PRIMARY KEY (idposts))";
-    db.query(accounts, function (err, result) {
-      if (err) throw err;
-      console.log("Posts table ok");
-    });
-  });
+    //var accounts = "CREATE TABLE IF NOt EXISTS posts (idposts INT AUTO_INCREMENT, title TINYTEXT, text TEXT, PRIMARY KEY (idposts))";
+    //db.query(accounts, function (err, result) {
+      //if (err) throw err;
+      //console.log("Posts table ok");
+    //});
+  //});
 
-app.get('/', (req, res)=>{
+app.get('/', async (req, res)=>{
+    const accounts = new AccountsModel({ email: "test1@email.com", username: "test1", password: "test1"});
 
-    res.send('HELLLLLOOOOOO')
-
-
-})
+    //res.send('HELLLLLOOOOOO')
+    try {
+        await accounts.save();
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 
 app.post('/register', (req, res)=>{
