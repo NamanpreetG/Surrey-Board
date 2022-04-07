@@ -26,6 +26,7 @@ function Register() {
       password: regPassword,
     };
     const res = await Axios.post("http://localhost:3005/register", user);
+    console.log("works");
     if (res.data[0].name) {
       localStorage.setItem("user", res.data);
       navigate("/");
@@ -87,7 +88,9 @@ function Register() {
           </Row>
 
           <div id="align-center">
-            <Button size="lg">Register</Button>
+            <Button type="submit" size="lg">
+              Register
+            </Button>
           </div>
           <br />
           <a id="align-center" href="/login">
