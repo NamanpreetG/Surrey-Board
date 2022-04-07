@@ -10,14 +10,6 @@ import { PrivateRoute } from "./components/PrivateRoute";
 
 function App() {
   const navigate = useNavigate();
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("user")
-    if (loggedInUser) {
-      setUser(loggedInUser)
-    }
-  }, []);
 
   return (
     <LoginProvider>

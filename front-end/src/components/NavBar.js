@@ -4,15 +4,17 @@ import { useState, useEffect, useContext } from "react";
 import { loginContext } from "./Login/LoginProvider";
 
 function NavBar() {
-  const [message, setMessage] = useState("Bob");
   const [userDetails, setUserDetails] = useContext(loginContext);
   useEffect(() => {
-    
-    console.log(userDetails);
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      setUserDetails(loggedInUser);
+    }
   }, []);
 
   const logout = () => {
     setUserDetails();
+    localStorage.clear();
   };
 
   return (
@@ -26,14 +28,17 @@ function NavBar() {
             <Nav className="me-auto">
               <Nav.Link onClick={logout} href="/">
                 {/* TODO: dont let the user submit a blank username/password/username */}
-                {userDetails.name === "" ? "Sign In" : "Sign Out"}
+                {userDetails ? "Sign Out" : "Sign In"}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
 
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Signed in as: <a href="#login">{userDetails.name}</a>
+              {userDetails && "Signed in as: "}
+              <b>
+                <a>{userDetails && userDetails.name}</a>
+              </b>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>

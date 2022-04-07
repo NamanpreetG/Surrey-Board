@@ -6,7 +6,7 @@ export const loginContext = createContext();
 
 const LoginProvider = (props) => {
   // this state will be shared with all components
-  const [userDetails, setUserDetails] = useState({id: 0, email: "", name: ""});
+  const [userDetails, setUserDetails] = useState();
 
   return (
     // this is the provider providing state

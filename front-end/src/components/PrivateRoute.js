@@ -3,14 +3,20 @@ import { loginContext } from "./Login/LoginProvider";
 import { useContext, useState, useEffect } from "react";
 
 export const PrivateRoute = ({ children }) => {
-  const [user, setUser] = useState();
+  const [loggedIn, setloggedIn] = useState();
   useEffect(() => {
-    const loggedIn = localStorage.getItem("user");
-    setUser(loggedIn);
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      setloggedIn(loggedInUser);
+    }
   }, []);
+  const loggedInUser = localStorage.getItem("user");
 
-  if (user) {
+
+  if (loggedInUser) {
     return children;
+  } else{
+    console.log("userDetails doesnt exist");
   }
 
   return <Navigate to="/" />;

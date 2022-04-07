@@ -93,7 +93,7 @@ function Register() {
             </Button>
           </div>
           <br />
-          <a id="align-center" href="/login">
+          <a id="align-center" href="/">
             Sign in instead?
           </a>
         </Card>
