@@ -18,21 +18,24 @@ function Register() {
   const [regPassword, setRegPassword] = useState("");
   const navigate = useNavigate();
 
-  const register = () => {
-    Axios.post("http://localhost:3005/register", {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const user = {
       email: regEmail,
       username: regUsername,
       password: regPassword,
-    }).then((res) => {
+    };
+    const res = await Axios.post("http://localhost:3005/register", user);
+    if (res.data[0].name) {
+      localStorage.setItem("user", res.data);
       navigate("/");
-    
-      });
+    }
   };
 
   return (
     <Container fluid="lg">
       <br />
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <h1 className="center-text">Register</h1>
         <Card className="card-padding">
           <Row>
@@ -84,9 +87,7 @@ function Register() {
           </Row>
 
           <div id="align-center">
-            <Button onClick={register} size="lg">
-              Register
-            </Button>
+            <Button size="lg">Register</Button>
           </div>
           <br />
           <a id="align-center" href="/login">

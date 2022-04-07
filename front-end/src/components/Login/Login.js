@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Axios from "axios";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
@@ -11,35 +11,52 @@ import {
   Row,
   Col,
   Card,
+  Alert,
 } from "react-bootstrap";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginStatus, setLoginStatus] = useContext(loginContext);
-  const navigate = useNavigate();
+  const [error, setError] = useState();
+  const [show, setShow] = useState(false);
+  const [userDetails, setUserDetails] = useContext(loginContext);
 
-  const login = () => {
-    Axios.post("http://localhost:3005/login", {
-      email: email,
-      password: password,
-    })
-      // TODO: add validation for if request comes back bad
-      .then((res) => {
-        if (res.data.message) {
-          setLoginStatus(res.data.message);
-        } else {
-          setLoginStatus(res.data[0].name);
-          navigate("/homepage");
-        }
-      });
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log(localStorage.getItem("user"));
+    console.log(userDetails);
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setShow(false);
+    const user = { email: email, password: password };
+    try {
+      const res = await Axios.post("http://localhost:3005/login", user);
+      if (res.request.status === 200 && res.data[0]) {
+        console.log(res.data[0]);
+        setUserDetails(res.data[0]);
+        localStorage.setItem("user", res.data);
+        navigate("/homepage");
+      } else {
+        setError(res.data.message);
+        setShow(true);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <Container fluid="sm">
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <br />
         <h1 className="Center">Sign In</h1>
+        {show && (
+          <Alert onClose={() => setShow(false)} variant="danger" dismissible>
+            <Alert.Heading>{error}</Alert.Heading>
+          </Alert>
+        )}
         <Card className="card-padding">
           <Row>
             <Card.Body>
@@ -72,12 +89,10 @@ function Login() {
           </Row>
 
           <div id="center-button">
-            <Button variant="success" onClick={login} size="lg">
+            <Button type="submit" variant="success" size="lg">
               Log In
             </Button>
           </div>
-
-          <h3 style={{ color: "red" }}>{loginStatus} </h3>
           <br />
           <a id="center-button" href="/register">
             Need to register?

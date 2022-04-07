@@ -3,10 +3,17 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { loginContext } from "./Login/LoginProvider";
 
-
 function NavBar() {
   const [message, setMessage] = useState("Bob");
-  const [loginStatus, setLoginStatus] = useContext(loginContext);
+  const [userDetails, setUserDetails] = useContext(loginContext);
+  useEffect(() => {
+    
+    console.log(userDetails);
+  }, []);
+
+  const logout = () => {
+    setUserDetails();
+  };
 
   return (
     <div className="App">
@@ -17,21 +24,16 @@ function NavBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/login">Sign In</Nav.Link>
-              <Nav.Link href="#link">Your Boards</Nav.Link>
-              <NavDropdown title="Actions" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action 1</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Action 2</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Action 3</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Action 4</NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link onClick={logout} href="/">
+                {/* TODO: dont let the user submit a blank username/password/username */}
+                {userDetails.name === "" ? "Sign In" : "Sign Out"}
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
 
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Signed in as: <a href="#login">{loginStatus}</a>
+              Signed in as: <a href="#login">{userDetails.name}</a>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
