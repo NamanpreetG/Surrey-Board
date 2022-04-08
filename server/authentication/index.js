@@ -19,7 +19,7 @@ mongoose.connect(process.env.DBURUI)
         console.log('CONNECTED TO MONGOOOOSE')
     })
 
-app.use('/auth/register', registerRoute)
+app.use('/auth/register', registerRoute)  
 
 
 
