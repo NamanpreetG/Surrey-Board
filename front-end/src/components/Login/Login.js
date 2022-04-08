@@ -1,15 +1,13 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import Axios from "axios";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { loginContext } from "./LoginProvider";
 import {
   Form,
-  FormGroup,
   Button,
   Container,
   Row,
-  Col,
   Card,
   Alert,
 } from "react-bootstrap";
@@ -22,7 +20,6 @@ function Login() {
   const [userDetails, setUserDetails] = useContext(loginContext);
 
   const navigate = useNavigate();
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,6 +1,6 @@
 import "../App.css";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import { useEffect, useContext } from "react";
 import { loginContext } from "./Login/LoginProvider";
 
 function NavBar() {

@@ -9,14 +9,14 @@ import { loginContext } from "./components/Login/LoginProvider";
 import { PrivateRoute } from "./components/PrivateRoute";
 
 function App() {
-  const navigate = useNavigate();
+  const loggedInUser = localStorage.getItem("user");
 
   return (
     <LoginProvider>
       <NavBar />
       <div className="content">
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" exact element={loggedInUser ? <Homepage /> : <Login />} />
           <Route exact path="/register" element={<Register />} />
 
           {/* authenticated links */}

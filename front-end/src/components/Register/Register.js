@@ -2,15 +2,7 @@ import { useState } from "react";
 import Axios from "axios";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
-import {
-  Form,
-  FormGroup,
-  Button,
-  Container,
-  Row,
-  Col,
-  Card,
-} from "react-bootstrap";
+import { Form, Button, Container, Row, Card } from "react-bootstrap";
 
 function Register() {
   const [regEmail, setRegEmail] = useState();
