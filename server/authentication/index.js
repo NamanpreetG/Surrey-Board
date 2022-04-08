@@ -12,6 +12,8 @@ dotenv.config()
 app.use(express.json())
 
 const registerRoute = require('./routes/register')
+const loginRoute = require('./routes/login')
+
 
 
 mongoose.connect(process.env.DBURUI)
@@ -19,7 +21,9 @@ mongoose.connect(process.env.DBURUI)
         console.log('CONNECTED TO MONGOOOOSE')
     })
 
-app.use('/auth/register', registerRoute)  
+app.use('/auth/register', registerRoute) 
+app.use('/auth/login', loginRoute)
+
 
 
 
