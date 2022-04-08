@@ -1,12 +1,13 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { loginContext } from "../Login/LoginProvider";
 
 function Homepage() {
-  const [loginStatus, setLoginStatus] = useContext(loginContext);
+  const [userDetails, setUserDetails] = useContext(loginContext)
+
   return (
     <div>
-      {loginStatus}
+      hello
     </div>);
 }
 
