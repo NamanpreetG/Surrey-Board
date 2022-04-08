@@ -20,7 +20,7 @@ function Login() {
   const navigate = useNavigate();
 
   const login = () => {
-    Axios.post("http://localhost:3005/login", {
+    Axios.post("http://localhost:3005/auth/login", {
       email: email,
       password: password,
     })
