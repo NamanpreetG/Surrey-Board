@@ -3,35 +3,34 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Homepage from "./components/Homepage/Homepage";
 import LoginProvider from "./components/Login/LoginProvider";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useEffect, useContext, useState } from "react";
+import { loginContext } from "./components/Login/LoginProvider";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 function App() {
-  return (
-    <Router>
-      <LoginProvider>
-        <NavBar />
-        <div className="content">
-          <Routes>
-            {/* TODO: should "/" path lead to the login screen?
-            if so then is there a need for "/login"? should it be
-            changed to just "/"? */}
-            <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+  const loggedInUser = localStorage.getItem("user");
 
-            {/* authenticated links */}
-            <Route
-              path="/homepage"
-              element={
-                // <RequireAuth>
+  return (
+    <LoginProvider>
+      <NavBar />
+      <div className="content">
+        <Routes>
+          <Route path="/" exact element={loggedInUser ? <Homepage /> : <Login />} />
+          <Route exact path="/register" element={<Register />} />
+
+          {/* authenticated links */}
+          <Route
+            path="/homepage"
+            element={
+              <PrivateRoute>
                 <Homepage />
-                // </RequireAuth>
-              }
-            />
-          </Routes>
-        </div>
-      </LoginProvider>
-    </Router>
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </div>
+    </LoginProvider>
   );
 }
 
