@@ -18,9 +18,9 @@ function Register() {
       password: regPassword,
     };
     const res = await Axios.post("http://localhost:3005/auth/register", user);
-    console.log("works");
-    if (res.data[0].name) {
-      localStorage.setItem("user", res.data);
+    console.log(res.data.message)
+    if (res.data.message == 'user added') {
+      localStorage.setItem("user", res.data.user.name);
       navigate("/");
     }
   };

@@ -7,7 +7,7 @@ router.post('/', async (req, res) => {
 
     // Check if email already exists
     const emailExists = await User.findOne({ email: req.body.email })
-    if (emailExists) return res.status(400).send('User with email ' + req.body.email + ' already exists')
+    if (emailExists) return res.status(200).send({message :'User with email ' + req.body.email + ' already exists'})
 
     // hash password
     const salt = await bcrypt.genSalt(10)
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
     try {
         const new_user = await user.save()
         console.log(new_user.email + ' added successfully')
-        res.send(new_user)
+        res.send({user : new_user, message: 'user added'})
 
     } catch (e) {
         console.log("CANNOT ADD USER")
