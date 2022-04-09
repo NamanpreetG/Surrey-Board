@@ -9,20 +9,19 @@ dotevn.config()
 router.post('/', async (req, res) => {
     const user = await User.findOne({ email: req.body.email })
 
-    console.log(user)
+//    console.log(user)
    
     // Check email
-    if (!user) return res.status(400).send('No user found with email ' + req.body.email)
+    if (!user) return res.status(400).send({message: 'Username or password is incorrect'})
 
     // Check Password
     const valid_password = await bcrypt.compare(req.body.password, user.password)
-    if (!valid_password) return res.status(400).send('Password is incorrect')
+    if (!valid_password) return res.status(200).send({message: 'Username or password is incorrect'})
     console.log('Logged in')
 
     //JWT: Create and assing
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET)
-    
-    res.header('user_token', token).send(user.name).status(200)
+    res.header('user_token', token).send({user : user, message: 'success'})
 
 })
 

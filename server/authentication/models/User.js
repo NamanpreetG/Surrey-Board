@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
     date: {
 
         type: Date,
+        immutable: true,
         default: Date.now
     }
 
