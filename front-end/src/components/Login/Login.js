@@ -28,6 +28,7 @@ function Login() {
     const res = await Axios.post("http://localhost:3005/login", user);
     if (res.request.status === 200 && res.data[0]) {
       setUserDetails(res.data[0]);
+      console.log(res.data[0]);
       localStorage.setItem("user", res.data[0]);
       navigate("/homepage");
     } else {
