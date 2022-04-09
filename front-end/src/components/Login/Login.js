@@ -27,9 +27,8 @@ function Login() {
     const user = { email: email, password: password };
     const res = await Axios.post("http://localhost:3005/auth/login", user);
     if (res.request.status === 200 && res.data.message == 'success') {
-      console.log(res.data.user.name)
-      setUserDetails(res.data.user.name);
-      localStorage.setItem("user", res.data.user.name);
+      setUserDetails(res.data.user);
+      localStorage.setItem("user", res.data.user);
       navigate("/homepage");
     } else {
       setError(res.data.message);
