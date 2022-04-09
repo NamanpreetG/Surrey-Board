@@ -3,15 +3,7 @@ import Axios from "axios";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { loginContext } from "./LoginProvider";
-import {
-  Form,
-  FormGroup,
-  Button,
-  Container,
-  Row,
-  Col,
-  Card,
-} from "react-bootstrap";
+import { Form, Button, Container, Row, Card, Alert } from "react-bootstrap";
 
 function Login() {
   const [email, setEmail] = useState("");
