@@ -9,42 +9,64 @@ import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import Settings from "./components/Settings";
 
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
+import { loginContext } from "./components/Login/LoginProvider";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 function App() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      return navigate("/homepage");
-    }
-  }, []);
+  const loggedInUser = localStorage.getItem("user")
+  
   return (
     <LoginProvider>
       <NavBar />
       <div className="content">
         <Routes>
-          {/* TODO: should "/" path lead to the login screen?
-            if so then is there a need for "/login"? should it be
-            changed to just "/"? */}
-          <Route exact path="/" element={<Login />} />
-          <Route exact path="/login" element={<Login />} />
+          <Route
+            path="/"
+            exact
+            element={loggedInUser ? <Homepage /> : <Login />}
+          />
           <Route exact path="/register" element={<Register />} />
-          
-          <Route exact path="/educationBoard" element={<EducationBoard />} />
-          <Route exact path="/generalBoard" element={<GeneralBoard />} />
-          <Route exact path="/societyBoard" element={<SocietyBoard />} />
-          <Route exact path="/settings" element={<Settings />} />
-         
 
           {/* authenticated links */}
           <Route
             path="/homepage"
             element={
-              // <RequireAuth>
-              <Homepage />
-              // </RequireAuth>
+              <PrivateRoute>
+                <Homepage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/educationBoard"
+            element={
+              <PrivateRoute>
+                <EducationBoard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/generalBoard"
+            element={
+              <PrivateRoute>
+                <GeneralBoard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/societyBoard"
+            element={
+              <PrivateRoute>
+                <SocietyBoard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
             }
           />
         </Routes>

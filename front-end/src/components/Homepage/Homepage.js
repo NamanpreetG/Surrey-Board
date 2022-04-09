@@ -3,18 +3,11 @@ import { useContext, useEffect } from "react";
 import { loginContext } from "../Login/LoginProvider";
 
 function Homepage() {
-  const [user, setUser] = useContext(loginContext);
+  const [userDetails, setUserDetails] = useContext(loginContext)
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      console.log("is logged in");
-      setUser(loggedInUser);
-    }
-  }, []);
   return (
     <div>
-      General Board, Write your enquires
+      hello
     </div>);
 }
 

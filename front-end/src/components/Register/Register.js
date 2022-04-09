@@ -2,15 +2,7 @@ import { useState } from "react";
 import Axios from "axios";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
-import {
-  Form,
-  FormGroup,
-  Button,
-  Container,
-  Row,
-  Col,
-  Card,
-} from "react-bootstrap";
+import { Form, Button, Container, Row, Card } from "react-bootstrap";
 
 function Register() {
   const [regEmail, setRegEmail] = useState();
@@ -18,22 +10,25 @@ function Register() {
   const [regPassword, setRegPassword] = useState("");
   const navigate = useNavigate();
 
-  const register = () => {
-    Axios.post("http://localhost:3005/register", {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const user = {
       email: regEmail,
       username: regUsername,
       password: regPassword,
-    })
-      // TODO: add validation for if request comes back bad
-      .then((res) => {
-        navigate("/login");
-      });
+    };
+    const res = await Axios.post("http://localhost:3005/register", user);
+    console.log("works");
+    if (res.data[0].name) {
+      localStorage.setItem("user", res.data);
+      navigate("/");
+    }
   };
 
   return (
     <Container fluid="lg">
       <br />
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <h1 className="center-text">Register</h1>
         <Card className="card-padding">
           <Row>
@@ -85,12 +80,12 @@ function Register() {
           </Row>
 
           <div id="align-center">
-            <Button onClick={register} size="lg">
+            <Button type="submit" size="lg">
               Register
             </Button>
           </div>
           <br />
-          <a id="align-center" href="/login">
+          <a id="align-center" href="/">
             Sign in instead?
           </a>
         </Card>
