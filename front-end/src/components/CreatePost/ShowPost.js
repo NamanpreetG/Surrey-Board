@@ -17,7 +17,7 @@ function Posts() {
     const [postList, setPostList] = useState([]);
    
     useEffect(() => {
-        Axios.get("http://localhost:3005/posts").then((data) => {
+        Axios.get("http://localhost:3005/showpost").then((data) => {
             setPostList(data.data)
             console.log(data.data)
         });
@@ -31,7 +31,7 @@ function Posts() {
                     return (
                         <div key={key}>
                             <h1 className="center-text">{val.title}</h1>
-                            <p className="center-text">{val.text}</p>
+                            <p className="center-text">{val.content}</p>
                         </div>
                     );
                 })}
