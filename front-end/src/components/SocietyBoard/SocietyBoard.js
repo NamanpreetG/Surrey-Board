@@ -1,9 +1,9 @@
 import React from "react";
 import { useContext, useEffect } from "react";
-import { loginContext } from "../Login/LoginProvider";
+import { LoginContext } from "../../App";
 
 function SocietyBoard() {
-  const [user, setUser] = useContext(loginContext);
+  const { state, dispatch } = useContext(LoginContext);
 
   
 

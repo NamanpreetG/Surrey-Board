@@ -4,7 +4,7 @@ import { loginContext } from "../Login/LoginProvider";
 import "./GeneralBoard.css";
 
 function GeneralBoard() {
-  const [user, setUser] = useContext(loginContext);
+  const { state, dispatch } = useContext(LoginContext);
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
