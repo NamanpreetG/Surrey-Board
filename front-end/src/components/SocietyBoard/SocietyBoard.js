@@ -1,21 +1,11 @@
 import React from "react";
 import { useContext, useEffect } from "react";
-import { loginContext } from "../Login/LoginProvider";
+import { LoginContext } from "../../App";
 
 function SocietyBoard() {
-  const [user, setUser] = useContext(loginContext);
+  const { state, dispatch } = useContext(LoginContext);
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      console.log("is logged in");
-      setUser(loggedInUser);
-    }
-  }, []);
-  return (
-    <div>
-      Society Board, Write your enquires
-    </div>);
+  return <div>{state.user ? "Society Board, Write your enquires" : null}</div>;
 }
 
 export default SocietyBoard;

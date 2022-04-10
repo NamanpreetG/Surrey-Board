@@ -1,13 +1,13 @@
 import React from "react";
 import { useContext, useEffect } from "react";
-import { loginContext } from "../Login/LoginProvider";
+import { LoginContext, loginContext } from "../../App";
 
 function Homepage() {
-  const [userDetails, setUserDetails] = useContext(loginContext)
+  const {state, dispatch} = useContext(LoginContext)
 
   return (
     <div>
-      hello
+      {state.user ? "Homepage" : null}
     </div>);
 }
 

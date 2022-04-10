@@ -1,24 +1,13 @@
 import "../App.css";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
-import { loginContext } from "./Login/LoginProvider";
+import { LoginContext } from "../App";
 import { BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./sidebar";
 
 function NavBar() {
-  const [userDetails, setUserDetails] = useContext(loginContext);
+  const {state, dispatch} = useContext(LoginContext);
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      setUserDetails(loggedInUser);
-    }
-  }, []);
-
-  const logout = () => {
-    setUserDetails();
-    localStorage.clear();
-  };
   return (
     <div className="App">
       {/* Navbar code */}
@@ -33,18 +22,21 @@ function NavBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link onClick={logout} href="/">
+              <Nav.Link onClick={() => 
+              dispatch({
+                type: "LOGOUT"
+              })} href="/">
                 {/* TODO: dont let the user submit a blank username/password/username */}
-                {userDetails ? "Sign Out" : "Sign In"}
+                {state.user ? "Sign Out" : "Sign In"}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
 
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              {userDetails && "Signed in as: "}
+              {state.user && "Signed in as: "}
               <b>
-                <a>{userDetails && userDetails.name}</a>
+                <a>{state.user && state.user.name}</a>
               </b>
             </Navbar.Text>
           </Navbar.Collapse>

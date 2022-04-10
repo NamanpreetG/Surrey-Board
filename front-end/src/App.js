@@ -2,29 +2,67 @@ import NavBar from "./components/NavBar";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Homepage from "./components/Homepage/Homepage";
-import LoginProvider from "./components/Login/LoginProvider";
 import EducationBoard from "./components/EducationBoard/EducationBoard";
 import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
 import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import Settings from "./components/Settings";
 
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { useEffect, useContext, useState } from "react";
-import { loginContext } from "./components/Login/LoginProvider";
+import {
+  useEffect,
+  useContext,
+  useState,
+  useReducer,
+  createContext,
+} from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
 
+export const LoginContext = createContext();
+
+const initialState = {
+  user: null,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "LOGIN":
+      localStorage.setItem("user", JSON.stringify(action.payload));
+      return {
+        user: action.payload,
+      };
+
+    case "LOGOUT":
+      localStorage.clear();
+      return {
+        user: null,
+      };
+    default:
+      return state;
+  }
+};
+
 function App() {
-  const loggedInUser = localStorage.getItem("user")
-  
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user") || null);
+    if (user) {
+      dispatch({
+        type: "LOGIN",
+        payload: user,
+      });
+    }
+  }, []);
+
   return (
-    <LoginProvider>
+    <LoginContext.Provider value={{ state, dispatch }}>
       <NavBar />
       <div className="content">
         <Routes>
           <Route
             path="/"
             exact
-            element={loggedInUser ? <Homepage /> : <Login />}
+            element={state.user ? <Homepage /> : <Login />}
           />
           <Route exact path="/register" element={<Register />} />
 
@@ -71,7 +109,7 @@ function App() {
           />
         </Routes>
       </div>
-    </LoginProvider>
+    </LoginContext.Provider>
   );
 }
 
