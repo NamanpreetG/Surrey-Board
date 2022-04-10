@@ -7,6 +7,12 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect, useContext, useState } from "react";
 import { loginContext } from "./components/Login/LoginProvider";
 import { PrivateRoute } from "./components/PrivateRoute";
+import CreatePost from "./components/CreatePost/CreatePost";
+import Posts from "./components/CreatePost/ShowPost";
+
+
+
+
 
 function App() {
   const loggedInUser = localStorage.getItem("user");
@@ -18,6 +24,10 @@ function App() {
         <Routes>
           <Route path="/" exact element={loggedInUser ? <Homepage /> : <Login />} />
           <Route exact path="/register" element={<Register />} />
+          <Route path="/createpost" element={<CreatePost />} />
+          <Route path="/posts" element={<Posts />} />
+
+          
 
           {/* authenticated links */}
           <Route
