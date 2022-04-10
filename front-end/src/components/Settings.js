@@ -1,9 +1,9 @@
 import React from "react";
 import { useContext, useEffect } from "react";
-import { loginContext } from "./Login/LoginProvider";
+import { LoginContext} from "../App";
 
 function Settings() {
-  const [user, setUser] = useContext(loginContext);
+  const [user, setUser] = useContext(LoginContext);
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");

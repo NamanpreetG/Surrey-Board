@@ -1,48 +1,42 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import Axios from "axios";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import { loginContext } from "./LoginProvider";
-import {
-  Form,
-  FormGroup,
-  Button,
-  Container,
-  Row,
-  Col,
-  Card,
-} from "react-bootstrap";
+import { LoginContext } from "../../App";
+import { Form, Button, Container, Row, Card, Alert } from "react-bootstrap";
+
+
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [user, setUser] = useContext(loginContext);
+  const [error, setError] = useState();
+  const [show, setShow] = useState(false);
+  const {dispatch} = useContext(LoginContext);
+
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = { email: email, password: password };
-
-    try {
-      const res = await Axios.post("http://localhost:3005/login", user);
-      console.log(res);
-      if (res.status === 200) {
-        if (res.data[0]) {
-          setUser(res.data);
-          localStorage.setItem("user", res.data);
-          console.log(res.data);
-          navigate("/homepage");
-        } else {
-          setError("Username or password is incorrect");
-        }
-      }
-    } catch (err) {
-      console.error(err);
+    setShow(false);
+    const userDetails = { email: email, password: password };
+    const res = await Axios.post("http://localhost:3005/login", userDetails);
+    if (res.request.status === 200 && res.data[0]) {
+      console.log(res.data[0])
+      
+      dispatch({
+        type: "LOGIN",
+        payload: res.data[0]
+      })
+      // console.log(res.data[0]);
+      // setUserDetails(res.data[0]);
+      // localStorage.setItem("user", res.data[0]);
+      navigate("/homepage");
+    } else {
+      setError(res.data.message);
+      setShow(true);
     }
-
-    // TODO: add validation for if request comes back bad
   };
 
   return (
@@ -50,6 +44,11 @@ function Login() {
       <Form onSubmit={handleSubmit}>
         <br />
         <h1 className="Center">Sign In</h1>
+        {show && (
+          <Alert onClose={() => setShow(false)} variant="danger" dismissible>
+            <Alert.Heading>{error}</Alert.Heading>
+          </Alert>
+        )}
         <Card className="card-padding">
           <Row>
             <Card.Body>
@@ -57,8 +56,8 @@ function Login() {
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
-                  value={email}
                   placeholder="Enter email"
+                  value = {email}
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -73,8 +72,8 @@ function Login() {
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
-                  value={password}
                   placeholder="Password"
+                  value = {password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
@@ -88,8 +87,6 @@ function Login() {
               Log In
             </Button>
           </div>
-
-          <h3 style={{ color: "red" }}>{error}</h3>
           <br />
           <a id="center-button" href="/register">
             Need to register?

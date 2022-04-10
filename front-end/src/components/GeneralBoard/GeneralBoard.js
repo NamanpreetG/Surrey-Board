@@ -1,22 +1,16 @@
 import React from "react";
 import { useContext, useEffect } from "react";
-import { loginContext } from "../Login/LoginProvider";
-import "./GeneralBoard.css";
+import { LoginContext} from "../../App";
 
 function GeneralBoard() {
-  const [user, setUser] = useContext(loginContext);
+  const {state, dispatch} = useContext(LoginContext);
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      console.log("is logged in");
-      setUser(loggedInUser);
-    }
-  }, []);
+ 
   return (
-    <div>
 
-<div className="bg-reddit_dark px-6 py-4 text-gray-400"></div>   
+    
+    <div>
+      <div className="bg-reddit_dark px-6 py-4 text-gray-400"></div>   
       <div className ="border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter">
         <div className="rounded-full bg-gray-500 overflow-hidden w-10 h-10">
         </div>
@@ -29,11 +23,12 @@ function GeneralBoard() {
           <div className="rounded-full bg-gray-500 overflow-hidden w-10 h-10 flex"></div>
         <form action="" className="flex-grow bg-reddit_dark-brightest border border-reddit_border ml-4 mr-2 rounded-md">
           <input type="text" className="bg-reddit_dark-brightest p-2 px-3 text-sm block w-full rounded-md ml-4" placeholder="New Post.." ></input>
+          
         </form>
 <div className="px-6 bg-reddit_dark text-gray-300"></div> 
 <div className="border border-reddit_border bg-reddit_dark-brighter p-2">
   <div className="text-align: left">
- <h2 className="mb-2">An example of a General Board</h2></div>
+ <h2 className="mb-2">An example of an Education Board</h2></div>
  <div className=""><h6 className="text-sm mb-5"> Posted by "Mark Twain", 5 hours ago.</h6></div>
  <div className="rounded-full bg-gray-500 overflow-hidden w-10 h-10 flex"></div>
  <div className="text-l leading-6 "><p>Hi all,

@@ -1,17 +1,10 @@
 import React from "react";
 import { useContext, useEffect } from "react";
-import { loginContext } from "../Login/LoginProvider";
+import { LoginContext} from "../../App";
 
 function EducationBoard() {
-  const [user, setUser] = useContext(loginContext);
+  const {state, dispatch} = useContext(LoginContext)
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      console.log("is logged in");
-      setUser(loggedInUser);
-    }
-  }, []);
   return (
 
     
