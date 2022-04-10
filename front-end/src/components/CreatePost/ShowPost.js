@@ -15,6 +15,7 @@ import {
 
 function Posts() {
     const [postList, setPostList] = useState([]);
+    const [commentsList, setComments] = useState([]);
    
     useEffect(() => {
         Axios.get("http://localhost:3006/showpost").then((data) => {
