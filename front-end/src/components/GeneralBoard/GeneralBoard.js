@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext, useEffect } from "react";
 import { loginContext } from "../Login/LoginProvider";
-
+import "./GeneralBoard.css";
 
 function GeneralBoard() {
   const [user, setUser] = useContext(loginContext);

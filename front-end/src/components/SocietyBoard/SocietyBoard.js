@@ -5,6 +5,8 @@ import { loginContext } from "../Login/LoginProvider";
 function SocietyBoard() {
   const [user, setUser] = useContext(loginContext);
 
+  
+
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
@@ -27,6 +29,7 @@ function SocietyBoard() {
           <div className="rounded-full bg-gray-500 overflow-hidden w-10 h-10 flex"></div>
         <form action="" className="flex-grow bg-reddit_dark-brightest border border-reddit_border ml-4 mr-2 rounded-md">
           <input type="text" className="bg-reddit_dark-brightest p-2 px-3 text-sm block w-full rounded-md ml-4" placeholder="New Post.." ></input>
+          
         </form>
 <div className="px-6 bg-reddit_dark text-gray-300"></div> 
 <div className="border border-reddit_border bg-reddit_dark-brighter p-2">

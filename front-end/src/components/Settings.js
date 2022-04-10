@@ -14,7 +14,7 @@ function Settings() {
   }, []);
   return (
     <div>
-      Settings, Write your enquires
+      Settings, Write your enquiries
     </div>);
 }
 
