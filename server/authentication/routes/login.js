@@ -20,8 +20,8 @@ router.post('/', async (req, res) => {
     console.log('Logged in')
 
     //JWT: Create and assing
-    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET)
-    res.header('user_token', token).send({user : user, message: 'success'})
+    const token = jwt.sign({_id: user._id, isAdmin: user.isAdmin}, process.env.TOKEN_SECRET)
+    res.header('user_token', token).send({user : user, message: 'success', token: token})
 
 })
 
