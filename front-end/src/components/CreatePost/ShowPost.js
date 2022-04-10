@@ -18,7 +18,7 @@ function Posts() {
     const [commentsList, setComments] = useState([]);
    
     useEffect(() => {
-        Axios.get("http://localhost:3006/showpost").then((data) => {
+        Axios.get("http://localhost:3005/showpost").then((data) => {
             setPostList(data.data)
             console.log(data.data)
         });

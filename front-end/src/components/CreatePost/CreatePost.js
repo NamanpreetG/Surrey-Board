@@ -17,7 +17,6 @@ function CreatePost() {
     const [postContent, setContent] = useState("");
     const navigate = useNavigate();
 
-
         const handleSubmit = async (e) => {
             e.preventDefault();
             const post = {
@@ -25,7 +24,7 @@ function CreatePost() {
               content: postContent,
               
             };
-            const res = await Axios.post("http://localhost:3006/post", post);
+            const res = await Axios.post("http://localhost:3005/post", post);
             console.log(res.data.message)
             if(res.data.message == 'post added'){
                 navigate("/homepage");
