@@ -20,7 +20,6 @@ function Register() {
     const res = await Axios.post("http://localhost:3005/register", user);
     console.log("works");
     if (res.data[0].name) {
-      localStorage.setItem("user", res.data);
       navigate("/");
     }
   };

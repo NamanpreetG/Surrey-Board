@@ -2,34 +2,34 @@ import { useState, useContext } from "react";
 import Axios from "axios";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import { loginContext } from "./LoginProvider";
-import {
-  Form,
-  Button,
-  Container,
-  Row,
-  Card,
-  Alert,
-} from "react-bootstrap";
+import { LoginContext } from "../../App";
+import { Form, Button, Container, Row, Card, Alert } from "react-bootstrap";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState();
   const [show, setShow] = useState(false);
-  const [userDetails, setUserDetails] = useContext(loginContext);
+  const {dispatch} = useContext(LoginContext);
+
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setShow(false);
-    const user = { email: email, password: password };
-    const res = await Axios.post("http://localhost:3005/login", user);
+    const userDetails = { email: email, password: password };
+    const res = await Axios.post("http://localhost:3005/login", userDetails);
     if (res.request.status === 200 && res.data[0]) {
-      setUserDetails(res.data[0]);
-      console.log(res.data[0]);
-      localStorage.setItem("user", res.data[0]);
+      console.log(res.data[0])
+      
+      dispatch({
+        type: "LOGIN",
+        payload: res.data[0]
+      })
+      // console.log(res.data[0]);
+      // setUserDetails(res.data[0]);
+      // localStorage.setItem("user", res.data[0]);
       navigate("/homepage");
     } else {
       setError(res.data.message);
@@ -55,6 +55,7 @@ function Login() {
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
+                  value = {email}
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -70,6 +71,7 @@ function Login() {
                 <Form.Control
                   type="password"
                   placeholder="Password"
+                  value = {password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
