@@ -6,7 +6,8 @@ router.post('/', async (req, res) => {
         title: req.body.title,
         content: req.body.content,
         user_id: req.body.user_id,
-        society_id: req.body.society_id
+        society_id: req.body.society_id,
+        isEvent: req.body.isEvent
     })
     try {
         const newPost = await post.save()
@@ -21,10 +22,15 @@ router.post('/', async (req, res) => {
 
 router.get('/addlike/:post_id', async (req, res) => {
 
-    // Get post and update the like by one
-    const post_change = await Post.updateOne({ _id:  req.params.post_id }, { $inc: { likes: 1 } })
-    console.log(post_change);
-    res.send({ message : 'like completed'})
+    try {
+        const post_change = await Post.updateOne({ _id: req.params.post_id }, { $inc: { likes: 1 } })
+        // post_change.acknowledged is a Boolean value
+        res.send({ added: post_change.acknowledged, message: 'like added' })
+
+    } catch (error) {
+        res.send({ message: 'error' })
+
+    }
 })
 
 module.exports = router

@@ -14,7 +14,7 @@ const postSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
-        min: 15
+        min: 5
     },
 
     date: {
@@ -43,14 +43,7 @@ const postSchema = new mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    },
-    
-    comments: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comments"
-    }]
-
-
+    }
 
 })
 
