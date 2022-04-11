@@ -65,22 +65,6 @@ router.get('/:post_id', async (req, res) => {
 
 });
 
-// TESTER
-router.get('/:post_id', async (req, res) => {
-
-    try {
-        const c = await Comments.findOne({ post_id: req.params.post_id }).populate('user')
-
-        console.log(c);
-        res.send(c)
-
-    } catch (error) {
-        console.log(error);
-        res.send('No comments found')
-    }
-
-});
-
 
 /**
  * ADD COMMENT
