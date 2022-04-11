@@ -112,34 +112,4 @@ router.post('/delete/:id', async (req, res) => {
 
 })
 
-////////// TEST CODE
-
-router.get('/z', async (req, res) => {
-
-    const comment1 = new Comments({
-        post_id: '625300b7c19ba3e830c521d0',
-        comment: 'THIS IS A COMMENT'
-    })
-    const comment2 = new Comments({
-        post_id: '625300b7c19ba3e830c521d0',
-        comment: 'THIS IS ANOTHER COMMENT'
-    })
-
-
-
-    const t = await Post.findOne({ _id: "625300b7c19ba3e830c521d0" }).populate('comments')
-    // t.comments = '62530972e64d1489370ae6e5'
-    // console.log(t)
-
-    Post.
-        findOne().
-        populate('comments').
-        exec(function (err, resultt) {
-            if (err) return handleError(err);
-            console.log('comments are: ', resultt.comments);
-        });
-
-    const t2 = await Post.find()
-    res.send(t2)
-});
 module.exports = router
