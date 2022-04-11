@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
         res.send({post : newPost, message: 'post added'})
 
     } catch (e) {
-        console.log("error")
+        res.send({message: 'error'})
         console.log(e)
     }
     });

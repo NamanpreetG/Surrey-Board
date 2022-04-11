@@ -5,7 +5,7 @@ const router = require('express').Router()
 router.get('/', async (req, res) => {
     Post.find({}, (err, result) => {
         if (err) {
-            res.send(err)
+            res.send({messasge: 'error'})
         }
         res.send(result)
     })
