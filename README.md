@@ -18,8 +18,8 @@ Alternatively, visit this [link](https://docs.gitlab.com/ee/ssh/) for clearer in
 4. Run `npm install`
 5. Run the front-end with `npm start`
 6. Open two new terminals  
-7. For the first terminal go into the authentication dir with `cd ../server/authentication` and run `npm install` the `npm start`
-8. For the second terminal go into the posts dir with `cd ../server/posts` and run `npm install` the `npm start`
+7. For the first terminal go into the authentication dir with `cd server/authentication` and run `npm install` then `npm start`
+8. For the second terminal go into the posts dir with `cd server/posts` and run `npm install` then `npm start`
 
 
 
