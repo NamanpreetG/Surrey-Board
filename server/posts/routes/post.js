@@ -5,8 +5,8 @@ router.post('/', async (req, res) => {
     const post = new Post({
         title: req.body.title,
         content: req.body.content,
-        user_id: req.body.user_id,
-        society_id: req.body.society_id,
+        user: req.body.user,
+        society: req.body.society,
         isEvent: req.body.isEvent
     })
     try {

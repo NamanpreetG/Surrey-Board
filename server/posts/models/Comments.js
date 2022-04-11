@@ -1,10 +1,12 @@
 const mongoose = require('mongoose')
+require('../../authentication/models/User')
+
 
 
 const commentSchema = new mongoose.Schema({
-    user_id: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: 'User',
     },
     post_id: {
         type: mongoose.Schema.Types.ObjectId,

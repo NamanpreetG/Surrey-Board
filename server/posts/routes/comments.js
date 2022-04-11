@@ -1,8 +1,45 @@
+//require('../../authentication/models/User');
 const Post = require('../models/post')
-const Comments = require('../models/Comments')
-const User = require('../../authentication/models/User')
+const Comments = require('../models/Comments');
 const router = require('express').Router()
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+
+    },
+
+    email: {
+        type: String,
+        required: true
+    },
+
+    password: {
+        type: String,
+        required: true
+
+    },
+
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+
+    date: {
+
+        type: Date,
+        immutable: true,
+        default: Date.now
+    }
+
+
+
+})
+
+const User = mongoose.model('User', userSchema)
 
 
 
@@ -12,24 +49,33 @@ const router = require('express').Router()
 
 router.get('/:post_id', async (req, res) => {
     try {
+
         const c = await Comments.
             where('post_id').equals(req.params.post_id).
             select('comment').
-            select('date')
-
-        /**
-         * Respose is a list of JSON objects with the structure 
-         * {
-         *      id: ''
-         *      comment: ''
-         *      date: ''
-         * }
-         * 
-         */
+            select('date').
+            select('user').
+            populate('user')
 
         res.send(c)
 
     } catch (error) {
+        res.send({ message: 'No comments found' })
+    }
+
+});
+
+// TESTER
+router.get('/:post_id', async (req, res) => {
+
+    try {
+        const c = await Comments.findOne({ post_id: req.params.post_id }).populate('user')
+
+        console.log(c);
+        res.send(c)
+
+    } catch (error) {
+        console.log(error);
         res.send('No comments found')
     }
 
@@ -44,7 +90,7 @@ router.post('/add', async (req, res) => {
     // Create new comment
     const new_comment = new Comments({
         post_id: req.body.post_id,
-        user_id: req.body.user_id,
+        user: req.body.user,
         comment: req.body.comment
     })
 
@@ -56,7 +102,7 @@ router.post('/add', async (req, res) => {
 
     } catch (e) {
         console.log(e)
-        res.send({message: 'Error'})
+        res.send({ message: 'Error' })
     }
 
 })
@@ -65,18 +111,18 @@ router.post('/add', async (req, res) => {
  * DELETE COMMENT
  */
 
- router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', async (req, res) => {
 
     try {
         const c = await Comments.
             where('_id').equals(req.params.id).
-            remove()      
+            remove()
 
         console.log(c)
-        res.send({message : 'Comment Deleted'}).status(200)
+        res.send({ message: 'Comment Deleted' }).status(200)
 
     } catch (error) {
-        res.send({message: 'Error deleting message'})
+        res.send({ message: 'Error deleting message' })
         console.log(error);
     }
 

@@ -35,12 +35,12 @@ const postSchema = new mongoose.Schema({
     }
     ,
 
-    society_id: {
+    society: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Society"
     },
 
-    user_id: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
