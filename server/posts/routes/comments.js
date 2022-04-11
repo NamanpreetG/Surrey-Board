@@ -1,5 +1,6 @@
 const Post = require('../models/post')
 const Comments = require('../models/Comments')
+const User = require('../../authentication/models/User')
 const router = require('express').Router()
 
 
@@ -15,9 +16,9 @@ router.get('/:post_id', async (req, res) => {
             where('post_id').equals(req.params.post_id).
             select('comment').
             select('date')
-        
+
         /**
-         * Respose is a list of JSON objects in the structure 
+         * Respose is a list of JSON objects with the structure 
          * {
          *      id: ''
          *      comment: ''
@@ -39,12 +40,49 @@ router.get('/:post_id', async (req, res) => {
  * ADD COMMENT
  */
 
-router.post('/add', (req, res) => {
+router.post('/add', async (req, res) => {
+    // Create new comment
+    const new_comment = new Comments({
+        post_id: req.body.post_id,
+        user_id: req.body.user_id,
+        comment: req.body.comment
+    })
 
-    console.log('ADD COMMENT');
+    try {
+        const comment = await new_comment.save()
+        console.log('comment was added');
+        res.send(comment)
+        console.log(comment);
+
+    } catch (e) {
+        console.log(e)
+        res.send({message: 'Error'})
+    }
+
 })
 
-//////////
+/**
+ * DELETE COMMENT
+ */
+
+ router.post('/delete/:id', async (req, res) => {
+
+    try {
+        const c = await Comments.
+            where('_id').equals(req.params.id).
+            remove()      
+
+        console.log(c)
+        res.send({message : 'Comment Deleted'}).status(200)
+
+    } catch (error) {
+        res.send({message: 'Error deleting message'})
+        console.log(error);
+    }
+
+})
+
+////////// TEST CODE
 
 router.get('/z', async (req, res) => {
 
