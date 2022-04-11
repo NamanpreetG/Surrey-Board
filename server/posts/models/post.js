@@ -26,9 +26,14 @@ const postSchema = new mongoose.Schema({
     likes: {
 
         type: Number,
-        immutable: true,
         default: 0
     },
+    
+    isEvent: {
+        type: Boolean,
+        default: false
+    }
+    ,
 
     society_id: {
         type: mongoose.Schema.Types.ObjectId,
