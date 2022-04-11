@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const Comments = require('./Comments')
+
 
 
 const postSchema = new mongoose.Schema({
