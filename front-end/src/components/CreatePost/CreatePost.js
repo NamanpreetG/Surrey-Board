@@ -17,30 +17,20 @@ function CreatePost() {
     const [postContent, setContent] = useState("");
     const navigate = useNavigate();
 
-    //const createpost = () => {
-        //Axios.post("http://localhost:3005/createpost", {
-            //title: postTitle,
-            //content: postText,
-        //})
         const handleSubmit = async (e) => {
             e.preventDefault();
             const post = {
               title: postTitle,
               content: postContent,
-              //password: regPassword,
+              
             };
             const res = await Axios.post("http://localhost:3005/post", post);
             console.log(res.data.message)
-            //if (res.data.message == 'user added') {
-              //localStorage.setItem("user", res.data.user.name);
-              //navigate("/");
-            //}
-          //};
-        
-            // TODO: add validation for if request comes back bad
-            .then((res) => {
+            if(res.data.message == 'post added'){
                 navigate("/homepage");
-            });
+            } else{
+            // TODO: add validation for if request comes back bad
+            }
     };
 
 
@@ -70,9 +60,9 @@ function CreatePost() {
                         <Card.Body>
                             <Form.Group className="mb-3" controlId="formDescription">
                                 <Form.Label>Description</Form.Label>
-                                <div class="form-group">
+                                <div className="form-group">
                                     
-                                    <textarea class="form-control" type="text" placeholder="Enter description" id="description" rows="4" onChange={(e) => {
+                                    <textarea className="form-control" type="text" placeholder="Enter description" id="description" rows="4" onChange={(e) => {
                                         e.preventDefault();
                                         setContent(e.target.value);
                                     }}

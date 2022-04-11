@@ -11,16 +11,21 @@ const PORT = 3005
 dotenv.config()
 app.use(express.json())
 
-const PostRoute = require('./routes/post')
-const showPostRoute = require('./routes/showPost')
+const loginRoute = require('./routes/login')
+const registerRoute = require('./routes/register')
+const testPostRoute = require('./routes/testPost')
+
 
 mongoose.connect(process.env.DBURUI)
     .then((res) => {
         console.log('CONNECTED TO MONGOOOOSE')
     })
 
-app.use('/post', PostRoute)
-app.use('/showpost', showPostRoute)
+app.use('/auth/login', loginRoute)
+app.use('/auth/register', registerRoute)
+app.use('/testpost', testPostRoute)
+
+
 
 app.listen(PORT, () => {
     console.log('Server is running on port ' + PORT)

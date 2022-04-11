@@ -3,38 +3,45 @@ const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema({
     title: {
-        type:String,
-        required:true,
-        max:50,
+        type: String,
+        required: true,
+        max: 50,
 
     },
 
     content: {
-        type:String,
-        required:true,
-        min:15
+        type: String,
+        required: true,
+        min: 15
     },
 
-   //date: {
-        //type: Date,
-        //immutable: true,
-        //default: Date.now
-    //},
+    date: {
+        type: Date,
+        immutable: true,
+        default: Date.now
+    },
 
-    //likes: {
+    likes: {
 
-        //type: int,
-        //immutable: true,
-        //default: Date.now
-    //}
-    //society_id: {
-    //    type: mongoose.Schema.Types.ObjectId,
-    //    ref: "Society",
-    //},
-    //user_id: {
-        //type: mongoose.Schema.Types.ObjectId,
-        //ref: "User",
-    //}
+        type: Number,
+        immutable: true,
+        default: 0
+    },
+
+    society_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Society"
+    },
+
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comments"
+    }]
 
 
 
