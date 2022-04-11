@@ -24,7 +24,7 @@ function CreatePost() {
               content: postContent,
               
             };
-            const res = await Axios.post("http://localhost:3005/post", post);
+            const res = await Axios.post("http://localhost:3006/post", post);
             console.log(res.data.message)
             if(res.data.message == 'post added'){
                 navigate("/homepage");
