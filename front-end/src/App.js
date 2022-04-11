@@ -5,6 +5,8 @@ import Homepage from "./components/Homepage/Homepage";
 import EducationBoard from "./components/EducationBoard/EducationBoard";
 import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
 import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
+import CreatePost from "./components/CreatePost/CreatePost"
+import Posts from "./components/CreatePost/ShowPost";
 import Settings from "./components/Settings";
 
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -104,6 +106,22 @@ function App() {
             element={
               <PrivateRoute>
                 <Settings />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/createpost"
+            element={
+              <PrivateRoute>
+                <CreatePost />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/posts"
+            element={
+              <PrivateRoute>
+                <Posts />
               </PrivateRoute>
             }
           />
