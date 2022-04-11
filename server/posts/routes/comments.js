@@ -13,13 +13,23 @@ router.get('/:post_id', async (req, res) => {
     try {
         const c = await Comments.
             where('post_id').equals(req.params.post_id).
-            select('comment')
+            select('comment').
+            select('date')
+        
+        /**
+         * Respose is a list of JSON objects in the structure 
+         * {
+         *      id: ''
+         *      comment: ''
+         *      date: ''
+         * }
+         * 
+         */
 
-        console.log(c);
+        res.send(c)
 
     } catch (error) {
-        console.log(error);
-
+        res.send('No comments found')
     }
 
 });
