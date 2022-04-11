@@ -12,7 +12,7 @@ const societySchema = new mongoose.Schema({
     }
 })
 
-const User = mongoose.model('Society', societySchema)
+const Society = mongoose.model('Society', societySchema)
 
 
 // General Board
