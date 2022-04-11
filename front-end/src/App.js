@@ -47,7 +47,7 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || null);
+    const user = (localStorage.getItem("user") || null);
     if (user) {
       dispatch({
         type: "LOGIN",
