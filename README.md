@@ -14,15 +14,12 @@ Alternatively, visit this [link](https://docs.gitlab.com/ee/ssh/) for clearer in
 1. Clone the repo
    `git clone git@gitlab.surrey.ac.uk:com301424/surrey-board.git`
 2. Go to surrey-board directory: `cd surrey-board`
-3. Install dependencies with `npm install`
-4. Go to the server code with `cd server`
-5. Run the server with `npm start`
-6. Go to the front-end directory with `cd ../front-end`
-7. Run `npm install`
-8. Run the front-end with `npm start`
-9. Open two new terminals  
-10. For the first terminal go into the authentication dir with `cd ../server/authentication` and run `npm install` the `npm start`
-10. For the second terminal go into the posts dir with `cd ../server/posts` and run `npm install` the `npm start`
+3. Go to the front-end directory with `cd ../front-end`
+4. Run `npm install`
+5. Run the front-end with `npm start`
+6. Open two new terminals  
+7. For the first terminal go into the authentication dir with `cd ../server/authentication` and run `npm install` the `npm start`
+8. For the second terminal go into the posts dir with `cd ../server/posts` and run `npm install` the `npm start`
 
 
 
