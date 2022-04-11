@@ -12,7 +12,7 @@ export default props => {
         General Board
       </a>
       <a className="menu-item" href="/EducationBoard">
-        Education Board
+        Events Board
       </a>
       <a className="menu-item" href="/SocietyBoard">
         Society Board

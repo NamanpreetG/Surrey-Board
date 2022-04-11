@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useEffect } from "react";
 import { LoginContext} from "../../App";
 
-function EducationBoard() {
+function EventsBoard() {
   const {state, dispatch} = useContext(LoginContext)
 
   return (
@@ -14,7 +14,7 @@ function EducationBoard() {
         <div className="rounded-full bg-gray-500 overflow-hidden w-10 h-10">
         </div>
         <div className="pt2 pl-4 text-align: Center"> 
-          <h1 className="text-gray" text-3xl>Education Board</h1> 
+          <h1 className="text-gray" text-3xl>Events Board</h1> 
         </div>
 
        <div className="bg-reddit_dark px-6 py-4"></div>
@@ -27,7 +27,7 @@ function EducationBoard() {
 <div className="px-6 bg-reddit_dark text-gray-300"></div> 
 <div className="border border-reddit_border bg-reddit_dark-brighter p-2">
   <div className="text-align: left">
- <h2 className="mb-2">An example of an Education Board</h2></div>
+ <h2 className="mb-2">An example of an Events Board</h2></div>
  <div className=""><h6 className="text-sm mb-5"> Posted by "Mark Twain", 5 hours ago.</h6></div>
  <div className="rounded-full bg-gray-500 overflow-hidden w-10 h-10 flex"></div>
  <div className="text-l leading-6 "><p>Hi all,
@@ -48,4 +48,4 @@ What are some examples you've noticed? </p></div>
   
 
 
-export default EducationBoard;
+export default EventsBoard;
