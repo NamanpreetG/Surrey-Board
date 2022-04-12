@@ -1,13 +1,24 @@
 const Post = require('../models/post')
 const router = require('express').Router()
 
+
+var count_val
+
 router.post('/', async (req, res) => {
-    const post = new Post({
+    await counter(res, (r) => {
+        count_val = r
+        console.log(count_val)
+    })
+
+    console.log(count_val)
+
+     const post = await new Post({
         title: req.body.title,
         content: req.body.content,
         user: req.body.user,
         society: req.body.society,
-        isEvent: req.body.isEvent
+        isEvent: req.body.isEvent,
+        counter: count_val
     })
     try {
         const newPost = await post.save()
@@ -20,6 +31,23 @@ router.post('/', async (req, res) => {
     }
 });
 
+
+function counter(res, callback) {
+    Post.findOne().sort('-date').populate({
+        model: 'User',
+        path: 'user',
+        select: 'name isAdmin'
+
+    }).populate('society').exec((err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        const countVal = result.counter
+        return callback(countVal + 1)
+    })
+
+}
+
 router.get('/addlike/:post_id', async (req, res) => {
 
     try {
@@ -31,6 +59,25 @@ router.get('/addlike/:post_id', async (req, res) => {
         res.send({ message: 'error' })
 
     }
+})
+
+// Delete post 
+
+router.delete('/delete/:id', async (req, res) => {
+
+    try {
+        const c = await Post.
+            where('_id').equals(req.params.id).
+            remove()
+
+        console.log(c)
+        res.send({ message: 'Post Deleted' }).status(200)
+
+    } catch (error) {
+        res.send({ message: 'Error deleting post' })
+        console.log(error);
+    }
+
 })
 
 module.exports = router

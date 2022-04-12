@@ -1,9 +1,7 @@
 import React from "react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../App";
 
-//import React, { useEffect } from "react";
-import { useState } from "react";
 import Axios from "axios";
 import {
     Form,
@@ -25,7 +23,7 @@ function Posts() {
   const [commentsList, setComments] = useState([]);
  
   useEffect(() => {
-      Axios.get("http://localhost:3007/displaypost").then((data) => {
+      Axios.get("http://localhost:3007/society/showall").then((data) => {
           setPostList(data.data)
           console.log(data.data)
       });
