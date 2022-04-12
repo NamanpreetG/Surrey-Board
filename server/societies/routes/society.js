@@ -1,4 +1,4 @@
-const Society = require('../models/society');
+const Society = require('../models/Society');
 const router = require('express').Router()
 
 

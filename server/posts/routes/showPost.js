@@ -14,9 +14,22 @@ const societySchema = new mongoose.Schema({
 
 const Society = mongoose.model('Society', societySchema)
 
+
+// TEST
+router.get('/test', async (req, res) => {
+    Post.collection.getIndexes().then(indexes => {
+        console.log("indexes:", indexes);
+        res.send(indexes)
+    }).catch(console.error);
+})
+
+
+
 // General Board
 router.get('/', async (req, res) => {
-    Post.find({}).sort('-date').populate({
+
+    const lim = req.query.lim
+    Post.find({}).limit(10).sort('-date').populate({
 
         model: 'User',
         path: 'user',
