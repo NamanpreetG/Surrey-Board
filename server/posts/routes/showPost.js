@@ -16,7 +16,6 @@ const societySchema = new mongoose.Schema({
 const Society = mongoose.model('Society', societySchema)
 
 
-// TEST
 router.get('/next', async (req, res) => {
 
     var page_num = parseInt(req.query.page) + 1
