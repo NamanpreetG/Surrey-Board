@@ -4,23 +4,22 @@ const mongoose = require('mongoose')
 
 
 const societySchema = new mongoose.Schema({
+    _id:{
+        type: Number,
+        required: true
+
+    },
     name: {
         type: String,
         required: true,
-
     },
-
-    post_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Posts"
-    },
-        
-
-    date: {
-        type: Date,
-        immutable: true,
-        default: Date.now
-    },
+    //post_id: {
+        //type: mongoose.Schema.Types.ObjectId,
+        //ref: "Posts"
+    //},       
+    desc: {
+        type: String,
+        required: true,    },
 
 })
 
