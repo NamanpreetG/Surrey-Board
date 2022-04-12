@@ -40,7 +40,7 @@ function CreatePost() {
 
     };
     useEffect(() => {
-        Axios.get("http://localhost:3007/createSociety").then((data) => {
+        Axios.get("http://localhost:3007/society").then((data) => {
             getSociety(data.data)
             console.log(data.data)
         });

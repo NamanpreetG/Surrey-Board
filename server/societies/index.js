@@ -16,8 +16,8 @@ mongoose.connect(process.env.DBURUI)
         console.log('CONNECTED TO MONGOOOOSE')
     })
 
-const createSociety = require('./routes/society')
-app.use('/society', createSociety)
+const Society = require('./routes/createSociety')
+app.use('/society', Society)
 
 app.listen(PORT, () => {
     console.log('Server is running on port ' + PORT)
