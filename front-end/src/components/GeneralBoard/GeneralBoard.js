@@ -7,7 +7,9 @@ import { returnData } from "./example";
 function GeneralBoard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
+
   return (
+    
     <>
       {returnData.map((r) => (
         <SinglePost 
@@ -17,7 +19,6 @@ function GeneralBoard() {
         likes={r.likes}
         tag={r.society.tag}
         username={r.user.name}
-        
         />
       ))}
     </>

@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Col, Container, Row, Nav, Button } from "react-bootstrap";
 import { createBootstrapComponent } from "react-bootstrap/esm/ThemeProvider";
 
-function SinglePost({ title, description, date, username, likes }) {
+function SinglePost({ title, description, date, username, likes, tag }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const formatYmd = date.slice(0, 10);
 
@@ -10,9 +10,6 @@ function SinglePost({ title, description, date, username, likes }) {
   return (
     <>
       <Container>
-
-
-
         <Card
         className="mb-4"
         border="info"
