@@ -22,7 +22,7 @@ function Posts() {
   const [commentsList, setComments] = useState([]);
  
   useEffect(() => {
-      Axios.get("http://localhost:3007/displaypost").then((data) => {
+      Axios.get("http://localhost:3007/society/showall").then((data) => {
           setPostList(data.data)
           console.log(data.data)
       });
