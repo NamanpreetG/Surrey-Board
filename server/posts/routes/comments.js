@@ -28,10 +28,10 @@ const userSchema = new mongoose.Schema({
         default: false
     },
 
-    society: {
+    society: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Society"
-    },
+    }],
 
 
     date: {
