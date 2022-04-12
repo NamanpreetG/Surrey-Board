@@ -7,7 +7,7 @@ const router = require('express').Router()
 router.get('/', async (req, res) => {
         Society.find({})
             .sort('-date')
-            //.populate('Societies')
+            //.populate('society')
             .exec((err, result) => {
                 if (err) {
                     

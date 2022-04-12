@@ -19,6 +19,7 @@ function CreatePost() {
     const [postContent, setContent] = useState("");
     const [Society, getSociety] = useState([]);
     const [postSociety, setSociety] = useState("");
+    const [postEvent, setEvent] = useState(Boolean)
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -27,6 +28,7 @@ function CreatePost() {
             title: postTitle,
             content: postContent,
             society: postSociety,
+            isEvent: postEvent
 
         };
         const res = await Axios.post("http://localhost:3006/post", post);
@@ -105,8 +107,16 @@ function CreatePost() {
                                             )
                                         })}
                                     </select>
-
-
+                                    <input
+                                        type="checkbox"
+                                        //defaultChecked=
+                                        //ref="complete"
+                                        onChange={(e) => {
+                                            e.preventDefault();
+                                            setEvent(e.target.checked);
+    
+                                        }}
+                                    />
 
 
                                 </div>
