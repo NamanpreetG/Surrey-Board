@@ -8,6 +8,7 @@ import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import CreatePost from "./components/CreatePost/CreatePost"
 import Posts from "./components/CreatePost/ShowPost";
 import Settings from "./components/Settings";
+import SpecificPost from "./components/SpecificPost/SpecificPost";
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import {
@@ -125,6 +126,14 @@ function App() {
               </PrivateRoute>
             }
           />
+           <Route
+            path="/specificPost"
+            element={
+              <PrivateRoute>
+                <SpecificPost />
+              </PrivateRoute>
+            }
+            />
         </Routes>
       </div>
     </LoginContext.Provider>
