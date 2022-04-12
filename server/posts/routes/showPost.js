@@ -29,7 +29,7 @@ router.get('/next', async (req, res) => {
 
     }).populate('society').exec((err, result) => {
         if (err) {
-            res.send({ messasge: 'error' })
+            res.send({ message: 'error' })
         }
         else if(result.length === 0){
             page_num = null
@@ -51,7 +51,7 @@ router.get('/previous', async (req, res) => {
 
     }).populate('society').exec((err, result) => {
         if (err) {
-            res.send({ messasge: 'error' })
+            res.send({ message: 'error' })
         }
         res.send({ result: result.reverse(), next: page_num })
     })
@@ -68,9 +68,9 @@ router.get('/', async (req, res) => {
 
     }).populate('society').exec((err, result) => {
         if (err) {
-            res.send({ messasge: 'error' })
+            res.send({ message: 'error' })
         }
-        res.send(result)
+        res.send({result: result})
     })
 });
 
@@ -84,7 +84,7 @@ router.get('/events', async (req, res) => {
 
     }).populate('society').sort('-date').exec((err, result) => {
         if (err) {
-            res.send({ messasge: 'error' })
+            res.send({ message: 'error' })
         }
         res.send(result)
     })
@@ -103,7 +103,7 @@ router.get('/society/:id', async (req, res) => {
         .populate('society')
         .exec((err, result) => {
             if (err) {
-                res.send({ messasge: 'error' })
+                res.send({ message: 'error' })
             }
             res.send(result)
         })
