@@ -3,9 +3,16 @@ import { useContext, useEffect } from "react";
 import { LoginContext, loginContext } from "../../App";
 import SinglePost from "../Posts/SinglePost";
 import { returnData } from "./example";
+import { useQuery } from "react-query";
+
+// const fetchPosts = asyc () => {
+//   const res = fetch()
+// }
 
 function GeneralBoard() {
   const user = JSON.parse(localStorage.getItem("user"));
+
+  // const {} = useQuery('posts', fetchPosts)
 
   return (
     <>
