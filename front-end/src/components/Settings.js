@@ -4,8 +4,8 @@ import { LoginContext } from "../App";
 
 function Settings() {
   const { state, dispatch } = useContext(LoginContext);
-
-  return <div>{state.user ? "Settings, Write your enquires" : null}</div>;
+  const user = JSON.parse(localStorage.getItem("user"));
+  return <div>{user ? "Settings, Write your enquires" : null}</div>;
 }
 
 export default Settings;

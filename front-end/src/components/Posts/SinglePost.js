@@ -7,11 +7,6 @@ function SinglePost({ title, description, date, username, likes }) {
   const formatYmd = date.slice(0, 10);
 
   
-
-  
-
-
-  
   return (
     <>
       <Container>
