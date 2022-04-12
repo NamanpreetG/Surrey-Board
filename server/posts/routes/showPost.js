@@ -5,15 +5,15 @@ const mongoose = require('mongoose')
 const { response } = require('express')
 
 
-//const societySchema = new mongoose.Schema({
-    //name: {
-        //type: String,
-        //required: true
+const societySchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
 
-    //}
-//})
+    }
+})
 
-//const Society = mongoose.model('Society', societySchema)
+const Society = mongoose.model('Society', societySchema)
 
 
 router.get('/next', async (req, res) => {
@@ -30,6 +30,7 @@ router.get('/next', async (req, res) => {
     }).populate('society').exec((err, result) => {
         if (err) {
             res.send({ messasge: 'error' })
+            console.log(err)
         }
         else if(result.length === 0){
             page_num = null
@@ -69,6 +70,7 @@ router.get('/', async (req, res) => {
     }).populate('society').exec((err, result) => {
         if (err) {
             res.send({ messasge: 'error' })
+            console.log(err)
         }
         res.send(result)
     })

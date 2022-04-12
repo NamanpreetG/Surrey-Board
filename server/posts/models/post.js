@@ -36,7 +36,7 @@ const postSchema = new mongoose.Schema({
     ,
     society: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Societies"
+        ref: "Society"
     },
 
     user: {
