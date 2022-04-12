@@ -33,19 +33,18 @@ router.get('/next', async (req, res) => {
             res.send({ messasge: 'error' })
         }
         else if(result.length === 0){
-            console.log("EMPTY")
             page_num = null
         }
         res.send({ result: result, next: page_num })
     })
 });
 
-router.get('/back', async (req, res) => {
+router.get('/previous', async (req, res) => {
 
     const page_num = parseInt(req.query.page) - 1
     const count_val = parseInt(req.query.index)
 
-    Post.find({ counter: { $gt: count_val } }).limit(10).sort('-date').populate({
+    Post.find({ counter: { $gt: count_val } }).limit(10).sort('counter').populate({
 
         model: 'User',
         path: 'user',
