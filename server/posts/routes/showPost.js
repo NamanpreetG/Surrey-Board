@@ -31,7 +31,7 @@ router.get('/next', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        else if(result.length === 0){
+        else if (result.length === 0) {
             page_num = null
         }
         res.send({ result: result, next: page_num })
@@ -70,7 +70,7 @@ router.get('/', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        res.send({result: result})
+        res.send({ result: result, next: 2 })
     })
 });
 

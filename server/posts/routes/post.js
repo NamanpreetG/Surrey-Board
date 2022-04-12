@@ -4,6 +4,7 @@ const router = require('express').Router()
 
 var count_val
 
+
 router.post('/', async (req, res) => {
     await counter(res, (r) => {
         count_val = r
@@ -12,7 +13,7 @@ router.post('/', async (req, res) => {
 
     console.log(count_val)
 
-     const post = await new Post({
+    const post = await new Post({
         title: req.body.title,
         content: req.body.content,
         user: req.body.user,

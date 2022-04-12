@@ -6,7 +6,7 @@ const router = require('express').Router()
 
 router.post('/follow', (req, res) => {
     try {
-        const add_to_user = User.findOneAndUpdate({ _id: req.body._id }, {})
+        // const add_to_user = User.findOneAndUpdate({ _id: req.body._id }, { $push : { societies : re}})
 
 
     } catch (error) {
