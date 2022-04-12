@@ -7,6 +7,8 @@ import Sidebar from "./sidebar";
 
 function NavBar() {
   const {state, dispatch} = useContext(LoginContext);
+  const user = JSON.parse(localStorage.getItem("user"))
+
 
   return (
     <div className="App">
@@ -27,16 +29,16 @@ function NavBar() {
                 type: "LOGOUT"
               })} href="/">
                 {/* TODO: dont let the user submit a blank username/password/username */}
-                {state.user ? "Sign Out" : "Sign In"}
+                {user ? "Sign Out" : "Sign In"}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
 
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              {state.user && "Signed in as: "}
+              {user && "Signed in as: "}
               <b>
-                <a>{state.user && state.user.name}</a>
+                <a>{user ? user.name : null}</a>
               </b>
             </Navbar.Text>
           </Navbar.Collapse>
