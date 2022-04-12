@@ -54,7 +54,7 @@ router.get('/previous', async (req, res) => {
         if (err) {
             res.send({ messasge: 'error' })
         }
-        res.send({ result: result, next: page_num })
+        res.send({ result: result.reverse(), next: page_num })
     })
 });
 
