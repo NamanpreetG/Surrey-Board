@@ -17,7 +17,8 @@ import {
 function CreatePost() {
     const [postTitle, setTitle] = useState("");
     const [postContent, setContent] = useState("");
-    const [postSociety, setSociety] = useState([]);
+    const [Society, getSociety] = useState([]);
+    const [postSociety, setSociety] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -25,11 +26,12 @@ function CreatePost() {
         const post = {
             title: postTitle,
             content: postContent,
-            society_id: postSociety
+            society: postSociety,//postSociety
 
         };
         const res = await Axios.post("http://localhost:3006/post", post);
         console.log(res.data.message)
+        console.log(post.society)
         if (res.data.message == 'post added') {
             navigate("/homepage");
         } else {
@@ -39,7 +41,7 @@ function CreatePost() {
     };
     useEffect(() => {
         Axios.get("http://localhost:3007/createSociety").then((data) => {
-            setSociety(data.data)
+            getSociety(data.data)
             console.log(data.data)
         });
 
@@ -84,18 +86,36 @@ function CreatePost() {
                             </Form.Group>
                         </Card.Body>
                     </Row>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Board
-                        </Dropdown.Toggle>
+                    <Row>
+                        <Card.Body>
+                            <Form.Group className="mb-3" controlId="formDescription">
+                                <Form.Label>Society</Form.Label>
+                                <div className="form-group">
+                                    <select id='society' onChange={(e) => {
+                                        e.preventDefault();
+                                        setSociety(e.target.value);
 
-                        <Dropdown.Menu>
-                            {postSociety.map((val, key) => {
-                                return (<Dropdown.Item key={key} value={val._id}>{val.name}</Dropdown.Item>)
+                                    }}>
+                                        {Society.map((value, key) => {
+                                            return (
 
-                            })}
-                        </Dropdown.Menu>
-                    </Dropdown>
+                                                <option key={key} value={value._id} >{value.name}</option>
+
+
+                                            )
+                                        })}
+                                    </select>
+
+
+
+
+                                </div>
+
+
+                            </Form.Group>
+                        </Card.Body>
+                    </Row>
+
                     <div id="align-center">
                         <Button type="submit" size="lg">
                             Submit

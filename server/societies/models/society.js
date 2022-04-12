@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 
 const societySchema = new mongoose.Schema({
-    _id:{
+    id:{
         type: Number,
         required: true
 

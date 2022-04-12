@@ -5,30 +5,31 @@ const router = require('express').Router()
 
 
 router.get('/', async (req, res) => {
-        Society.find({ society_id: req.params.society_id })
+        Society.find({})
             .sort('-date')
             //.populate('Societies')
             .exec((err, result) => {
                 if (err) {
-                    //res.send({ messasge: 'error' })
+                    
                     console.log(err)
                 }
                 res.send(result)
+                console.log(result)
             })
     
-});
+
     //const test1 = new Society({
-        //_id: '0',
+        //id: 0,
         //name: 'Football',
         //desc: 'Football Society'
     //})
     //const test2 = new Society({
-        //_id: '1',
+        //id: 1,
         //name: 'Rugby',
         //desc: 'Rugby Society'
     //})
     //const test3 = new Society({
-        //_id: '2',
+        //id: 2,
         //name: 'Badminton',
         //desc: 'Badminton Society'
     //})
@@ -64,7 +65,7 @@ router.get('/', async (req, res) => {
         //console.log(populate)
     //})
 
-
+});
 
 
 module.exports = router

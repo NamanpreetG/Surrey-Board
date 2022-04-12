@@ -30,9 +30,13 @@ const postSchema = new mongoose.Schema({
         default: 0
     },
 
-    society_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Society"
+    society: {
+        type: Number,
+        required: true,
+        //min: 0,
+        //max: 20
+        //type: mongoose.Schema.Types.ObjectId,
+        //ref: "Societies"
     },
 
     user_id: {
