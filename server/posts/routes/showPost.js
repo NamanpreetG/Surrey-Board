@@ -38,7 +38,7 @@ router.get('/events', async (req, res) => {
         path: 'user',
         select: 'name isAdmin'
 
-    }).populate('society').exec((err, result) => {
+    }).populate('society').sort('-date').exec((err, result) => {
         if (err) {
             res.send({ messasge: 'error' })
         }
