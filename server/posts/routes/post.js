@@ -33,4 +33,23 @@ router.get('/addlike/:post_id', async (req, res) => {
     }
 })
 
+// Delete post 
+
+router.delete('/delete/:id', async (req, res) => {
+
+    try {
+        const c = await Post.
+            where('_id').equals(req.params.id).
+            remove()
+
+        console.log(c)
+        res.send({ message: 'Post Deleted' }).status(200)
+
+    } catch (error) {
+        res.send({ message: 'Error deleting post' })
+        console.log(error);
+    }
+
+})
+
 module.exports = router
