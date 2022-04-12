@@ -26,7 +26,13 @@ router.get('/', async (req, res) => {
 
 // Events Board
 router.get('/events', async (req, res) => {
-    Post.find({ isEvent: true }).populate('user society').exec((err, result) => {
+    Post.find({ isEvent: true }).populate({
+
+        model: 'User',
+        path: 'user',
+        select: 'name isAdmin'
+
+    }).populate('society').exec((err, result) => {
         if (err) {
             res.send({ messasge: 'error' })
         }
