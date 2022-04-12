@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import {
     Form,
     FormGroup,
@@ -9,30 +10,40 @@ import {
     Row,
     Col,
     Card,
+    Dropdown
 } from "react-bootstrap";
 
 
 function CreatePost() {
     const [postTitle, setTitle] = useState("");
     const [postContent, setContent] = useState("");
+    const [postSociety, setSociety] = useState([]);
     const navigate = useNavigate();
 
-        const handleSubmit = async (e) => {
-            e.preventDefault();
-            const post = {
-              title: postTitle,
-              content: postContent,
-              
-            };
-            const res = await Axios.post("http://localhost:3006/post", post);
-            console.log(res.data.message)
-            if(res.data.message == 'post added'){
-                navigate("/homepage");
-            } else{
-            // TODO: add validation for if request comes back bad
-            }
-    };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const post = {
+            title: postTitle,
+            content: postContent,
+            society_id: postSociety
 
+        };
+        const res = await Axios.post("http://localhost:3006/post", post);
+        console.log(res.data.message)
+        if (res.data.message == 'post added') {
+            navigate("/homepage");
+        } else {
+            // TODO: add validation for if request comes back bad
+        }
+
+    };
+    useEffect(() => {
+        Axios.get("http://localhost:3007/createSociety").then((data) => {
+            setSociety(data.data)
+            console.log(data.data)
+        });
+
+    }, []);
 
     return (
         <Container fluid="lg">
@@ -61,27 +72,38 @@ function CreatePost() {
                             <Form.Group className="mb-3" controlId="formDescription">
                                 <Form.Label>Description</Form.Label>
                                 <div className="form-group">
-                                    
+
                                     <textarea className="form-control" type="text" placeholder="Enter description" id="description" rows="4" onChange={(e) => {
                                         e.preventDefault();
                                         setContent(e.target.value);
                                     }}
                                     />
                                 </div>
-                                
-                               
+
+
                             </Form.Group>
                         </Card.Body>
                     </Row>
+                    <Dropdown>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            Board
+                        </Dropdown.Toggle>
 
+                        <Dropdown.Menu>
+                            {postSociety.map((val, key) => {
+                                return (<Dropdown.Item key={key} value={val._id}>{val.name}</Dropdown.Item>)
+
+                            })}
+                        </Dropdown.Menu>
+                    </Dropdown>
                     <div id="align-center">
-                    <Button type="submit" size="lg">
-                        Submit
-                    </Button>
+                        <Button type="submit" size="lg">
+                            Submit
+                        </Button>
 
                     </div>
                     <br />
-                    
+
                 </Card>
             </Form>
         </Container>
