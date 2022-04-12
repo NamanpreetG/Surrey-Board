@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-//const Comments = require('./Comments')
+const Comments = require('./Comments')
 
 
 
@@ -14,7 +14,7 @@ const postSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
-        min: 15
+        min: 5
     },
 
     date: {
@@ -26,26 +26,24 @@ const postSchema = new mongoose.Schema({
     likes: {
 
         type: Number,
-        immutable: true,
         default: 0
     },
+    
+    isEvent: {
+        type: Boolean,
+        default: false
+    }
+    ,
 
-    society_id: {
+    society: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Society"
     },
 
-    user_id: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    },
-    
-    comments: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comments"
-    }]
-
-
+    }
 
 })
 

@@ -1,53 +1,42 @@
-//const Post = require('../models/post')
-//const Comments = require('../models/displayPost');
 const Society = require('../models/society');
 const router = require('express').Router()
 
-router.get('/', async (req, res) => {
-    const test1 = new Society({
-        _id: '0',
-        name: 'Football',
-        desc: 'Football Society'
-    })
-    const test2 = new Society({
-        _id: '1',
-        name: 'Rugby',
-        desc: 'Rugby Society'
-    })
-    const test3 = new Society({
-        _id: '2',
-        name: 'Badminton',
-        desc: 'Badminton Society'
-    })
+
+
+// Add new Society
+
+router.post('/addsociety', async (req, res) => {
     try {
-        const newSoc1 = await test1.save()
-        console.log('Society added')
+        const soc_name = await Society.findOne({ name: req.body.name })
+        if (soc_name) return res.status(200).send({ message: 'Society already exists' })
+
+        const soc = new Society({
+            name: req.body.name,
+            tag: req.body.tag
+        })
+
+        const new_soc = await soc.save()
+        console.log('Society Added!')
+        res.send({ post: new_soc, message: 'success' })
+
     } catch (e) {
-        console.log("error")
+        res.send({ message: 'error' })
         console.log(e)
     }
+
+});
+
+
+router.get('/showall', async (req, res) => {
     try {
-        const newSoc2 = await test2.save()
-        console.log('Society added')
-    } catch (e) {
-        console.log("error")
-        console.log(e)
+        const soc = await Society.find()
+        res.send(soc)
+        console.log(soc);
+
+    } catch (error) {
+        console.log(error)
+        res.send({ messaeg: 'cant get societies' })
     }
-    try {
-        const newSoc3 = await test3.save()
-        console.log('Society added')
-    } catch (e) {
-        console.log("error")
-        console.log(e)
-    }
-    //Society.find({post_id: "6252108b2948d05156fcf60d" }, (err, result) => {
-        //if (err) {
-            //res.send(err)
-        //}
-       
-        //res.send(result)
-        //console.log(populate)
-    //})
 });
 
 

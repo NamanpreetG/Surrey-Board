@@ -1,28 +1,19 @@
 const mongoose = require('mongoose')
-//const Comments = require('./Comments')
-
 
 
 const societySchema = new mongoose.Schema({
-    _id:{
-        type: Number,
-        required: true
-
-    },
     name: {
         type: String,
         required: true,
     },
-    //post_id: {
-        //type: mongoose.Schema.Types.ObjectId,
-        //ref: "Posts"
-    //},       
-    desc: {
+
+    tag: {
         type: String,
-        required: true,    },
+        required: true,
+    }
 
 })
 
 
 
-module.exports = mongoose.model('Societies', societySchema)
+module.exports = mongoose.model('Society', societySchema)

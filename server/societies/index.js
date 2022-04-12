@@ -19,7 +19,7 @@ mongoose.connect(process.env.DBURUI)
         console.log('CONNECTED TO MONGOOOOSE')
     })
 
-app.use('/createsociety', createSociety)
+app.use('/society', createSociety)
 
 app.listen(PORT, () => {
     console.log('Server is running on port ' + PORT)
