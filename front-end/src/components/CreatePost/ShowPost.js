@@ -27,7 +27,7 @@ function Posts() {
 
     return (
         <Container fluid="lg">
-            <div className="center-text">
+           {/*  <div className="center-text">
                 {postList.map((val, key) => {
                     return (
                         <div key={key}>
@@ -36,7 +36,7 @@ function Posts() {
                         </div>
                     );
                 })}
-            </div>
+            </div> */}
         </Container>
     );
 }

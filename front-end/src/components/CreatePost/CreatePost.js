@@ -26,7 +26,7 @@ function CreatePost() {
         const post = {
             title: postTitle,
             content: postContent,
-            society: postSociety,//postSociety
+            society: postSociety,
 
         };
         const res = await Axios.post("http://localhost:3006/post", post);
