@@ -70,7 +70,6 @@ function CreatePost() {
                             </Form.Group>
                         </Card.Body>
                     </Row>
-
                     <Row>
                         <Card.Body>
                             <Form.Group className="mb-3" controlId="formDescription">
@@ -83,14 +82,12 @@ function CreatePost() {
                                     }}
                                     />
                                 </div>
-
-
                             </Form.Group>
                         </Card.Body>
                     </Row>
                     <Row>
                         <Card.Body>
-                            <Form.Group className="mb-3" controlId="formDescription">
+                            <Form.Group className="mb-3" controlId="formSociety">
                                 <Form.Label>Society</Form.Label>
                                 <div className="form-group">
                                     <select id='society' onChange={(e) => {
@@ -102,30 +99,30 @@ function CreatePost() {
                                             return (
 
                                                 <option key={key} value={value._id} >{value.name}</option>
-
-
                                             )
                                         })}
                                     </select>
-                                    <input
-                                        type="checkbox"
-                                        //defaultChecked=
-                                        //ref="complete"
-                                        onChange={(e) => {
-                                            e.preventDefault();
-                                            setEvent(e.target.checked);
-    
-                                        }}
-                                    />
-
-
                                 </div>
-
-
                             </Form.Group>
                         </Card.Body>
                     </Row>
+                    <Row>
+                        <Card.Body>
+                            <Form.Group className="mb-3" controlId="formEvent">
+                                <Form.Label>Check the box below if the post is about an event:</Form.Label>
+                                <div className="form-group">
+                                    <input
+                                        type="checkbox"
+                                        onChange={(e) => {
+                                            e.preventDefault();
+                                            setEvent(e.target.checked);
 
+                                        }}
+                                    /> 
+                                </div>
+                            </Form.Group>
+                        </Card.Body>
+                    </Row>
                     <div id="align-center">
                         <Button type="submit" size="lg">
                             Submit
