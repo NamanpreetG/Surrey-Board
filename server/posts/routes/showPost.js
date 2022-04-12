@@ -44,7 +44,7 @@ router.get('/previous', async (req, res) => {
     const page_num = parseInt(req.query.page) - 1
     const count_val = parseInt(req.query.index)
 
-    Post.find({ counter: { $gt: count_val } }).limit(10).sort('counter').populate({
+    Post.find({ counter: { $gt: count_val } }).limit(10).sort('date').populate({
 
         model: 'User',
         path: 'user',
