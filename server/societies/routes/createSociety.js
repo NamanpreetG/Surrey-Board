@@ -4,7 +4,6 @@ const router = require('express').Router()
 
 
 // Add new Society
-
 router.post('/addsociety', async (req, res) => {
     try {
         const soc_name = await Society.findOne({ name: req.body.name })
@@ -27,17 +26,35 @@ router.post('/addsociety', async (req, res) => {
 });
 
 
+// Show all societies
 router.get('/showall', async (req, res) => {
     try {
         const soc = await Society.find()
         res.send(soc)
-        console.log(soc);
+    } catch (error) {
+        console.log(error)
+        res.send({ message: 'cant get societies' })
+    }
+});
+
+
+// Delete a Society
+router.delete('/delete/:id', async (req, res) => {
+
+    try {
+
+        await Society.deleteOne({ id: req.params.id })
+        res.send({ message: 'deleted' })
+
 
     } catch (error) {
         console.log(error)
-        res.send({ messaeg: 'cant get societies' })
+        res.send({ message: 'error' })
     }
-});
+
+
+})
+
 
 
 
