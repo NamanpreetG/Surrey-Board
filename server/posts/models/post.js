@@ -34,7 +34,6 @@ const postSchema = new mongoose.Schema({
         default: false
     }
     ,
-
     society: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Society"
@@ -43,10 +42,15 @@ const postSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
+    },
+    counter: {
+        type: Number,
+        default: 0
     }
 
 })
 
 
-
 module.exports = mongoose.model('Posts', postSchema)
+
+
