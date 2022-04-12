@@ -16,9 +16,9 @@ const Society = mongoose.model('Society', societySchema)
 
 // General Board
 router.get('/', async (req, res) => {
-    Post.find({}).sort('-date').populate('society').exec((err, result) => {
+    Post.find({}).limit(100).sort('-date').populate('society').exec((err, result) => {
         if (err) {
-            res.send({messasge: 'error'})
+            res.send({ messasge: 'error' })
         }
         res.send(result)
     })
@@ -26,9 +26,9 @@ router.get('/', async (req, res) => {
 
 // Events Board
 router.get('/events', async (req, res) => {
-    Post.find({ isEvent : true }).populate('society').exec((err, result) => {
+    Post.find({ isEvent: true }).populate('society').exec((err, result) => {
         if (err) {
-            res.send({messasge: 'error'})
+            res.send({ messasge: 'error' })
         }
         res.send(result)
     })
@@ -36,16 +36,16 @@ router.get('/events', async (req, res) => {
 
 // Society Board
 router.get('/society/:id', async (req, res) => {
-    Post.find({ society : req.params.id })
-    .sort('-date')
-    .populate('user society')
-    .exec((err, result) => {
-        if (err) {
-            res.send({messasge: 'error'})
-        }
-        res.send(result)
-    })
-    
+    Post.find({ society: req.params.id })
+        .sort('-date')
+        .populate('user society')
+        .exec((err, result) => {
+            if (err) {
+                res.send({ messasge: 'error' })
+            }
+            res.send(result)
+        })
+
 });
 
 module.exports = router
