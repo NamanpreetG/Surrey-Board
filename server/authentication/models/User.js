@@ -5,26 +5,30 @@ const Comments = require('../../posts/models/Comments');
 
 const userSchema = new mongoose.Schema({
     name: {
-        type:String,
-        required:true
+        type: String,
+        required: true
 
     },
 
     email: {
-        type:String,
-        required:true
+        type: String,
+        required: true
     },
 
     password: {
-        type:String,
-        required:true
+        type: String,
+        required: true
 
     },
 
     isAdmin: {
-        type:Boolean,
+        type: Boolean,
         default: false
     },
+    society: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Society"
+    }],
 
     date: {
 
