@@ -61,7 +61,7 @@ router.delete('/delete/:id', async (req, res) => {
 router.post('/follow', async (req, res) => {
     try {
 
-        const check_if_sub = await User.findOne({ _id: req.body.user_id , society: req.body.society_id})
+        const check_if_sub = await User.findOne({ _id: req.body.user_id, society: req.body.society_id })
         if (check_if_sub) return res.send({ message: 'already subscribed' })
 
         const add_to_user = await User.findOneAndUpdate({ _id: req.body.user_id }, { $push: { society: req.body.society_id } })
@@ -75,23 +75,38 @@ router.post('/follow', async (req, res) => {
 
 })
 
+router.get('/mysocieties', async (req, res) => {
+    try {
+
+        const soc = await User.find({ _id: "6255ef6c6c55542b850ef889"}).populate('society').select('society')
+        res.send({ result: soc })
+
+    } catch (error) {
+        console.log(error)
+        res.send({ message : 'error'})
+
+    }
+
+})
+
+
 router.get('/addnewsociety', async (req, res) => {
     try {
 
-        const check = await User.findOne({ _id: '6255ef6c6c55542b850ef889' }).select('society')
+        const check = await User.findOne({ _id: req.body.user_id }).select('society')
         console.log(check)
         var soc_ids = []
         check.society.forEach(element => {
             soc_ids.push(element)
-            
+
         });
 
         console.log(soc_ids);
 
-        const t = await Society.find({ society: { $nin : soc_ids}})
+        const t = await Society.find({ society: { $nin: soc_ids } })
         console.log(t);
 
-       
+
 
     } catch (error) {
         console.log(error)
@@ -104,7 +119,7 @@ router.get('/addnewsociety', async (req, res) => {
 router.post('/unfollow', async (req, res) => {
     try {
 
-        const check_if_sub = await User.findOne({ _id: req.body.user_id , society: req.body.society_id})
+        const check_if_sub = await User.findOne({ _id: req.body.user_id, society: req.body.society_id })
         if (!check_if_sub) return res.send({ message: 'not subscribed' })
 
         const add_to_user = await User.findOneAndUpdate({ _id: req.body.user_id }, { $pull: { society: req.body.society_id } })
