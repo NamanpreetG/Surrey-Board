@@ -35,14 +35,13 @@ router.get('/next', async (req, res) => {
             page_num = null
 
         }
-        res.send({ result: result, previous: req.body.previous + 1, next: page_num })
+        res.send({ result: result, previous: 1 ? !req.body.previous : parseInt(req.body.previous) + 1, next: page_num })
     })
 });
 
 router.get('/previous', async (req, res) => {
 
     const page_num = parseInt(req.query.page) - 1 ? parseInt(req.query.page) > 0 : null
-    const count_val = parseInt(req.query.index)
     const count_val = parseInt(req.query.index)
 
     Post.find({ counter: { $gt: count_val } }).limit(10).sort('counter').populate({
@@ -55,7 +54,7 @@ router.get('/previous', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        res.send({ result: result.reverse(), previous: null ? req.body.previous = 1 : req.body.previous - 1, next: page_num })
+        res.send({ result: result.reverse(), previous: null ? parseInt(req.body.previous) = 1 : parseInt(req.body.previous) - 1, next: page_num })
     })
 });
 
