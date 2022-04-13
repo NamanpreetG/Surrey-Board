@@ -7,7 +7,8 @@ import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
 import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
-import SpecificPost from "./components/SpecificPost/SpecificPost";
+import Settings from "./components/Settings";
+import CreateSociety from "./components/CreateSociety/CreateSociety";
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
@@ -60,60 +61,74 @@ function App() {
             />
             <Route exact path="/register" element={<Register />} />
 
-            {/* authenticated links */}
-            <Route
-              path="/homepage"
-              element={
-                <PrivateRoute>
-                  <Homepage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/EventsBoard"
-              element={
-                <PrivateRoute>
-                  <EventsBoard />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/generalBoard"
-              element={
-                <PrivateRoute>
-                  <GeneralBoard />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/societyBoard"
-              element={
-                <PrivateRoute>
-                  <SocietyBoard />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/createpost"
-              element={
-                <PrivateRoute>
-                  <CreatePost />
-                </PrivateRoute>
-              }
-            />
-               <Route
-              path="/SpecificPost"
-              element={
-                <PrivateRoute>
-                  <SpecificPost />
-                </PrivateRoute>
-              } />
-          </Routes>
-        </div>
-      </LoginContext.Provider>
-    <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-    </>
+          {/* authenticated links */}
+          <Route
+            path="/homepage"
+            element={
+              <PrivateRoute>
+                <Homepage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/educationBoard"
+            element={
+              <PrivateRoute>
+                <EducationBoard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/generalBoard"
+            element={
+              <PrivateRoute>
+                <GeneralBoard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/createsociety"
+            element={
+              <PrivateRoute>
+                <CreateSociety />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/societyBoard"
+            element={
+              <PrivateRoute>
+                <SocietyBoard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/createpost"
+            element={
+              <PrivateRoute>
+                <CreatePost />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/posts"
+            element={
+              <PrivateRoute>
+                <Posts />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </div>
+    </LoginContext.Provider>
   );
 }
 
