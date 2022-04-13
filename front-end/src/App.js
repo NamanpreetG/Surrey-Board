@@ -9,6 +9,7 @@ import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
 import Settings from "./components/Settings";
 import CreateSociety from "./components/CreateSociety/CreateSociety";
+import SpecificPost from "./components/SpecificPost/SpecificPost"
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
@@ -48,8 +49,8 @@ function App() {
   const queryClient = new QueryClient();
 
   return (
-    
-    //<QueryClientProvider client={queryClient}>
+    <>
+    <QueryClientProvider client={queryClient}>
       <LoginContext.Provider value={{ state, dispatch }}>
         <NavBar />
         <div className="content">
@@ -61,32 +62,24 @@ function App() {
             />
             <Route exact path="/register" element={<Register />} />
 
-          {/* authenticated links */}
-          <Route
-            path="/homepage"
-            element={
-              <PrivateRoute>
-                <Homepage />
-              </PrivateRoute>
-            }
-          />
-          {/* <Route
-            path="/educationBoard"
-            element={
-              <PrivateRoute>
-                <EducationBoard />
-              </PrivateRoute>
-            }
-          /> */}
-          <Route
-            path="/generalBoard"
-            element={
-              <PrivateRoute>
-                <GeneralBoard />
-              </PrivateRoute>
-            }
-          />
-          <Route
+            {/* authenticated links */}
+            <Route
+              path="/homepage"
+              element={
+                <PrivateRoute>
+                  <Homepage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/EventsBoard"
+              element={
+                <PrivateRoute>
+                  <EventsBoard />
+                </PrivateRoute>
+              }
+            />
+            <Route
             path="/createsociety"
             element={
               <PrivateRoute>
@@ -94,15 +87,15 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route
-            path="/societyBoard"
-            element={
-              <PrivateRoute>
-                <SocietyBoard />
-              </PrivateRoute>
-            }
-          />
-          <Route
+            <Route
+              path="/GeneralBoard"
+              element={
+                <PrivateRoute>
+                  <GeneralBoard />
+                </PrivateRoute>
+              }
+            />
+            <Route
             path="/settings"
             element={
               <PrivateRoute>
@@ -110,25 +103,28 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route
-            path="/createpost"
-            element={
-              <PrivateRoute>
-                <CreatePost />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/posts"
-            element={
-              <PrivateRoute>
-                <Posts />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-      </div>
-    </LoginContext.Provider>
+            <Route
+              path="/societyBoard"
+              element={
+                <PrivateRoute>
+                  <SocietyBoard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/createpost"
+              element={
+                <PrivateRoute>
+                  <CreatePost />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </div>
+      </LoginContext.Provider>
+    <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+    </>
   );
 }
 
