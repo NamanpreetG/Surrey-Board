@@ -48,8 +48,8 @@ function App() {
   const queryClient = new QueryClient();
 
   return (
-    <>
-    <QueryClientProvider client={queryClient}>
+    
+    //<QueryClientProvider client={queryClient}>
       <LoginContext.Provider value={{ state, dispatch }}>
         <NavBar />
         <div className="content">
@@ -70,14 +70,14 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/educationBoard"
             element={
               <PrivateRoute>
                 <EducationBoard />
               </PrivateRoute>
             }
-          />
+          /> */}
           <Route
             path="/generalBoard"
             element={
