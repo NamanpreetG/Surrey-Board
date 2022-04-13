@@ -3,21 +3,6 @@ const User = require('../models/User');
 const router = require('express').Router()
 
 
-
-router.post('/deelall', async (req, res) =>{
-
-    try {
-        
-        await User.find().remove()
-    } catch (error) {
-        console.log(error);
-        
-    }
-
-
-})
-
-
 // Add new Society
 router.post('/addsociety', async (req, res) => {
     try {
