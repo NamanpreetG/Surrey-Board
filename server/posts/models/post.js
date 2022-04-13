@@ -58,11 +58,18 @@ var Counter = mongoose.model('counter', CounterSchema);
 
 postSchema.pre('save', async function (next) {
     var doc = this;
-    const c = await Counter.findOneAndUpdate({}, { $inc: { seq: 1 } })
-    console.log(c.seq)
-    doc.counter = c.seq
-    doc.title = c.seq + 1 + ' ' + doc.title
-    next()
+    try {
+        const c = await Counter.findOneAndUpdate({}, { $inc: { seq: 1 } })
+        console.log(c.seq)
+        doc.counter = c.seq
+        doc.title = c.seq + 1 + ' ' + doc.title
+        next()
+        
+    } catch (error) {
+        doc.counter = 10000
+        next(error)
+        
+    }
 });
 
 module.exports = mongoose.model('Posts', postSchema)

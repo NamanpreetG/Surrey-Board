@@ -92,7 +92,7 @@ router.get('/', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        res.send({ result: result, previous: null, next: 2 })
+        res.send({ result: result, previous: 0, next: 2 })
     })
 });
 
