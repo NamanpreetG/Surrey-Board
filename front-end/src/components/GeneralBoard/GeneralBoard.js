@@ -4,10 +4,10 @@ import { LoginContext, loginContext } from "../../App";
 import SinglePost from "../Posts/SinglePost";
 import { useQuery } from "react-query";
 import { Button } from "react-bootstrap";
+import "./GeneralBoard.css"
 
 async function fetchPosts(countPage, page, index) {
   let url = `http://localhost:3006/showpost/${countPage}?page=${page}&index=${index}`;
-  console.log(url);
   const res = await fetch(url);
   return res.json();
 }
@@ -18,10 +18,8 @@ function GeneralBoard() {
   const [countPage, setCountPage] = useState("");
   const [page, setPage] = useState(1);
   const [index, setIndex] = useState(0);
-  const [previousButtonState, setPreviousButtonState] = useState(true);
-  const [nextButtonState, setNextButtonState] = useState(false);
 
-  const { isLoading, data, isError, error, isPreviousData } = useQuery(
+  const { isLoading, data, isError, error } = useQuery(
     ["posts", countPage, page, index],
     () => fetchPosts(countPage, page, index),
     {
@@ -29,9 +27,12 @@ function GeneralBoard() {
       staleTime: 5000,
     }
   );
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+
+  // used for debugging
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
+
   if (isError) {
     return <h2>{error.message}</h2>;
   }
@@ -44,7 +45,7 @@ function GeneralBoard() {
 
   const nextPage = () => {
     setCountPage("next");
-    setPage((old) => (!data.result || !data.next ? old : old + 1));
+    setPage((old) => (!data.result || data.next === 0 ? old : old + 1));
     setIndex(data.result.at(-1).counter);
   };
 
@@ -55,16 +56,6 @@ function GeneralBoard() {
         <div>Fetching data...</div>
       ) : (
         <>
-          <Button disabled={page === 1} onClick={() => previousPage()}>
-            Previous Page
-          </Button>
-          <span>{page}</span>
-          <Button
-            disabled={!data.result || !data.next}
-            onClick={() => nextPage()}
-          >
-            Next Page
-          </Button>
           <div>
             {data.result &&
               data.result.map((r) => (
@@ -77,6 +68,15 @@ function GeneralBoard() {
                   username={r.user.name}
                 />
               ))}
+          </div>
+          <div id="pagination-buttons">
+            <Button disabled={page === 1} onClick={() => previousPage()}>
+              Previous Page
+            </Button>
+            <span><b>{` ${page} `}</b></span>
+            <Button disabled={data.next === 0} onClick={() => nextPage()}>
+              Next Page
+            </Button>
           </div>
         </>
       )}
