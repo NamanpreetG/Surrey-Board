@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
         res.send({ post: newPost, message: 'post added' })
 
     } catch (e) {
-        res.send({ message: 'error' })
+        res.send({ message: 'Invalid Post' })
         console.log(e)
     }
 });

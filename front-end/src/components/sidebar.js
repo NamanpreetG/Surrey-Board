@@ -8,17 +8,14 @@ import './sidebar.css';
 export default props => {
   return (
     <Menu>
-      <a className="menu-item" href="GeneralBoard">
+      <a className="menu-item" href="/GeneralBoard">
         General Board
       </a>
-      <a className="menu-item" href="/EducationBoard">
-        Education Board
+      <a className="menu-item" href="/EventsBoard">
+        Events Board
       </a>
       <a className="menu-item" href="/SocietyBoard">
         Society Board
-      </a>
-      <a className="menu-item" href="/Settings">
-        Settings
       </a>
     </Menu>
   );

@@ -2,12 +2,12 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext, loginContext } from "../../App";
 import SinglePost from "../Posts/SinglePost";
-import { useQuery, prefetchQuery } from "react-query";
+import { useQuery } from "react-query";
 import { Button } from "react-bootstrap";
-import "./GeneralBoard.css";
 
 async function fetchPosts(countPage, page, index) {
-  let url = `http://localhost:3006/showpost/${countPage}?page=${page}&index=${index}`;
+  console.log(countPage, page, index);
+  let url = `http://localhost:3006/showpost/events/${countPage}?page=${page}&index=${index}`;
   const res = await fetch(url);
   return res.json();
 }
@@ -27,6 +27,11 @@ function GeneralBoard() {
       staleTime: 5000,
     }
   );
+
+  // used for debugging
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
   if (isError) {
     return <h2>{error.message}</h2>;
@@ -53,7 +58,7 @@ function GeneralBoard() {
         <>
           <div>
             <br />
-            <h1 id="title">General Board</h1>
+            <h1 id="title">Events Board</h1>
             <br />
             {data.result &&
               data.result.map((r) => (
@@ -63,7 +68,7 @@ function GeneralBoard() {
                   description={r.content}
                   date={r.date}
                   likes={r.likes}
-                  //username={r.user.name}
+                  username={r.user.name}
                 />
               ))}
           </div>
@@ -85,4 +90,3 @@ function GeneralBoard() {
 }
 
 export default GeneralBoard;
-

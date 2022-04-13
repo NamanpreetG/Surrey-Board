@@ -1,11 +1,21 @@
 import React from "react";
 import { useContext, useEffect } from "react";
-import { LoginContext } from "../App";
+import { LoginContext} from "../App";
 
 function Settings() {
-  const { state, dispatch } = useContext(LoginContext);
+  const [user, setUser] = useContext(LoginContext);
 
-  return <div>{state.user ? "Settings, Write your enquires" : null}</div>;
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      console.log("is logged in");
+      setUser(loggedInUser);
+    }
+  }, []);
+  return (
+    <div>
+      Settings, Write your enquiries
+    </div>);
 }
 
 export default Settings;

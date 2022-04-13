@@ -2,16 +2,20 @@ import NavBar from "./components/NavBar";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Homepage from "./components/Homepage/Homepage";
-import EducationBoard from "./components/EducationBoard/EducationBoard";
+import EventsBoard from "./components/EventsBoard/EventsBoard";
 import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
 import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
 import Settings from "./components/Settings";
+import CreateSociety from "./components/CreateSociety/CreateSociety";
+import SpecificPost from "./components/SpecificPost/SpecificPost"
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 export const LoginContext = createContext();
 
@@ -42,52 +46,56 @@ const reducer = (state, action) => {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  return (
-    <LoginContext.Provider value={{ state, dispatch }}>
-      <NavBar />
-      <div className="content">
-        <Routes>
-          <Route
-            path="/"
-            exact
-            element={state.user ? <Homepage /> : <Login />}
-          />
-          <Route exact path="/register" element={<Register />} />
+  const queryClient = new QueryClient();
 
-          {/* authenticated links */}
-          <Route
-            path="/homepage"
+  return (
+    <>
+    <QueryClientProvider client={queryClient}>
+      <LoginContext.Provider value={{ state, dispatch }}>
+        <NavBar />
+        <div className="content">
+          <Routes>
+            <Route
+              path="/"
+              exact
+              element={state.user ? <Homepage /> : <Login />}
+            />
+            <Route exact path="/register" element={<Register />} />
+
+            {/* authenticated links */}
+            <Route
+              path="/homepage"
+              element={
+                <PrivateRoute>
+                  <Homepage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/EventsBoard"
+              element={
+                <PrivateRoute>
+                  <EventsBoard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+            path="/createsociety"
             element={
               <PrivateRoute>
-                <Homepage />
+                <CreateSociety />
               </PrivateRoute>
             }
           />
-          <Route
-            path="/educationBoard"
-            element={
-              <PrivateRoute>
-                <EducationBoard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/generalBoard"
-            element={
-              <PrivateRoute>
-                <GeneralBoard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/societyBoard"
-            element={
-              <PrivateRoute>
-                <SocietyBoard />
-              </PrivateRoute>
-            }
-          />
-          <Route
+            <Route
+              path="/GeneralBoard"
+              element={
+                <PrivateRoute>
+                  <GeneralBoard />
+                </PrivateRoute>
+              }
+            />
+            <Route
             path="/settings"
             element={
               <PrivateRoute>
@@ -95,25 +103,28 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route
-            path="/createpost"
-            element={
-              <PrivateRoute>
-                <CreatePost />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/posts"
-            element={
-              <PrivateRoute>
-                <Posts />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-      </div>
-    </LoginContext.Provider>
+            <Route
+              path="/societyBoard"
+              element={
+                <PrivateRoute>
+                  <SocietyBoard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/createpost"
+              element={
+                <PrivateRoute>
+                  <CreatePost />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </div>
+      </LoginContext.Provider>
+    <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+    </>
   );
 }
 

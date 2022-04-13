@@ -22,7 +22,7 @@ function Login() {
     setShow(false);
     const userDetails = { email: email, password: password };
     const res = await Axios.post("http://localhost:3005/auth/login", userDetails);
-    if (res.request.status === 200 && res.data.message == 'success') {
+    if (res.request.status === 200 && res.data.message === 'success') {
       dispatch({
         type: "LOGIN",
         payload: res.data.user
