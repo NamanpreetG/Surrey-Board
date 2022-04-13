@@ -53,17 +53,17 @@ function CreatePost() {
       setShow(true);
     }
   };
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const user_id = "6255ef6c6c55542b850ef889";
-      const res = await Axios.get("http://localhost:3007/society/mysocieties", {
-        {user_id},
-      });
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     const user_id = "6255ef6c6c55542b850ef889";
+  //     const res = await Axios.get("http://localhost:3007/society/mysocieties", {
+  //       {user_id},
+  //     });
 
-      console.log(res);
-    };
-    fetchPosts();
-  }, []);
+  //     console.log(res);
+  //   };
+  //   fetchPosts();
+  // }, []);
 
   return (
     <Container fluid="lg">
