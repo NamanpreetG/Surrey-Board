@@ -21,7 +21,7 @@ router.get('/next', async (req, res) => {
     var page_num = parseInt(req.query.page) + 1
     const count_val = parseInt(req.query.index)
 
-    Post.find({ counter: { $lt: count_val } }).limit(10).sort('-date').populate({
+    Post.find({ counter: { $lt: count_val } }).limit(10).sort('-counter').populate({
 
         model: 'User',
         path: 'user',
@@ -33,8 +33,9 @@ router.get('/next', async (req, res) => {
         }
         else if (result.length === 0) {
             page_num = null
+
         }
-        res.send({ result: result, next: page_num })
+        res.send({ result: result, previous: req.body.previous + 1, next: page_num })
     })
 });
 
@@ -42,8 +43,9 @@ router.get('/previous', async (req, res) => {
 
     const page_num = parseInt(req.query.page) - 1 ? parseInt(req.query.page) > 0 : null
     const count_val = parseInt(req.query.index)
+    const count_val = parseInt(req.query.index)
 
-    Post.find({ counter: { $gt: count_val } }).limit(10).sort('date').populate({
+    Post.find({ counter: { $gt: count_val } }).limit(10).sort('counter').populate({
 
         model: 'User',
         path: 'user',
@@ -53,15 +55,15 @@ router.get('/previous', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        res.send({ result: result.reverse(), next: page_num })
+        res.send({ result: result.reverse(), previous: null ? req.body.previous = 1 : req.body.previous - 1, next: page_num })
     })
 });
 
 // General Board
 router.get('/', async (req, res) => {
 
-    
-    Post.find({}).limit(10).sort('-date').populate({
+
+    Post.find({}).limit(10).sort('-counter').populate({
 
         model: 'User',
         path: 'user',
@@ -71,7 +73,7 @@ router.get('/', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        res.send({ result: result, next: 2 })
+        res.send({ result: result, previous: null, next: 2 })
     })
 });
 
