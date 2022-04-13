@@ -66,7 +66,7 @@ function GeneralBoard() {
                   description={r.content}
                   date={r.date}
                   likes={r.likes}
-                  username={r.user.name}
+                  //username={r.user.name}
                 />
               ))}
           </div>
@@ -88,3 +88,4 @@ function GeneralBoard() {
 }
 
 export default GeneralBoard;
+

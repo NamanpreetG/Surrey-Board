@@ -7,6 +7,9 @@ import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
 import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
+import Settings from "./components/Settings";
+import CreateSociety from "./components/CreateSociety/CreateSociety";
+import SpecificPost from "./components/SpecificPost/SpecificPost"
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
@@ -77,13 +80,29 @@ function App() {
               }
             />
             <Route
-              path="/generalBoard"
+            path="/createsociety"
+            element={
+              <PrivateRoute>
+                <CreateSociety />
+              </PrivateRoute>
+            }
+          />
+            <Route
+              path="/GeneralBoard"
               element={
                 <PrivateRoute>
                   <GeneralBoard />
                 </PrivateRoute>
               }
             />
+            <Route
+            path="/settings"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
+            }
+          />
             <Route
               path="/societyBoard"
               element={

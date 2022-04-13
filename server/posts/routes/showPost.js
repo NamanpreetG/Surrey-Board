@@ -35,7 +35,8 @@ router.get('/next', async (req, res) => {
 
     }).populate('society').exec((err, result) => {
         if (err) {
-            res.send({ message: 'error' })
+            res.send({ messasge: 'error' })
+            console.log(err)
         }
         else if (result.length === 0) {
             page_num = 0
@@ -90,7 +91,8 @@ router.get('/', async (req, res) => {
 
     }).populate('society').exec((err, result) => {
         if (err) {
-            res.send({ message: 'error' })
+            res.send({ messasge: 'error' })
+            console.log(err)
         }
         res.send({ result: result, previous: 0, next: 2 })
     })

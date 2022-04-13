@@ -1,7 +1,6 @@
-const Society = require('../models/Society');
+const Society = require('../models/society');
 const User = require('../models/User');
 const router = require('express').Router()
-
 
 
 // Add new Society
@@ -29,13 +28,16 @@ router.post('/addsociety', async (req, res) => {
 
 // Show all societies
 router.get('/showall', async (req, res) => {
-    try {
-        const soc = await Society.find()
-        res.send(soc)
-    } catch (error) {
-        console.log(error)
-        res.send({ message: 'cant get societies' })
-    }
+    Society.find({})
+        .sort('-date')
+        .exec((err, result) => {
+            if (err) {
+
+                console.log(err)
+            }
+            res.send(result)
+            console.log(result)
+        })
 });
 
 
@@ -77,43 +79,13 @@ router.post('/follow', async (req, res) => {
 
 router.post('/mysocieties', async (req, res) => {
     try {
+        const soc = await User.find({ _id: req.body.user_id}).populate('society').select('society')
 
-
-        const soc = await User.find( {_id  : req.body.user_id} ).populate('society').select('society')
-       
-        console.log("user_id is: " + req.body.user_id)
         res.send({ result: soc })
 
     } catch (error) {
         console.log(error)
-        res.send({ message : 'error'})
-
-    }
-
-})
-
-
-router.get('/addnewsociety', async (req, res) => {
-    try {
-
-        const check = await User.findOne({ _id: req.body.user_id }).select('society')
-        console.log(check)
-        var soc_ids = []
-        check.society.forEach(element => {
-            soc_ids.push(element)
-
-        });
-
-        console.log(soc_ids);
-
-        const t = await Society.find({ society: { $nin: soc_ids } })
-        console.log(t);
-
-
-
-    } catch (error) {
-        console.log(error)
-        res.send({ message: "error" })
+        res.send({ message: 'error' })
 
     }
 
