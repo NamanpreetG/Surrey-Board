@@ -40,7 +40,7 @@ router.get('/next', async (req, res) => {
 
 router.get('/previous', async (req, res) => {
 
-    const page_num = parseInt(req.query.page) - 1
+    const page_num = parseInt(req.query.page) - 1 ? parseInt(req.query.page) > 0 : null
     const count_val = parseInt(req.query.index)
 
     Post.find({ counter: { $gt: count_val } }).limit(10).sort('date').populate({
@@ -60,6 +60,7 @@ router.get('/previous', async (req, res) => {
 // General Board
 router.get('/', async (req, res) => {
 
+    
     Post.find({}).limit(10).sort('-date').populate({
 
         model: 'User',
