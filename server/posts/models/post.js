@@ -14,7 +14,7 @@ const postSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
-        min: 15
+        min: 5
     },
 
     date: {
@@ -26,29 +26,61 @@ const postSchema = new mongoose.Schema({
     likes: {
 
         type: Number,
-        immutable: true,
         default: 0
     },
 
-    society_id: {
+    isEvent: {
+        type: Boolean,
+        default: false
+    }
+    ,
+    society: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Society"
     },
 
-    user_id: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    
-    comments: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comments"
-    }]
-
-
+    counter: {
+        type: Number,
+        default: 0
+    }
 
 })
 
+var CounterSchema = new mongoose.Schema({
+    _id: { type: String, required: true },
+    seq: { type: Number, default: 0 }
+});
+var Counter = mongoose.model('counter', CounterSchema);
 
+postSchema.pre('save', async function (next) {
+    var doc = this;
+    try {
+        const c = await Counter.findOneAndUpdate({}, { $inc: { seq: 1 } })
+        console.log(c.seq)
+        doc.counter = c.seq
+        doc.title = c.seq + 1 + ' ' + doc.title
+        next()
+        
+    } catch (error) {
+        doc.counter = 10000
+        next(error)
+        
+    }
+});
 
 module.exports = mongoose.model('Posts', postSchema)
+
+
+// .exec((error, counter) => {
+//     console.log('THIS IS THE COUNTER ' + counter);
+//     if (error) {
+//         console.log(error)
+//         return next(error);
+//     }
+//     doc.counter = counter.seq;
+//     next();
+// });

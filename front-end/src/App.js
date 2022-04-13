@@ -5,20 +5,14 @@ import Homepage from "./components/Homepage/Homepage";
 import EducationBoard from "./components/EventsBoard/EventsBoard";
 import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
 import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
-import CreatePost from "./components/CreatePost/CreatePost"
+import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
 import Settings from "./components/Settings";
 import PostPage from "./components/SpecificPost/PostPage";
 
 
 import { Route, Routes, useNavigate } from "react-router-dom";
-import {
-  useEffect,
-  useContext,
-  useState,
-  useReducer,
-  createContext,
-} from "react";
+import { useReducer, createContext } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
 
 export const LoginContext = createContext();
@@ -30,7 +24,9 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
-      localStorage.setItem("user", JSON.stringify(action.payload));
+      if (!localStorage.getItem("user")) {
+        localStorage.setItem("user", JSON.stringify(action.payload));
+      }
       return {
         user: action.payload,
       };
@@ -47,16 +43,6 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || null);
-    if (user) {
-      dispatch({
-        type: "LOGIN",
-        payload: user,
-      });
-    }
-  }, []);
 
   return (
     <LoginContext.Provider value={{ state, dispatch }}>

@@ -21,17 +21,12 @@ function Login() {
     e.preventDefault();
     setShow(false);
     const userDetails = { email: email, password: password };
-    const res = await Axios.post("http://localhost:3005/login", userDetails);
-    if (res.request.status === 200 && res.data[0]) {
-      console.log(res.data[0])
-      
+    const res = await Axios.post("http://localhost:3005/auth/login", userDetails);
+    if (res.request.status === 200 && res.data.message == 'success') {
       dispatch({
         type: "LOGIN",
-        payload: res.data[0]
+        payload: res.data.user
       })
-      // console.log(res.data[0]);
-      // setUserDetails(res.data[0]);
-      // localStorage.setItem("user", res.data[0]);
       navigate("/homepage");
     } else {
       setError(res.data.message);
