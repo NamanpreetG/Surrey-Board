@@ -98,7 +98,7 @@ router.get('/', async (req, res) => {
 
 // Events Board
 router.get('/events', async (req, res) => {
-    Post.find({ isEvent: true }).populate({
+    Post.find({ isEvent: true }).limit(10).populate({
 
         model: 'User',
         path: 'user',
