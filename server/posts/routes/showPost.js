@@ -2,7 +2,6 @@ const Post = require('../models/post')
 const Comments = require('../models/Comments')
 const router = require('express').Router()
 const mongoose = require('mongoose')
-const { response } = require('express')
 
 
 const societySchema = new mongoose.Schema({
@@ -18,7 +17,23 @@ const Society = mongoose.model('Society', societySchema)
 
 router.get('/next', async (req, res) => {
 
-    var page_num = parseInt(req.query.page) + 1
+
+    var page_num = parseInt(req.query.page)
+    var prev_val = parseInt(req.query.page)
+
+    if(parseInt(req.query.page) > 1){
+
+        page_num +=  1
+        prev_val += 1
+
+
+    }else{
+
+        page_num = 2
+        prev_val = 0
+
+    }
+    
     const count_val = parseInt(req.query.index)
 
     Post.find({ counter: { $lt: count_val } }).limit(10).sort('-counter').populate({
@@ -35,15 +50,21 @@ router.get('/next', async (req, res) => {
             page_num = null
 
         }
-        res.send({ result: result, previous: 1 ? !req.body.previous : parseInt(req.body.previous) + 1, next: page_num })
+        res.send({ result: result, previous: prev_val, next: page_num })
     })
 });
 
 router.get('/previous', async (req, res) => {
 
-    const page_num = parseInt(req.query.page) - 1 ? parseInt(req.query.page) > 0 : null
+    var page_num = 2
+    if(req.query.page > 1){
+        page_num += 1
+    }
+    
     const count_val = parseInt(req.query.index)
+    var prev_val = null ? req.query.page = 1 : req.query.page - 1
 
+    console.log(req.query.page - 1)
     Post.find({ counter: { $gt: count_val } }).limit(10).sort('counter').populate({
 
         model: 'User',
@@ -54,7 +75,7 @@ router.get('/previous', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        res.send({ result: result.reverse(), previous: null ? parseInt(req.body.previous) = 1 : parseInt(req.body.previous) - 1, next: page_num })
+        res.send({ result: result.reverse(), previous: null ? prev_val == 0 : prev_val, next: page_num })
     })
 });
 
