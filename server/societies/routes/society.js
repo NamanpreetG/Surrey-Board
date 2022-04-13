@@ -78,7 +78,7 @@ router.post('/follow', async (req, res) => {
 router.get('/mysocieties', async (req, res) => {
     try {
 
-        const soc = await User.find({ _id: "6255ef6c6c55542b850ef889"}).populate('society').select('society')
+        const soc = await User.find({ _id: req.body.user_id}).populate('society').select('society')
         res.send({ result: soc })
 
     } catch (error) {
