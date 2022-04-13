@@ -4,10 +4,11 @@ import { LoginContext, loginContext } from "../../App";
 
 function Homepage() {
   const {state, dispatch} = useContext(LoginContext)
+  const user = JSON.parse(localStorage.getItem("user"))
 
   return (
     <div>
-      {state.user ? "Homepage" : null}
+      {user ? "Homepage" : null}
     </div>);
 }
 

@@ -2,7 +2,7 @@ import NavBar from "./components/NavBar";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Homepage from "./components/Homepage/Homepage";
-import EducationBoard from "./components/EducationBoard/EducationBoard";
+import EventsBoard from "./components/EventsBoard/EventsBoard";
 import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
 import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import CreatePost from "./components/CreatePost/CreatePost";
@@ -13,6 +13,8 @@ import CreateSociety from "./components/CreateSociety/CreateSociety";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 export const LoginContext = createContext();
 
@@ -43,17 +45,21 @@ const reducer = (state, action) => {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const queryClient = new QueryClient();
+
   return (
-    <LoginContext.Provider value={{ state, dispatch }}>
-      <NavBar />
-      <div className="content">
-        <Routes>
-          <Route
-            path="/"
-            exact
-            element={state.user ? <Homepage /> : <Login />}
-          />
-          <Route exact path="/register" element={<Register />} />
+    <>
+    <QueryClientProvider client={queryClient}>
+      <LoginContext.Provider value={{ state, dispatch }}>
+        <NavBar />
+        <div className="content">
+          <Routes>
+            <Route
+              path="/"
+              exact
+              element={state.user ? <Homepage /> : <Login />}
+            />
+            <Route exact path="/register" element={<Register />} />
 
           {/* authenticated links */}
           <Route
