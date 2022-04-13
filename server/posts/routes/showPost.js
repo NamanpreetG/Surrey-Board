@@ -56,7 +56,6 @@ router.get('/previous', async (req, res) => {
     }
 
     const count_val = parseInt(req.query.index)
-    var prev_val = null ? req.query.page = 1 : req.query.page - 1
 
     console.log(req.query.page - 1)
     Post.find({ counter: { $gt: count_val } }).limit(10).sort('counter').populate({
