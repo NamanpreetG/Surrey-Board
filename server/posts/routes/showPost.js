@@ -18,22 +18,13 @@ const Society = mongoose.model('Society', societySchema)
 router.get('/next', async (req, res) => {
 
 
-    var page_num = parseInt(req.query.page)
-    var prev_val = parseInt(req.query.page)
+    var page_num = 2
 
-    if(parseInt(req.query.page) > 1){
+    if (parseInt(req.query.page) >= 1) {
 
-        page_num +=  1
-        prev_val += 1
-
-
-    }else{
-
-        page_num = 2
-        prev_val = 0
-
+        page_num = parseInt(req.query.page) + 1
     }
-    
+
     const count_val = parseInt(req.query.index)
 
     Post.find({ counter: { $lt: count_val } }).limit(10).sort('-counter').populate({
@@ -50,17 +41,20 @@ router.get('/next', async (req, res) => {
             page_num = null
 
         }
-        res.send({ result: result, previous: prev_val, next: page_num })
+        res.send({ result: result, previous: page_num - 2, next: page_num })
     })
 });
 
 router.get('/previous', async (req, res) => {
 
     var page_num = 2
-    if(req.query.page > 1){
-        page_num += 1
+
+    if (parseInt(req.query.page) > 1) {
+
+        page_num = parseInt(req.query.page) - 1
+
     }
-    
+
     const count_val = parseInt(req.query.index)
     var prev_val = null ? req.query.page = 1 : req.query.page - 1
 
@@ -75,7 +69,7 @@ router.get('/previous', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        res.send({ result: result.reverse(), previous: null ? prev_val == 0 : prev_val, next: page_num })
+        res.send({ result: result.reverse(), previous: page_num - 2, next: page_num })
     })
 });
 
