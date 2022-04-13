@@ -24,9 +24,9 @@ function CreatePost() {
   const [postEvent, setEvent] = useState(Boolean);
   const [error, setError] = useState();
   const [show, setShow] = useState(false);
+  const [returnData, setReturnData] = useState();
   const user_id = user_values._id;
   const navigate = useNavigate();
-  console.log(user_id);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,24 +46,36 @@ function CreatePost() {
     const res = await Axios.post("http://localhost:3006/post", post);
     console.log(res.data.message);
     console.log(post.society);
-    if (res.data.message == "post added") {
+    if (res.data.message === "post added") {
       navigate("/homepage");
     } else {
       setError(res.data.message);
       setShow(true);
     }
   };
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     const user_id = "6255ef6c6c55542b850ef889";
-  //     const res = await Axios.get("http://localhost:3007/society/mysocieties", {
-  //       {user_id},
-  //     });
+  useEffect(() => {
+    
+      // console.log(user_id)
+      // Axios.get('http://localhost:3007/society/mysocieties', {
+      //   params: {
+      //     user_id: "6257075ceea7b1a32c170006"
+      //   }
+      // })
+      // .then(function(res) {
+      //   console.log(res);
+      // })
 
-  //     console.log(res);
-  //   };
-  //   fetchPosts();
-  // }, []);
+      Axios.post('http://localhost:3007/society/mysocieties', {
+        
+          user_id: "6257075ceea7b1a32c170006"
+        
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      
+
+  }, []);
 
   return (
     <Container fluid="lg">
