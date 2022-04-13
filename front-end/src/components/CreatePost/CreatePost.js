@@ -10,7 +10,8 @@ import {
     Row,
     Col,
     Card,
-    Dropdown
+    Dropdown,
+    Alert
 } from "react-bootstrap";
 
 
@@ -20,10 +21,13 @@ function CreatePost() {
     const [Society, getSociety] = useState([]);
     const [postSociety, setSociety] = useState("");
     const [postEvent, setEvent] = useState(Boolean)
+    const [error, setError] = useState();
+    const [show, setShow] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setShow(false);
         const post = {
             title: postTitle,
             content: postContent,
@@ -37,7 +41,8 @@ function CreatePost() {
         if (res.data.message == 'post added') {
             navigate("/homepage");
         } else {
-            // TODO: add validation for if request comes back bad
+            setError(res.data.message);
+            setShow(true);
         }
 
     };
@@ -54,6 +59,11 @@ function CreatePost() {
             <br />
             <Form onSubmit={handleSubmit}>
                 <h1 className="center-text">New Post</h1>
+                {show && (
+                    <Alert onClose={() => setShow(false)} variant="danger" dismissible>
+                        <Alert.Heading>{error}</Alert.Heading>
+                    </Alert>
+                )}
                 <Card className="card-padding">
                     <Row>
                         <Card.Body>
@@ -101,6 +111,7 @@ function CreatePost() {
                                                 <option key={key} value={value._id} >{value.name}</option>
                                             )
                                         })}
+                                        <option >Select</option>
                                     </select>
                                 </div>
                             </Form.Group>
@@ -118,7 +129,7 @@ function CreatePost() {
                                             setEvent(e.target.checked);
 
                                         }}
-                                    /> 
+                                    />
                                 </div>
                             </Form.Group>
                         </Card.Body>
