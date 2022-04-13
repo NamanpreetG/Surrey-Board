@@ -1,7 +1,6 @@
-const Society = require('../models/Society');
+const Society = require('../models/society');
 const User = require('../models/User');
 const router = require('express').Router()
-
 
 
 // Add new Society
@@ -29,13 +28,16 @@ router.post('/addsociety', async (req, res) => {
 
 // Show all societies
 router.get('/showall', async (req, res) => {
-    try {
-        const soc = await Society.find()
-        res.send(soc)
-    } catch (error) {
-        console.log(error)
-        res.send({ message: 'cant get societies' })
-    }
+    Society.find({})
+        .sort('-date')
+        .exec((err, result) => {
+            if (err) {
+
+                console.log(err)
+            }
+            res.send(result)
+            console.log(result)
+        })
 });
 
 
@@ -61,7 +63,7 @@ router.delete('/delete/:id', async (req, res) => {
 router.post('/follow', async (req, res) => {
     try {
 
-        const check_if_sub = await User.findOne({ _id: req.body.user_id , society: req.body.society_id})
+        const check_if_sub = await User.findOne({ _id: req.body.user_id, society: req.body.society_id })
         if (check_if_sub) return res.send({ message: 'already subscribed' })
 
         const add_to_user = await User.findOneAndUpdate({ _id: req.body.user_id }, { $push: { society: req.body.society_id } })
@@ -75,27 +77,15 @@ router.post('/follow', async (req, res) => {
 
 })
 
-router.get('/addnewsociety', async (req, res) => {
+router.get('/mysocieties', async (req, res) => {
     try {
+        const soc = await User.find({ _id: req.body.user_id}).populate('society').select('society')
 
-        const check = await User.findOne({ _id: '6255ef6c6c55542b850ef889' }).select('society')
-        console.log(check)
-        var soc_ids = []
-        check.society.forEach(element => {
-            soc_ids.push(element)
-            
-        });
-
-        console.log(soc_ids);
-
-        const t = await Society.find({ society: { $nin : soc_ids}})
-        console.log(t);
-
-       
+        res.send({ result: soc })
 
     } catch (error) {
         console.log(error)
-        res.send({ message: "error" })
+        res.send({ message: 'error' })
 
     }
 
@@ -104,7 +94,7 @@ router.get('/addnewsociety', async (req, res) => {
 router.post('/unfollow', async (req, res) => {
     try {
 
-        const check_if_sub = await User.findOne({ _id: req.body.user_id , society: req.body.society_id})
+        const check_if_sub = await User.findOne({ _id: req.body.user_id, society: req.body.society_id })
         if (!check_if_sub) return res.send({ message: 'not subscribed' })
 
         const add_to_user = await User.findOneAndUpdate({ _id: req.body.user_id }, { $pull: { society: req.body.society_id } })

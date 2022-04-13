@@ -2,6 +2,21 @@ const mongoose = require('mongoose')
 const Post = require('../models/post')
 const router = require('express').Router()
 
+
+router.post('/assigntemp', async (req, res)=>{
+
+    try {
+
+        const s = await Post.find().update({ user : '6257075ceea7b1a32c170006'})
+        console.log(s);
+
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+})
+
 router.post('/', async (req, res) => {
 
     const post = new Post({
@@ -14,11 +29,11 @@ router.post('/', async (req, res) => {
     try {
         const newPost = await post.save()
 
-        console.log('Post Submitted')
+        // console.log('Post Submitted')
         res.send({ post: newPost, message: 'post added' })
 
     } catch (e) {
-        res.send({ message: 'error' })
+        res.send({ message: 'Invalid Post' })
         console.log(e)
     }
 });

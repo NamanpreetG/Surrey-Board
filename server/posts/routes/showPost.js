@@ -35,7 +35,8 @@ router.get('/next', async (req, res) => {
 
     }).populate('society').exec((err, result) => {
         if (err) {
-            res.send({ message: 'error' })
+            res.send({ messasge: 'error' })
+            console.log(err)
         }
         else if (result.length === 0) {
             page_num = 0
@@ -90,7 +91,8 @@ router.get('/', async (req, res) => {
 
     }).populate('society').exec((err, result) => {
         if (err) {
-            res.send({ message: 'error' })
+            res.send({ messasge: 'error' })
+            console.log(err)
         }
         res.send({ result: result, previous: 0, next: 2 })
     })
@@ -98,7 +100,7 @@ router.get('/', async (req, res) => {
 
 // Events Board
 router.get('/events', async (req, res) => {
-    Post.find({ isEvent: true }).populate({
+    Post.find({ isEvent: true }).limit(10).populate({
 
         model: 'User',
         path: 'user',
