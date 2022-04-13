@@ -3,7 +3,6 @@ const User = require('../models/User');
 const router = require('express').Router()
 
 
-
 // Add new Society
 router.post('/addsociety', async (req, res) => {
     try {
@@ -80,40 +79,13 @@ router.post('/follow', async (req, res) => {
 
 router.get('/mysocieties', async (req, res) => {
     try {
+        const soc = await User.find({ _id: req.body.user_id}).populate('society').select('society')
 
-        const soc = await User.find({ _id: req.body.user_id }).populate('society').select('society')
         res.send({ result: soc })
 
     } catch (error) {
         console.log(error)
         res.send({ message: 'error' })
-
-    }
-
-})
-
-
-router.get('/addnewsociety', async (req, res) => {
-    try {
-
-        const check = await User.findOne({ _id: req.body.user_id }).select('society')
-        console.log(check)
-        var soc_ids = []
-        check.society.forEach(element => {
-            soc_ids.push(element)
-
-        });
-
-        console.log(soc_ids);
-
-        const t = await Society.find({ society: { $nin: soc_ids } })
-        console.log(t);
-
-
-
-    } catch (error) {
-        console.log(error)
-        res.send({ message: "error" })
 
     }
 
