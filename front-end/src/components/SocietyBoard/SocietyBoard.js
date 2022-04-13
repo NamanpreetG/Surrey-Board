@@ -58,6 +58,7 @@ What are some examples you've noticed? </p></div>
 function Posts() {
   const [postList, setPostList] = useState([]);
   const [commentsList, setComments] = useState([]);
+  const user = JSON.parse(localStorage.getItem("user"));
  
   useEffect(() => {
       Axios.get("http://localhost:3007/society/showall").then((data) => {
@@ -69,6 +70,7 @@ function Posts() {
 
   return (
       <Container fluid="lg">
+          {user ? "society Board, Write your enquires " : null}
           <div className="center-text">
               {postList.map((val, key) => {
                   return (

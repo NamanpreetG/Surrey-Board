@@ -16,6 +16,9 @@ import { useReducer, createContext } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools'
+import FollowSociety from "./components/SocietyBoard/FollowSociety";
+
+
 
 export const LoginContext = createContext();
 
@@ -116,6 +119,23 @@ function App() {
               element={
                 <PrivateRoute>
                   <CreatePost />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/specificPost"
+              element={
+                <PrivateRoute>
+                  <SpecificPost />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/followSociety"
+              element={
+                <PrivateRoute>
+                  <FollowSociety />
                 </PrivateRoute>
               }
             />

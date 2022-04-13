@@ -7,14 +7,16 @@ import  returnData  from "./exampledb.json";
 function SpecificPost({ title, description, date, username, likes, tag, comment }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const formatYmd = date => date.toISOString().slice(0, 10);
-console.log(returnData);
+
+  
+
+  console.log(returnData);
   return (
       
     <>
 <Card> 
   <Card.Body className = "md-5">
   
-
   <Card> 
   <Card.Body className = "md-5">
   
