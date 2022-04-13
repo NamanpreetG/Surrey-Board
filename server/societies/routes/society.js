@@ -93,7 +93,7 @@ router.get('/mysocieties', async (req, res) => {
 router.get('/addnewsociety', async (req, res) => {
     try {
 
-        const check = await User.findOne({ _id: '6255ef6c6c55542b850ef889' }).select('society')
+        const check = await User.findOne({ _id: req.body.user_id }).select('society')
         console.log(check)
         var soc_ids = []
         check.society.forEach(element => {
