@@ -88,7 +88,7 @@ router.get('/addnewsociety', async (req, res) => {
 
         console.log(soc_ids);
 
-        const t = await Society.find({ society: { $nin : check}})
+        const t = await Society.find({ society: { $nin : soc_ids}})
         console.log(t);
 
        

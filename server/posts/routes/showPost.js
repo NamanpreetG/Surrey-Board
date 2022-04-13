@@ -2,7 +2,6 @@ const Post = require('../models/post')
 const Comments = require('../models/Comments')
 const router = require('express').Router()
 const mongoose = require('mongoose')
-const { response } = require('express')
 
 
 const societySchema = new mongoose.Schema({
@@ -18,10 +17,17 @@ const Society = mongoose.model('Society', societySchema)
 
 router.get('/next', async (req, res) => {
 
-    var page_num = parseInt(req.query.page) + 1
+
+    var page_num = 2
+
+    if (parseInt(req.query.page) >= 1) {
+
+        page_num = parseInt(req.query.page) + 1
+    }
+
     const count_val = parseInt(req.query.index)
 
-    Post.find({ counter: { $lt: count_val } }).limit(10).sort('-date').populate({
+    Post.find({ counter: { $lt: count_val } }).limit(10).sort('-counter').populate({
 
         model: 'User',
         path: 'user',
@@ -32,18 +38,33 @@ router.get('/next', async (req, res) => {
             res.send({ message: 'error' })
         }
         else if (result.length === 0) {
-            page_num = null
+            page_num = 0
+
         }
-        res.send({ result: result, next: page_num })
+
+        var temp_prev = page_num
+        if(page_num == 0){
+            temp_prev = req.query.page - 1
+        }
+
+        res.send({ result: result, previous: temp_prev , next: page_num })
     })
 });
 
 router.get('/previous', async (req, res) => {
 
-    const page_num = parseInt(req.query.page) - 1 ? parseInt(req.query.page) > 0 : null
+    var page_num = 2
+
+    if (parseInt(req.query.page) > 1) {
+
+        page_num = parseInt(req.query.page) - 1
+
+    }
+
     const count_val = parseInt(req.query.index)
 
-    Post.find({ counter: { $gt: count_val } }).limit(10).sort('date').populate({
+    console.log(req.query.page - 1)
+    Post.find({ counter: { $gt: count_val } }).limit(10).sort('counter').populate({
 
         model: 'User',
         path: 'user',
@@ -53,15 +74,15 @@ router.get('/previous', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        res.send({ result: result.reverse(), next: page_num })
+        res.send({ result: result.reverse(), previous: page_num - 2, next: page_num })
     })
 });
 
 // General Board
 router.get('/', async (req, res) => {
 
-    
-    Post.find({}).limit(10).sort('-date').populate({
+
+    Post.find({}).limit(10).sort('-counter').populate({
 
         model: 'User',
         path: 'user',
@@ -71,7 +92,7 @@ router.get('/', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        res.send({ result: result, next: 2 })
+        res.send({ result: result, previous: 0, next: 2 })
     })
 });
 
