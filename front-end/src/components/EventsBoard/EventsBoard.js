@@ -6,7 +6,8 @@ import { useQuery } from "react-query";
 import { Button } from "react-bootstrap";
 
 async function fetchPosts(countPage, page, index) {
-  let url = `http://localhost:3006/showpost/${countPage}?page=${page}&index=${index}`;
+  console.log(countPage, page, index);
+  let url = `http://localhost:3006/showpost/events/${countPage}?page=${page}&index=${index}`;
   const res = await fetch(url);
   return res.json();
 }
@@ -28,9 +29,9 @@ function GeneralBoard() {
   );
 
   // used for debugging
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   if (isError) {
     return <h2>{error.message}</h2>;

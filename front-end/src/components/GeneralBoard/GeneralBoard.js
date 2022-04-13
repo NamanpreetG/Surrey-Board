@@ -2,9 +2,9 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext, loginContext } from "../../App";
 import SinglePost from "../Posts/SinglePost";
-import { useQuery } from "react-query";
+import { useQuery, prefetchQuery } from "react-query";
 import { Button } from "react-bootstrap";
-import "./GeneralBoard.css"
+import "./GeneralBoard.css";
 
 async function fetchPosts(countPage, page, index) {
   let url = `http://localhost:3006/showpost/${countPage}?page=${page}&index=${index}`;
@@ -27,11 +27,6 @@ function GeneralBoard() {
       staleTime: 5000,
     }
   );
-
-  // used for debugging
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
 
   if (isError) {
     return <h2>{error.message}</h2>;
@@ -57,6 +52,9 @@ function GeneralBoard() {
       ) : (
         <>
           <div>
+            <br />
+            <h1 id="title">General Board</h1>
+            <br />
             {data.result &&
               data.result.map((r) => (
                 <SinglePost
@@ -73,7 +71,9 @@ function GeneralBoard() {
             <Button disabled={page === 1} onClick={() => previousPage()}>
               Previous Page
             </Button>
-            <span><b>{` ${page} `}</b></span>
+            <span>
+              <b>{` ${page} `}</b>
+            </span>
             <Button disabled={data.next === 0} onClick={() => nextPage()}>
               Next Page
             </Button>
