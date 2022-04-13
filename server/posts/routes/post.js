@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
     try {
         const newPost = await post.save()
 
-        console.log('Post Submitted')
+        // console.log('Post Submitted')
         res.send({ post: newPost, message: 'post added' })
 
     } catch (e) {
