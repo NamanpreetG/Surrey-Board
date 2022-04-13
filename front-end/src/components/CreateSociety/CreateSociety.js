@@ -28,10 +28,10 @@ function CreateSociety() {
             name: socName,
             tag: socTag,
         };
-        const res = await Axios.post("http://localhost:3007/createsociety", society);
+        const res = await Axios.post("http://localhost:3007/society/addsociety", society);
         console.log(res.data.message)
         //console.log(post.society)
-        if (res.data.message == 'Society added') {
+        if (res.data.message == 'success') {
             navigate("/homepage");
             console.log('Society created')
         } else {
