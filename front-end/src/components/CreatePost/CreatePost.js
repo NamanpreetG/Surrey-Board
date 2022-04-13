@@ -26,6 +26,7 @@ function CreatePost() {
   const [show, setShow] = useState(false);
   const user_id = user_values._id;
   const navigate = useNavigate();
+  console.log(user_id);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,10 +54,15 @@ function CreatePost() {
     }
   };
   useEffect(() => {
-    Axios.get("http://localhost:3007/society").then((data) => {
-      getSociety(data.data);
-      console.log(data.data);
-    });
+    const fetchPosts = async () => {
+      const user_id = "6255ef6c6c55542b850ef889";
+      const res = await Axios.get("http://localhost:3007/society/mysocieties", {
+        {user_id},
+      });
+
+      console.log(res);
+    };
+    fetchPosts();
   }, []);
 
   return (
