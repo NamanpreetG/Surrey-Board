@@ -17,13 +17,14 @@ router.get("/next", async (req, res) => {
   var page_num = parseInt(req.query.page) + 1;
   const count_val = parseInt(req.query.index);
 
-  Post.find({ counter: { $lt: count_val } })
-    .limit(10)
-    .sort("-date")
-    .populate({
-      model: "User",
-      path: "user",
-      select: "name isAdmin",
+    }).populate('society').exec((err, result) => {
+        if (err) {
+            res.send({ message: 'error' })
+        }
+        else if (result.length === 0) {
+            page_num = null
+        }
+        res.send({ result: result, next: page_num })
     })
     .populate("society")
     .exec((err, result) => {
@@ -36,18 +37,22 @@ router.get("/next", async (req, res) => {
     });
 });
 
-router.get("/previous", async (req, res) => {
-  const page_num =
-    parseInt(req.query.page) - 1 ? parseInt(req.query.page) > 0 : null;
-  const count_val = parseInt(req.query.index);
+router.get('/previous', async (req, res) => {
 
-  Post.find({ counter: { $gt: count_val } })
-    .limit(10)
-    .sort("date")
-    .populate({
-      model: "User",
-      path: "user",
-      select: "name isAdmin",
+    const page_num = parseInt(req.query.page) - 1 ? parseInt(req.query.page) > 0 : null
+    const count_val = parseInt(req.query.index)
+
+    Post.find({ counter: { $gt: count_val } }).limit(10).sort('date').populate({
+
+        model: 'User',
+        path: 'user',
+        select: 'name isAdmin'
+
+    }).populate('society').exec((err, result) => {
+        if (err) {
+            res.send({ message: 'error' })
+        }
+        res.send({ result: result.reverse(), next: page_num })
     })
     .populate("society")
     .exec((err, result) => {
@@ -59,14 +64,20 @@ router.get("/previous", async (req, res) => {
 });
 
 // General Board
-router.get("/", async (req, res) => {
-  Post.find({})
-    .limit(10)
-    .sort("-date")
-    .populate({
-      model: "User",
-      path: "user",
-      select: "name isAdmin",
+router.get('/', async (req, res) => {
+
+    
+    Post.find({}).limit(10).sort('-date').populate({
+
+        model: 'User',
+        path: 'user',
+        select: 'name isAdmin'
+
+    }).populate('society').exec((err, result) => {
+        if (err) {
+            res.send({ message: 'error' })
+        }
+        res.send({ result: result, next: 2 })
     })
     .populate("society")
     .exec((err, result) => {

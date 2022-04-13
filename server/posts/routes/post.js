@@ -1,18 +1,53 @@
+const mongoose = require('mongoose')
 const Post = require('../models/post')
 const router = require('express').Router()
 
-
 var count_val
 
+router.post('/tempdel', async (req, res) => {
+
+    try {
+        await Post.deleteMany()
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+
+})
+
+
+router.post('/trial', async (req, res) => {
+
+    const post = new Post({
+        title: req.body.title,
+        content: req.body.content,
+        user: req.body.user,
+        society: req.body.society,
+        isEvent: req.body.isEvent,
+    })
+    try {
+        const newPost = await post.save()
+        console.log('Post Submitted')
+        res.send({ post: newPost, message: 'post added' })
+
+    } catch (e) {
+        res.send({ message: 'error' })
+        console.log(e)
+    }
+});
+
 router.post('/', async (req, res) => {
-    await counter(res, (r) => {
+    counter(res, (r) => {
         count_val = r
         console.log(count_val)
     })
 
-    console.log(count_val)
+    console.log('count_val ' + count_val)
 
-     const post = await new Post({
+    const post = new Post({
         title: req.body.title,
         content: req.body.content,
         user: req.body.user,
@@ -32,8 +67,8 @@ router.post('/', async (req, res) => {
 });
 
 
-function counter(res, callback) {
-    Post.findOne().sort('-date').populate({
+ function counter(res, callback) {
+        Post.findOne().sort('-date').populate({
         model: 'User',
         path: 'user',
         select: 'name isAdmin'
@@ -41,8 +76,10 @@ function counter(res, callback) {
     }).populate('society').exec((err, result) => {
         if (err) {
             console.log(err);
+
         }
-        const countVal = result.counter
+        console.log('Result is ' + result.counter)
+        const countVal = result.counter ? result.counter : 0
         return callback(countVal + 1)
     })
 

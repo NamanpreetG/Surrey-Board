@@ -5,13 +5,12 @@ import SinglePost from "../Posts/SinglePost";
 import { useQuery } from "react-query";
 import { Button } from "react-bootstrap";
 
-const fetchPosts = async (key, countPage, page, index) => {
-  // let url = `http://localhost:3006/showpost/${countPage}?page=${page}&index=${index}`;
-
-  const res = await fetch("http://localhost:3006/showpost");
+async function fetchPosts(countPage, page, index) {
+  let url = `http://localhost:3006/showpost/${countPage}?page=${page}&index=${index}`;
+  console.log(url);
+  const res = await fetch(url);
   return res.json();
-};
-// http://localhost:3006/showpost/?page=0?index=0
+}
 
 function GeneralBoard() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -19,35 +18,35 @@ function GeneralBoard() {
   const [countPage, setCountPage] = useState("");
   const [page, setPage] = useState(1);
   const [index, setIndex] = useState(0);
+  const [previousButtonState, setPreviousButtonState] = useState(true);
+  const [nextButtonState, setNextButtonState] = useState(false);
 
-  const { isLoading, data, isError, error } = useQuery(
+  const { isLoading, data, isError, error, isPreviousData } = useQuery(
     ["posts", countPage, page, index],
-    async () => {
-      let url = `http://localhost:3006/showpost/${countPage}?page=${page}&index=${index}`;
-      const res = await fetch(url);
-      return res.json();
-    },
+    () => fetchPosts(countPage, page, index),
     {
       keepPreviousData: true,
+      staleTime: 5000,
     }
   );
-  if(isError) {
-    return <h2>{error.message}</h2>
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+  if (isError) {
+    return <h2>{error.message}</h2>;
   }
 
   const previousPage = () => {
     setCountPage("previous");
     setPage((old) => Math.max(old - 1, 1));
-    setIndex(data.next);
+    setIndex(data.result[0].counter);
   };
 
   const nextPage = () => {
     setCountPage("next");
-    setPage((old) => (!data || !data.next ? old : old + 1));
-    console.log(data.result);
-    // setIndex(data.result.at(-1).counter);
+    setPage((old) => (!data.result || !data.next ? old : old + 1));
+    setIndex(data.result.at(-1).counter);
   };
-
 
   return (
     // TODO: add tag to SinglePost
@@ -56,20 +55,28 @@ function GeneralBoard() {
         <div>Fetching data...</div>
       ) : (
         <>
-          <Button onClick={() => previousPage()}>Previous Page</Button>
+          <Button disabled={page === 1} onClick={() => previousPage()}>
+            Previous Page
+          </Button>
           <span>{page}</span>
-          <Button onClick={() => nextPage()}>Next Page</Button>
+          <Button
+            disabled={!data.result || !data.next}
+            onClick={() => nextPage()}
+          >
+            Next Page
+          </Button>
           <div>
-            {data.result.map((r) => (
-              <SinglePost
-                key={r._id}
-                title={r.title}
-                description={r.content}
-                date={r.date}
-                likes={r.likes}
-                username={r.user.name}
-              />
-            ))}
+            {data.result &&
+              data.result.map((r) => (
+                <SinglePost
+                  key={r._id}
+                  title={r.title}
+                  description={r.content}
+                  date={r.date}
+                  likes={r.likes}
+                  username={r.user.name}
+                />
+              ))}
           </div>
         </>
       )}
