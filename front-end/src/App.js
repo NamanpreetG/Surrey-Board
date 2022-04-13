@@ -100,14 +100,6 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/posts"
-              element={
-                <PrivateRoute>
-                  <Posts />
-                </PrivateRoute>
-              }
-            />
           </Routes>
         </div>
       </LoginContext.Provider>
