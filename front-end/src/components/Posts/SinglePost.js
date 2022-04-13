@@ -2,6 +2,9 @@ import React from "react";
 import { Card, Col, Container, Row, Nav, Button } from "react-bootstrap";
 import { createBootstrapComponent } from "react-bootstrap/esm/ThemeProvider";
 
+
+
+
 function SinglePost({ title, description, date, username, likes, tag }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const formatYmd = date.slice(0, 10);
@@ -46,7 +49,7 @@ function SinglePost({ title, description, date, username, likes, tag }) {
             </Row>
             
           <Card.Footer  className="text-muted, text-center" >
-             <Card.Link href="#"> View Comments</Card.Link>
+             <Card.Link href="/SpecificPost"> View Comments</Card.Link>
           </Card.Footer>
            
           </Card.Body>
