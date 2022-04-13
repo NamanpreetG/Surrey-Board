@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import {
     Form,
     FormGroup,
@@ -14,9 +14,10 @@ import {
     Alert
 } from "react-bootstrap";
 
-console.log(localStorage.getItem("user"))
+
+
 const user_values = JSON.parse(localStorage.getItem("user"));
-console.log(user_values._id)
+//console.log(user_values._id)
 
 function CreatePost() {
     const [postTitle, setTitle] = useState("");
@@ -28,6 +29,7 @@ function CreatePost() {
     const [show, setShow] = useState(false);
     const user_id = user_values._id;
     const navigate = useNavigate();
+    //const {state, dispatch} = useContext(LoginContext)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,6 +62,7 @@ function CreatePost() {
     }, []);
 
     return (
+        
         <Container fluid="lg">
             <br />
             <Form onSubmit={handleSubmit}>
