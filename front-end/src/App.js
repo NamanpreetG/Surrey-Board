@@ -2,12 +2,11 @@ import NavBar from "./components/NavBar";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Homepage from "./components/Homepage/Homepage";
-import EducationBoard from "./components/EducationBoard/EducationBoard";
+import EventsBoard from "./components/EventsBoard/EventsBoard";
 import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
 import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
-import Settings from "./components/Settings";
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
@@ -70,10 +69,10 @@ function App() {
               }
             />
             <Route
-              path="/educationBoard"
+              path="/EventsBoard"
               element={
                 <PrivateRoute>
-                  <EducationBoard />
+                  <EventsBoard />
                 </PrivateRoute>
               }
             />
@@ -90,14 +89,6 @@ function App() {
               element={
                 <PrivateRoute>
                   <SocietyBoard />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <PrivateRoute>
-                  <Settings />
                 </PrivateRoute>
               }
             />
