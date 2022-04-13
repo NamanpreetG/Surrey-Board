@@ -60,7 +60,7 @@ postSchema.pre('save', async function (next) {
     var doc = this;
     try {
         const c = await Counter.findOneAndUpdate({}, { $inc: { seq: 1 } })
-        console.log(c.seq)
+        // console.log(c.seq)
         doc.counter = c.seq
         doc.title = c.seq + 1 + ' ' + doc.title
         next()

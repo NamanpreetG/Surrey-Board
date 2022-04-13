@@ -1,8 +1,9 @@
-.Center {
+#pagination-buttons {
+    margin: auto;
+    width: 50%;
     text-align: center;
-  }
-#center-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    vertical-align: middle;
+}
+#title{
+    text-align: center;
 }
