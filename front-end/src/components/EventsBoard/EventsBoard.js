@@ -29,9 +29,9 @@ function GeneralBoard() {
   );
 
   // used for debugging
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
   if (isError) {
     return <h2>{error.message}</h2>;
@@ -57,6 +57,9 @@ function GeneralBoard() {
       ) : (
         <>
           <div>
+            <br />
+            <h1 id="title">Events Board</h1>
+            <br />
             {data.result &&
               data.result.map((r) => (
                 <SinglePost
@@ -73,7 +76,9 @@ function GeneralBoard() {
             <Button disabled={page === 1} onClick={() => previousPage()}>
               Previous Page
             </Button>
-            <span><b>{` ${page} `}</b></span>
+            <span>
+              <b>{` ${page} `}</b>
+            </span>
             <Button disabled={data.next === 0} onClick={() => nextPage()}>
               Next Page
             </Button>
