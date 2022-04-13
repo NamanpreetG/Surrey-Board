@@ -38,10 +38,16 @@ router.get('/next', async (req, res) => {
             res.send({ message: 'error' })
         }
         else if (result.length === 0) {
-            page_num = null
+            page_num = 0
 
         }
-        res.send({ result: result, previous: page_num - 2, next: page_num })
+
+        var temp_prev = page_num
+        if(page_num == 0){
+            temp_prev = req.query.page - 1
+        }
+
+        res.send({ result: result, previous: temp_prev , next: page_num })
     })
 });
 
@@ -86,7 +92,7 @@ router.get('/', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        res.send({ result: result, previous: null, next: 2 })
+        res.send({ result: result, previous: 0, next: 2 })
     })
 });
 
