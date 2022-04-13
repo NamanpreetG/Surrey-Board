@@ -8,19 +8,15 @@ import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
 import Settings from "./components/Settings";
-<<<<<<< HEAD
-import FollowSociety from "./components/SocietyBoard/FollowSociety";
-import SpecificPost from "./components/SpecificPost/SpecificPost";
-=======
 import CreateSociety from "./components/CreateSociety/CreateSociety";
 import SpecificPost from "./components/SpecificPost/SpecificPost"
->>>>>>> 3b455066d635da1f51683219ec2883c056bfd2e2
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools'
+import FollowSociety from "./components/SocietyBoard/FollowSociety";
 
 
 
@@ -69,22 +65,6 @@ function App() {
             />
             <Route exact path="/register" element={<Register />} />
 
-<<<<<<< HEAD
-          {/* authenticated links */}
-          <Route
-            path="/homepage"
-            element={
-              <PrivateRoute>
-                <Homepage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/eventsBoard"
-            element={
-              <PrivateRoute>
-                <EventsBoard />
-=======
             {/* authenticated links */}
             <Route
               path="/homepage"
@@ -107,7 +87,6 @@ function App() {
             element={
               <PrivateRoute>
                 <CreateSociety />
->>>>>>> 3b455066d635da1f51683219ec2883c056bfd2e2
               </PrivateRoute>
             }
           />
@@ -127,44 +106,6 @@ function App() {
               </PrivateRoute>
             }
           />
-<<<<<<< HEAD
-          <Route
-            path="/createpost"
-            element={
-              <PrivateRoute>
-                <CreatePost />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/posts"
-            element={
-              <PrivateRoute>
-                <Posts />
-              </PrivateRoute>
-            }
-          />
-
-          <Route
-            path="/followSociety"
-            element={
-              <PrivateRoute>
-                <FollowSociety />
-              </PrivateRoute>
-            }
-          />   
-          <Route
-            path="/SpecificPost"
-            element={
-              <PrivateRoute>
-                <SpecificPost />
-              </PrivateRoute>
-            }
-          />      
-        </Routes>
-      </div>
-    </LoginContext.Provider>
-=======
             <Route
               path="/societyBoard"
               element={
@@ -181,13 +122,29 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route
+              path="/specificPost"
+              element={
+                <PrivateRoute>
+                  <SpecificPost />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/followSociety"
+              element={
+                <PrivateRoute>
+                  <FollowSociety />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </div>
       </LoginContext.Provider>
     <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
     </>
->>>>>>> 3b455066d635da1f51683219ec2883c056bfd2e2
   );
 }
 

@@ -1,12 +1,6 @@
 import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../App";
-<<<<<<< HEAD
-
-
-import { useState } from "react";
-=======
->>>>>>> 3b455066d635da1f51683219ec2883c056bfd2e2
 import Axios from "axios";
 import {
     Form,
@@ -19,12 +13,6 @@ import {
 } from "react-bootstrap";
 
 function SocietyBoard() {
-<<<<<<< HEAD
-  const { state, dispatch } = useContext(LoginContext);
-  const user = JSON.parse(localStorage.getItem("user"));
-
- 
-=======
   const {state, dispatch} = useContext(LoginContext);
 
   return (
@@ -66,7 +54,6 @@ What are some examples you've noticed? </p></div>
 
       </div>
     </div>);
->>>>>>> 3b455066d635da1f51683219ec2883c056bfd2e2
 }
 function Posts() {
   const [postList, setPostList] = useState([]);

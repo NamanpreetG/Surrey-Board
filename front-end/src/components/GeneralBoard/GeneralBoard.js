@@ -2,27 +2,6 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext, loginContext } from "../../App";
 import SinglePost from "../Posts/SinglePost";
-<<<<<<< HEAD
-import { returnData } from "./example";
-
-function GeneralBoard() {
-  const user = JSON.parse(localStorage.getItem("user"));
-
-
-  return (
-    
-    <>
-      {returnData.map((r) => (
-        <SinglePost 
-        title={r.title} 
-        description={r.content}
-        date={r.date}
-        likes={r.likes}
-        tag={r.society.tag}
-        username={r.user.name}
-        />
-      ))}
-=======
 import { useQuery, prefetchQuery } from "react-query";
 import { Button } from "react-bootstrap";
 import "./GeneralBoard.css";
@@ -101,7 +80,6 @@ function GeneralBoard() {
           </div>
         </>
       )}
->>>>>>> 3b455066d635da1f51683219ec2883c056bfd2e2
     </>
   );
 }
