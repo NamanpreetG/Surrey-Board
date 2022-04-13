@@ -20,7 +20,7 @@ function CreatePost() {
     const [postContent, setContent] = useState("");
     const [Society, getSociety] = useState([]);
     const [postSociety, setSociety] = useState("");
-    const [postEvent, setEvent] = useState(Boolean)
+    const [postEvent, setEvent] = useState(Boolean);
     const [error, setError] = useState();
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
