@@ -7,6 +7,7 @@ import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
 import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
+import SpecificPost from "./components/SpecificPost/SpecificPost";
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
@@ -100,6 +101,13 @@ function App() {
                 </PrivateRoute>
               }
             />
+               <Route
+              path="/SpecificPost"
+              element={
+                <PrivateRoute>
+                  <SpecificPost />
+                </PrivateRoute>
+              } />
           </Routes>
         </div>
       </LoginContext.Provider>

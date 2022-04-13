@@ -3,6 +3,7 @@ import { Card, Form, FloatingLabel, Button} from "react-bootstrap";
 import  returnData  from "./exampledb.json";
 
 
+
 function SpecificPost({ title, description, date, username, likes, tag, comment }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const formatYmd = date => date.toISOString().slice(0, 10);
@@ -10,23 +11,45 @@ console.log(returnData);
   return (
       
     <>
+<Card> 
+  <Card.Body className = "md-5">
+  
+
   <Card> 
-  <Card.Body>
+  <Card.Body className = "md-5">
+  
 
-  <Card.Title>{title}</Card.Title>
+  {returnData.post.map((r) => (
+        <div key={r._id}
+        title={r.title}
+        date={r.date}
+        societytag={r.tag}
+        likes={r.likes}
+        content={r.content} >
+            
+          <Card.Title> {r.title} </Card.Title> 
+           <p>{r.content}</p>             
+         {r.likes} people have liked this 
+             {r.tag}
+        </div>
+      ))}
 
-    <Card.Text>
-    {description}
-    </Card.Text>
+{returnData.user.map((r) => (
+        <div key={r._id}
+        date={r.date}
+        name={r.name}
+        >
+           Posted by: {r.name}   
+           <p> Posted on: {r.date} </p>
+        </div>
+      ))}
+
+
+
+  </Card.Body>
+</Card>
+
     
-      <footer className="blockquote-footer mb-0">
-        Posted by {username}
-      </footer>
-      <Card.Link href="#">{likes} people have liked this</Card.Link>
-      <Card.Link href="#">Posted on {date}</Card.Link>
-      <Card.Link href="#">Type of Board: {tag}</Card.Link>
-      
-      
   </Card.Body>
 </Card>
 
@@ -53,11 +76,14 @@ console.log(returnData);
   <Card.Title className = "md-5">Comments:</Card.Title>
 
   {returnData.comment.map((r) => (
-        <div> 
-        key={r._id}
+        <div key={r._id}
         date={r.date}
         name={r.name}
-        content={r.content}
+        content={r.content} >
+           <p>{r.content}</p> 
+             Commented by: {r.name}
+    <p> Commented on: {r.date} </p>   
+        
         </div>
       ))}
 
