@@ -14,6 +14,9 @@ import {
     Alert
 } from "react-bootstrap";
 
+console.log(localStorage.getItem("user"))
+const user_values = JSON.parse(localStorage.getItem("user"));
+console.log(user_values._id)
 
 function CreatePost() {
     const [postTitle, setTitle] = useState("");
@@ -23,6 +26,7 @@ function CreatePost() {
     const [postEvent, setEvent] = useState(Boolean);
     const [error, setError] = useState();
     const [show, setShow] = useState(false);
+    const user_id = user_values._id;
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -32,7 +36,8 @@ function CreatePost() {
             title: postTitle,
             content: postContent,
             society: postSociety,
-            isEvent: postEvent
+            isEvent: postEvent,
+            user: user_id
 
         };
         const res = await Axios.post("http://localhost:3006/post", post);

@@ -8,7 +8,7 @@ import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
 import Settings from "./components/Settings";
-import CreateSociety from "./components/CreateSociety";
+import CreateSociety from "./components/CreateSociety/CreateSociety";
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";

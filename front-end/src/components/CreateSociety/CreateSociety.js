@@ -14,7 +14,6 @@ import {
     Alert
 } from "react-bootstrap";
 
-
 function CreateSociety() {
     const [socName, setSocName] = useState("");
     const [socTag, setSocTag] = useState("");
