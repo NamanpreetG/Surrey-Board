@@ -2,22 +2,6 @@ const mongoose = require('mongoose')
 const Post = require('../models/post')
 const router = require('express').Router()
 
-var count_val
-
-router.post('/tempdel', async (req, res) => {
-
-    try {
-        await Post.deleteMany()
-
-    } catch (error) {
-
-        console.log(error);
-
-    }
-
-
-})
-
 router.post('/', async (req, res) => {
 
     const post = new Post({
