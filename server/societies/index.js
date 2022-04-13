@@ -11,15 +11,15 @@ const PORT = 3007
 dotenv.config()
 app.use(express.json())
 
-const createSociety = require('./routes/createSociety')
-
-
 mongoose.connect(process.env.DBURUI)
     .then((res) => {
         console.log('CONNECTED TO MONGOOOOSE')
     })
 
-app.use('/createsociety', createSociety)
+const society = require('./routes/society')
+
+
+app.use('/society', society)
 
 app.listen(PORT, () => {
     console.log('Server is running on port ' + PORT)

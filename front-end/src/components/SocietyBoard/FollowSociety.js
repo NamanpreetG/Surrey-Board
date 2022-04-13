@@ -2,14 +2,24 @@ import React from "react";
 import { useContext, useEffect } from "react";
 import { LoginContext, loginContext } from "../../App";
 import { Card, Col, Container, Row, Nav, Button, Form } from "react-bootstrap";
+import Axios from "axios";
+
 
 function FollowSociety() {
   const { state, dispatch } = useContext(LoginContext)
   const user = JSON.parse(localStorage.getItem("user"));
 
+  const [societyList, setSocietyList] = useState([]);
+
+  useEffect(() => {
+    Axios.get("http://localhost:3007/").then((data) => {
+        setSocietyList(data.data)
+        console.log(data.data)
+    });
+
+}, []);
+
   return (
-
-
 
     <Container fluid="lg">
       <br />
@@ -31,7 +41,7 @@ function FollowSociety() {
 
           <div id="align-center">
             <Button type="submit" size="lg">
-              Submit
+              Add
             </Button>
 
           </div>

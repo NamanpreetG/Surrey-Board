@@ -29,15 +29,12 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Society"
     }],
-
     date: {
 
         type: Date,
         immutable: true,
         default: Date.now
     }
-
-
 
 })
 

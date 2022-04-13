@@ -25,6 +25,7 @@ function Register() {
   };
 
   return (
+    // TODO: add validation checking if the user exists already
     <Container fluid="lg">
       <br />
       <Form onSubmit={handleSubmit}>

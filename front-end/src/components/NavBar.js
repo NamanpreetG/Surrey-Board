@@ -31,6 +31,7 @@ function NavBar() {
                 {/* TODO: dont let the user submit a blank username/password/username */}
                 {user ? "Sign Out" : "Sign In"}
               </Nav.Link>
+              {user && (<Nav.Link href="/createpost">New Post</Nav.Link>)}
             </Nav>
           </Navbar.Collapse>
 
