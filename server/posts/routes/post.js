@@ -18,34 +18,7 @@ router.post('/tempdel', async (req, res) => {
 
 })
 
-
-router.post('/trial', async (req, res) => {
-
-    const post = new Post({
-        title: req.body.title,
-        content: req.body.content,
-        user: req.body.user,
-        society: req.body.society,
-        isEvent: req.body.isEvent,
-    })
-    try {
-        const newPost = await post.save()
-        console.log('Post Submitted')
-        res.send({ post: newPost, message: 'post added' })
-
-    } catch (e) {
-        res.send({ message: 'error' })
-        console.log(e)
-    }
-});
-
 router.post('/', async (req, res) => {
-    counter(res, (r) => {
-        count_val = r
-        console.log(count_val)
-    })
-
-    console.log('count_val ' + count_val)
 
     const post = new Post({
         title: req.body.title,
@@ -53,10 +26,10 @@ router.post('/', async (req, res) => {
         user: req.body.user,
         society: req.body.society,
         isEvent: req.body.isEvent,
-        counter: count_val
     })
     try {
         const newPost = await post.save()
+
         console.log('Post Submitted')
         res.send({ post: newPost, message: 'post added' })
 
@@ -67,23 +40,6 @@ router.post('/', async (req, res) => {
 });
 
 
- function counter(res, callback) {
-        Post.findOne().sort('-date').populate({
-        model: 'User',
-        path: 'user',
-        select: 'name isAdmin'
-
-    }).populate('society').exec((err, result) => {
-        if (err) {
-            console.log(err);
-
-        }
-        console.log('Result is ' + result.counter)
-        const countVal = result.counter ? result.counter : 0
-        return callback(countVal + 1)
-    })
-
-}
 
 router.get('/addlike/:post_id', async (req, res) => {
 
