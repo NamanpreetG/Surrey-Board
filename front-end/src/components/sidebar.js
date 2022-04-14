@@ -7,7 +7,7 @@ import { slide as Menu } from "react-burger-menu";
 
 import "./sidebar.css";
 
-export default (props) => {
+function Sidebar(props) {
   const [listSocieties, setListOfSocieties] = useState([]);
   const user_values = JSON.parse(localStorage.getItem("user"));
   const user_id = user_values._id;
@@ -22,8 +22,7 @@ export default (props) => {
 
   const st = { fontSize: "16px", textAlign: "center" };
 
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function changeToSoc(id, name) {
     // console.log(id)
@@ -56,4 +55,5 @@ export default (props) => {
       </Menu>
     </>
   );
-};
+}
+export default Sidebar;

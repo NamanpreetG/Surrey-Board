@@ -3,14 +3,13 @@ import Axios from "axios";
 import { Card, Col, Container, Row, Nav, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-function SinglePost({ title, description, date, username, likes, id }) {
+function SinglePost({ title, description, date, username, likes, id, tag }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const formatYmd = date.slice(0, 10);
 
   const navigate = useNavigate();
 
   const deletePost = async () => {
-    console.log(id);
     const post = {
       post_id: id,
     };
@@ -18,20 +17,16 @@ function SinglePost({ title, description, date, username, likes, id }) {
       data: post,
     });
     if (res.data.message === "Post Deleted") {
-      console.log("deleted");
       window.location.reload(false);
     }
   };
 
-  const sty = {
-    position: 'absolute',
-    top:'2%',
-    right: '0',
-    width: '120px',
-    transform: 'translateX(-970%)'
-  }
-
-
+  const goToPost = () => {
+    navigate("/specificPost", {
+      state: { id, title, description, likes, username, date: formatYmd, tag },
+      replace: true,
+    });
+  };
 
   return (
     <>
@@ -40,11 +35,12 @@ function SinglePost({ title, description, date, username, likes, id }) {
           <Card.Header className="text-center">
             <Nav className="justify-content-center">
               {user.isAdmin && (
-                <Button style={ sty }variant="danger" onClick={deletePost}>
+                <Button variant="danger" onClick={deletePost}>
                   Delete Post
                 </Button>
               )}
-              <Nav.Item>{title}</Nav.Item>
+              <Nav.Link onClick={goToPost}>{title}</Nav.Link>
+              <Button>{tag}</Button>
             </Nav>
 
             <Nav className="justify-content-end">
@@ -66,7 +62,7 @@ function SinglePost({ title, description, date, username, likes, id }) {
                   as="input"
                   type="button"
                   value="Like"
-                  size="sm"                  
+                  size="sm"
                 />{" "}
               </div>
             </Row>

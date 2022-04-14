@@ -6,9 +6,9 @@ import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
 import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
-import Settings from "./components/Settings";
 import CreateSociety from "./components/CreateSociety/CreateSociety";
 import SpecificPost from "./components/SpecificPost/SpecificPost";
+import { PrivateRouteAdmin } from "./components/PrivateRouteAdmin";
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
@@ -25,7 +25,7 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
-      if (!localStorage.getItem("user")) {
+      if (!JSON.parse(localStorage.getItem("user"))) {
         localStorage.setItem("user", JSON.stringify(action.payload));
       }
       return {
@@ -41,10 +41,9 @@ const reducer = (state, action) => {
       return state;
   }
 };
-// TODO: if the user is not subbed to any socs, then redirect them to the follow soc page
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const user = localStorage.getItem("user")
+  const user = JSON.parse(localStorage.getItem("user"))
   const queryClient = new QueryClient();
 
   return (
@@ -74,7 +73,9 @@ function App() {
                 path="/createsociety"
                 element={
                   <PrivateRoute>
-                    <CreateSociety />
+                    <PrivateRouteAdmin>
+                      <CreateSociety />
+                    </PrivateRouteAdmin>
                   </PrivateRoute>
                 }
               />

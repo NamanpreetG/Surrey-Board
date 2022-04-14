@@ -4,11 +4,9 @@ import { LoginContext, loginContext } from "../../App";
 import SinglePost from "../Posts/SinglePost";
 import { useQuery } from "react-query";
 import { Button } from "react-bootstrap";
-import Axios from "axios"
+import Axios from "axios";
 
-
-
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 
 async function fetchPosts(countPage, page, index, soc_id) {
   //let url = `http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`
@@ -22,22 +20,19 @@ async function fetchPosts(countPage, page, index, soc_id) {
   //   }
   // });
 
-  const res = await Axios.post(`http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`, { society_id: soc_id })
-  console.log("----> " , res);
-  return res.data
+  const res = await Axios.post(
+    `http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`,
+    { society_id: soc_id }
+  );
+  console.log("----> ", res);
+  return res.data;
 }
 
-
-function GeneralBoard() {
-  const location = useLocation()
-  const soc_id = location.state.society_id
-  const soc_name = location.state.name
-
-
-  console.log(" soc id " ,  soc_id);
-
+function SocietyBoard() {
   const user = JSON.parse(localStorage.getItem("user"));
-
+  const location = useLocation();
+  const soc_id = location.state.society_id;
+  const soc_name = location.state.name;
   const [countPage, setCountPage] = useState("");
   const [page, setPage] = useState(1);
   const [index, setIndex] = useState(0);
@@ -46,8 +41,7 @@ function GeneralBoard() {
     ["posts", countPage, page, index],
     async () => await fetchPosts(countPage, page, index, soc_id),
     {
-      keepPreviousData: true
-      //staleTime: 5000,
+      keepPreviousData: true,
     }
   );
 
@@ -107,4 +101,4 @@ function GeneralBoard() {
   );
 }
 
-export default GeneralBoard;
+export default SocietyBoard;
