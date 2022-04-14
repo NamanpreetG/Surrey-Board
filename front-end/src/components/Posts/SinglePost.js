@@ -39,7 +39,7 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
                   Delete Post
                 </Button>
               )}
-              <Nav.Link onClick={goToPost}>{title}</Nav.Link>
+              <Nav.Item >{title}</Nav.Item>
               <Button>{tag}</Button>
             </Nav>
 
@@ -68,7 +68,7 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
             </Row>
 
             <Card.Footer className="text-muted, text-center">
-              <Card.Link href="/SpecificPost"> View Comments</Card.Link>
+              <Card.Link onClick={goToPost}>View Comments</Card.Link>
             </Card.Footer>
           </Card.Body>
         </Card>
