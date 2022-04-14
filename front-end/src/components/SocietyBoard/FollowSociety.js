@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const user_values = JSON.parse(localStorage.getItem("user"));
 function FollowSociety() {
-  const { state, dispatch } = useContext(LoginContext)
+  const { state, dispatch } = useContext(LoginContext);
   const [show, setShow] = useState(false);
   const [postSociety, setSociety] = useState("");
   const [societyList, setSocietyList] = useState([]);
@@ -18,11 +18,10 @@ function FollowSociety() {
 
   useEffect(() => {
     Axios.get("http://localhost:3007/society/showall").then((data) => {
-      setSocietyList(data.data)
+      setSocietyList(data.data);
       // console.log(data.data)
       // console.log(user_values)
     });
-
   }, []);
 
   const handleSubmit = async (e) => {
@@ -30,11 +29,13 @@ function FollowSociety() {
     setShow(false);
     const followSociety = {
       society_id: postSociety,
-      user_id: user_id
-
+      user_id: user_id,
     };
-    const res = await Axios.post("http://localhost:3007/society/follow", followSociety);
-    if (res.data.message == 'success') {
+    const res = await Axios.post(
+      "http://localhost:3007/society/follow",
+      followSociety
+    );
+    if (res.data.message == "success") {
       console.log(res.data.message);
       navigate("/generalBoard");
     } else {
@@ -42,33 +43,32 @@ function FollowSociety() {
       setError(res.data.message);
       setShow(true);
     }
-
   };
 
   return (
-
     <Container fluid="lg">
       <br />
-      <Form onSubmit={handleSubmit} >
+      <Form onSubmit={handleSubmit}>
         <h1 className="center-text">Follow Society</h1>
         <Card className="card-padding">
-
-
           <Row>
             <Card.Body>
-              <Form.Select aria-label="Default select example" className="mb-0" onChange={(e) => {
-                e.preventDefault();
-                setSociety(e.target.value);
-
-              }}>
+              <Form.Select
+                aria-label="Default select example"
+                className="mb-0"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setSociety(e.target.value);
+                }}
+              >
                 <option>Select Society to follow</option>
                 {societyList.map((value, key) => {
                   return (
-
-                    <option key={key} value={value._id} >{value.name}</option>
-                  )
+                    <option key={value._id} value={value._id}>
+                      {value.name}
+                    </option>
+                  );
                 })}
-
               </Form.Select>
             </Card.Body>
           </Row>
@@ -77,10 +77,8 @@ function FollowSociety() {
             <Button type="submit" size="lg">
               Add
             </Button>
-
           </div>
           <br />
-
         </Card>
       </Form>
     </Container>
@@ -89,7 +87,4 @@ function FollowSociety() {
 
 export default FollowSociety;
 
-
-
 // society has two fields, a name and tag
-
