@@ -1,29 +1,26 @@
-import React from 'react';
+import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
+import { slide as Menu } from "react-burger-menu";
 
-import { slide as Menu } from 'react-burger-menu';
+import "./sidebar.css";
 
-import './sidebar.css';
-
-export default props => {
-  const [listSocieties, setListOfSocieties] = useState([])
+export default (props) => {
+  const [listSocieties, setListOfSocieties] = useState([]);
   const user_values = JSON.parse(localStorage.getItem("user"));
-  const user_id = user_values._id
-
+  const user_id = user_values._id;
 
   useEffect(async () => {
-
-    const res = await Axios.post("http://localhost:3007/society/mysocieties", { user_id: user_id });
-    const list = res.data.result[0].society
-    setListOfSocieties(list)
-
+    const res = await Axios.post("http://localhost:3007/society/mysocieties", {
+      user_id: user_id,
+    });
+    const list = res.data.result[0].society;
+    setListOfSocieties(list);
   }, []);
 
-  const st = { fontSize: '16px', textAlign: 'center' }
-
+  const st = { fontSize: "16px", textAlign: "center" };
 
   return (
     <>
@@ -48,7 +45,6 @@ export default props => {
            // </Link>
           )
         })}
-
       </Menu>
     </>
   );
