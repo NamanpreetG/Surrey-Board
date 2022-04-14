@@ -6,7 +6,6 @@ import SocietyBoard from "./components/SocietyBoard/SocietyBoard";
 import GeneralBoard from "./components/GeneralBoard/GeneralBoard";
 import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
-import Settings from "./components/Settings";
 import CreateSociety from "./components/CreateSociety/CreateSociety";
 import SpecificPost from "./components/SpecificPost/SpecificPost";
 import { PrivateRouteAdmin } from "./components/PrivateRouteAdmin";
@@ -26,7 +25,7 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
-      if (!localStorage.getItem("user")) {
+      if (!JSON.parse(localStorage.getItem("user"))) {
         localStorage.setItem("user", JSON.stringify(action.payload));
       }
       return {
