@@ -38,10 +38,11 @@ router.get('/next', async (req, res) => {
             res.send({ messasge: 'error' })
             console.log(err)
         }
-        else if (result.length === 0) {
+        else if (result.length < 10) {
             page_num = 0
 
-        }
+        } 
+        console.log('LENGTH IS : ' + result.length)
 
         var temp_prev = page_num
         if(page_num == 0){
@@ -135,7 +136,7 @@ router.get('/events/next', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        else if (result.length === 0) {
+        else if (result.length < 10) {
             page_num = 0
 
         }

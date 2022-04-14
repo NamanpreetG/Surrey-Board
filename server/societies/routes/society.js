@@ -81,7 +81,7 @@ router.post('/mysocieties', async (req, res) => {
     try {
         const soc = await User.find({ _id: req.body.user_id}).populate('society').select('society')
 
-        res.send({ result: soc })
+        res.send({ result: soc , message : 'success'})
 
     } catch (error) {
         console.log(error)

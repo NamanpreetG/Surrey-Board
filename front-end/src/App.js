@@ -14,6 +14,13 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { QueryClientProvider, QueryClient } from "react-query";
+<<<<<<< HEAD
+=======
+import { ReactQueryDevtools } from 'react-query/devtools'
+import FollowSociety from "./components/SocietyBoard/FollowSociety";
+
+
+>>>>>>> 2344e48db6f02f10fe907ba9127f13d2cc245e91
 
 export const LoginContext = createContext();
 
@@ -60,51 +67,70 @@ function App() {
               />
               <Route exact path="/register" element={<Register />} />
 
-              {/* authenticated links */}
-              <Route
-                path="/EventsBoard"
-                element={
-                  <PrivateRoute>
-                    <EventsBoard />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/createsociety"
-                element={
-                  <PrivateRoute>
-                    <CreateSociety />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/GeneralBoard"
-                element={
-                  <PrivateRoute>
-                    <GeneralBoard />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/societyBoard"
-                element={
-                  <PrivateRoute>
-                    <SocietyBoard />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/createpost"
-                element={
-                  <PrivateRoute>
-                    <CreatePost />
-                  </PrivateRoute>
-                }
-              />
-            </Routes>
-          </div>
-        </LoginContext.Provider>
-      </QueryClientProvider>
+            {/* authenticated links */}
+            <Route
+              path="/EventsBoard"
+              element={
+                <PrivateRoute>
+                  <EventsBoard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+            path="/createsociety"
+            element={
+              <PrivateRoute>
+                <CreateSociety />
+              </PrivateRoute>
+            }
+          />
+            <Route
+              path="/GeneralBoard"
+              element={
+                <PrivateRoute>
+                  <GeneralBoard />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/societyBoard"
+              element={
+                <PrivateRoute>
+                  <SocietyBoard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/createpost"
+              element={
+                <PrivateRoute>
+                  <CreatePost />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/specificPost"
+              element={
+                <PrivateRoute>
+                  <SpecificPost />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/followSociety"
+              element={
+                <PrivateRoute>
+                  <FollowSociety />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </div>
+      </LoginContext.Provider>
+    <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
     </>
   );
 }

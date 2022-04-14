@@ -2,13 +2,14 @@ import React from "react";
 import { useContext, useEffect } from "react";
 import { LoginContext, loginContext } from "../../App";
 
-function EducationBoard() {
+function Homepage() {
   const {state, dispatch} = useContext(LoginContext)
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"))
+  
   return (
     <div>
-      {user ? "Events Board, Write your enquires" : null}
+      {user ? "Homepage" : null}
     </div>);
 }
 
-export default EducationBoard;
+export default Homepage;
