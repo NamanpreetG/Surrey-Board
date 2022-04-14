@@ -40,12 +40,12 @@ export default props => {
         {listSocieties.map((value, key) => {
           return (
 
-            <Link to={{
-              pathname: '/GeneralBoard',
-              state: { society_id: value._id }
-            }} >
+            // <Link to={{
+            //   pathname: '/GeneralBoard',
+            //   state: { society_id: value._id }
+            // }} >
               <li style={st} key={key} value={value._id} >{value.name}</li>
-            </Link>
+           // </Link>
           )
         })}
 
