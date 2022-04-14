@@ -60,44 +60,72 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
               </Row>
             </Nav>
 
-          <Nav className="justify-content-end">
-            <Nav.Item>Posted on {formatYmd}</Nav.Item>
-          </Nav>
+            <Nav className="justify-content">
+              <Nav.Item> Posted by <strong>{username}</strong></Nav.Item>
+            </Nav>
+
+            <Nav className="justify-content">
+              <Nav.Item style={{ fontSize: '14px' }}>{formatYmd}</Nav.Item>
+            </Nav>
           </Card.Header>
-        <Card.Body>
-          <Row>
-            <Card.Text>{description}</Card.Text>
-          </Row>
+          <Card.Body>
 
-          <Card.Link href="#">{likesCount} Likes</Card.Link>
+            <Row>
+              <Card.Text>{description}</Card.Text>
+            </Row>
 
-          <Card.Link href="#">Posted by {username}</Card.Link>
-          <Row>
-            <div className="mb 1">
-              {!liked ? <Button
-                onClick={likePost}
-                variant="danger"
-                as="input"
-                type="button"
-                value="Like"// make this conditional
-                size="sm"
-              /> :
-                <Button
+            <hr></hr>
+            <Row>
+              <Col>
+
+                <a><strong>{likesCount}</strong> Likes</a>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+                {!liked ? <Button
+                  onClick={likePost}
                   variant="danger"
                   as="input"
                   type="button"
-                  value="Liked"// make this conditional
+                  value="Like  "// make this conditional
                   size="sm"
-                />}{" "}
-            </div>
-          </Row>
+                  style={{ padding: '10px 15px' }}
+                /> :
+                  <Button
+                    variant="danger"
+                    as="input"
+                    type="button"
+                    value="Liked"// make this conditional
+                    size="sm"
+                    style={{ padding: '10px 15px' }}
+                  />}{" "}
 
-          <Card.Footer className="text-muted, text-center">
-            <Card.Link onClick={goToPost}>View Comments</Card.Link>
-          </Card.Footer>
-        </Card.Body>
+              </Col>
+            </Row>
+            <br></br>
+            <Card.Footer className="text-muted, text-center">
+              <Card.Link onClick={goToPost}>View Comments</Card.Link>
+            </Card.Footer>
+          </Card.Body>
         </Card>
-    </Container>
+      </Container>
     </>
   );
 }

@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import Axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { CardDeck } from "react-bootstrap";
 
 function SpecificPost() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -85,6 +86,7 @@ function SpecificPost() {
                     </Col>
                   </Row>
                 </Container>
+             
                 <Card.Body>{post_description}</Card.Body>
                 <Card.Body>
                   <Row>
