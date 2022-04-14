@@ -31,6 +31,8 @@ function SinglePost({ title, description, date, username, likes, id }) {
     transform: 'translateX(-970%)'
   }
 
+
+
   return (
     <>
       <Container>
@@ -64,7 +66,7 @@ function SinglePost({ title, description, date, username, likes, id }) {
                   as="input"
                   type="button"
                   value="Like"
-                  size="sm"
+                  size="sm"                  
                 />{" "}
               </div>
             </Row>
