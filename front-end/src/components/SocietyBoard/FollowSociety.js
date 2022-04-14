@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext, useEffect } from "react";
 import { LoginContext, loginContext } from "../../App";
-import { Card, Col, Container, Row, Nav, Button, Form } from "react-bootstrap";
+import { Card, Col, Container, Row, Nav, Button, Form, Alert } from "react-bootstrap";
 import Axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ function FollowSociety() {
   const user_id = user_values._id;
   const navigate = useNavigate();
   const [error, setError] = useState();
+
 
   useEffect(() => {
     Axios.get("http://localhost:3007/society/showall").then((data) => {
@@ -37,7 +38,9 @@ function FollowSociety() {
     );
     if (res.data.message == "success") {
       console.log(res.data.message);
-      navigate("/generalBoard");
+      // navigate("/generalBoard");
+      setError(res.data.message);
+      // setShow(true)
     } else {
       console.log(res.data.message);
       setError(res.data.message);
@@ -50,6 +53,11 @@ function FollowSociety() {
       <br />
       <Form onSubmit={handleSubmit}>
         <h1 className="center-text">Follow Society</h1>
+        {show && (
+          <Alert onClose={() => setShow(false)} variant= "danger" dismissible>
+            <Alert.Heading>{error}</Alert.Heading>
+          </Alert>
+        )}
         <Card className="card-padding">
           <Row>
             <Card.Body>
