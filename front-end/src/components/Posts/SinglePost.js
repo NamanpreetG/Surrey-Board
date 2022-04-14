@@ -23,6 +23,14 @@ function SinglePost({ title, description, date, username, likes, id }) {
     }
   };
 
+  const sty = {
+    position: 'absolute',
+    top:'2%',
+    right: '0',
+    width: '120px',
+    transform: 'translateX(-970%)'
+  }
+
   return (
     <>
       <Container>
@@ -30,7 +38,7 @@ function SinglePost({ title, description, date, username, likes, id }) {
           <Card.Header className="text-center">
             <Nav className="justify-content-center">
               {user.isAdmin && (
-                <Button variant="danger" onClick={deletePost}>
+                <Button style={ sty }variant="danger" onClick={deletePost}>
                   Delete Post
                 </Button>
               )}
