@@ -3,7 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import { LoginContext, loginContext } from "../../App";
 import SinglePost from "../Posts/SinglePost";
 import { useQuery, prefetchQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import Axios from "axios"
 import "./GeneralBoard.css";
 
 async function fetchPosts(countPage, page, index) {
@@ -18,18 +20,28 @@ function GeneralBoard() {
   const [countPage, setCountPage] = useState("");
   const [page, setPage] = useState(1);
   const [index, setIndex] = useState(0);
+  const [userSocieties, setUserSocieties] = useState();
+  const user_id = user._id;
+  const navigate = useNavigate()
 
   const { isLoading, data, isError, error } = useQuery(
     ["posts", countPage, page, index],
     () => fetchPosts(countPage, page, index),
     {
       keepPreviousData: true,
-      staleTime: 5000,
+      staleTime: 0,
     }
   );
   useEffect(() => {
-    console.log(data)
-  }, [data]);
+    Axios.post("http://localhost:3007/society/mysocieties", {
+      user_id,
+    }).then((response) => {
+      setUserSocieties(response.data.result[0].society)
+    });
+    if(userSocieties === []){
+      navigate()
+    }
+  }, []);
 
   if (isError) {
     return <h2>{error.message}</h2>;
@@ -47,13 +59,14 @@ function GeneralBoard() {
     setIndex(data.result.at(-1).counter);
   };
 
+
   return (
     // TODO: add tag to SinglePost
     <>
       {isLoading ? (
         <div>Fetching data...</div>
       ) : (
-        <>
+        (<>
           <div>
             <br />
             <h1 id="title">General Board</h1>
@@ -67,6 +80,7 @@ function GeneralBoard() {
                   date={r.date}
                   likes={r.likes}
                   username={r.user.name}
+                  id={r._id}
                 />
               ))}
           </div>
@@ -81,7 +95,8 @@ function GeneralBoard() {
               Next Page
             </Button>
           </div>
-        </>
+        </>)
+        
       )}
     </>
   );
