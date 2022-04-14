@@ -105,7 +105,7 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
                   variant="danger"
                   as="input"
                   type="button"
-                  value="Like  "// make this conditional
+                  value=" Like "// make this conditional
                   size="sm"
                   style={{ padding: '10px 15px' }}
                 /> :
