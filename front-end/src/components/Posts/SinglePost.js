@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 import { Card, Col, Container, Row, Nav, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +28,17 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
     });
   };
 
+  const [liked, likedPost] = useState(false)
+  const [likesCount, increaseLike] = useState(likes);
+
+  async function likePost(e) {
+    e.preventDefault()
+    const res = await Axios.post(`http://localhost:3006/post/addlike`, { post_id: id });
+    likedPost(true)
+    increaseLike(likes + 1)
+
+  }
+
   return (
     <>
       <Container>
@@ -39,40 +50,55 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
                   Delete Post
                 </Button>
               )}
-              <Nav.Item >{title}</Nav.Item>
-              <Button>{tag}</Button>
+              <Row>
+
+                <Col>
+                  <Nav.Item >{title}</Nav.Item>
+                </Col>
+                <Col>
+                  <Button >{tag}</Button>
+                </Col>
+              </Row>
             </Nav>
 
-            <Nav className="justify-content-end">
-              <Nav.Item>Posted on {formatYmd}</Nav.Item>
-            </Nav>
+          <Nav className="justify-content-end">
+            <Nav.Item>Posted on {formatYmd}</Nav.Item>
+          </Nav>
           </Card.Header>
-          <Card.Body>
-            <Row>
-              <Card.Text>{description}</Card.Text>
-            </Row>
+        <Card.Body>
+          <Row>
+            <Card.Text>{description}</Card.Text>
+          </Row>
 
-            <Card.Link href="#">{likes} Likes</Card.Link>
+          <Card.Link href="#">{likesCount} Likes</Card.Link>
 
-            <Card.Link href="#">Posted by {username}</Card.Link>
-            <Row>
-              <div className="mb 1">
+          <Card.Link href="#">Posted by {username}</Card.Link>
+          <Row>
+            <div className="mb 1">
+              {!liked ? <Button
+                onClick={likePost}
+                variant="danger"
+                as="input"
+                type="button"
+                value="Like"// make this conditional
+                size="sm"
+              /> :
                 <Button
                   variant="danger"
                   as="input"
                   type="button"
-                  value="Like"
+                  value="Liked"// make this conditional
                   size="sm"
-                />{" "}
-              </div>
-            </Row>
+                />}{" "}
+            </div>
+          </Row>
 
-            <Card.Footer className="text-muted, text-center">
-              <Card.Link onClick={goToPost}>View Comments</Card.Link>
-            </Card.Footer>
-          </Card.Body>
+          <Card.Footer className="text-muted, text-center">
+            <Card.Link onClick={goToPost}>View Comments</Card.Link>
+          </Card.Footer>
+        </Card.Body>
         </Card>
-      </Container>
+    </Container>
     </>
   );
 }
