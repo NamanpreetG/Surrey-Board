@@ -44,20 +44,21 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
       <Container>
         <Card className="mb-4" border="info">
           <Card.Header className="text-center">
+
+            <Nav className="justify-end">
+              <Button >{tag}</Button>
+            </Nav>
+
             <Nav className="justify-content-center">
               {user.isAdmin && (
                 <Button variant="danger" onClick={deletePost}>
                   Delete Post
                 </Button>
               )}
-              <Row>
                 <Col>
-                  <Nav.Item >{title}</Nav.Item>
+                  <Nav.Item style={{ fontSize: '25px' , fontWeight: "bold"}}>{title}</Nav.Item>
                 </Col>
-                <Col>
-                  <Button >{tag}</Button>
-                </Col>
-              </Row>
+                
             </Nav>
 
             <Nav className="justify-content">
@@ -65,7 +66,7 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
             </Nav>
 
             <Nav className="justify-content">
-              <Nav.Item style={{ fontSize: '14px' }}>{formatYmd}</Nav.Item>
+              <Nav.Item style={{ fontStyle: "italic", fontSize: '14px' }}>{formatYmd}</Nav.Item>
             </Nav>
           </Card.Header>
           <Card.Body>
