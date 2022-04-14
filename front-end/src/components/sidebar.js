@@ -25,10 +25,10 @@ export default (props) => {
 
   const navigate = useNavigate()
 
-  function changeToSoc(id) {
-    console.log(id)
+  function changeToSoc(id, name) {
+    // console.log(id)
     navigate("/SocietyBoard", {
-      state: { society_id: 'test' },
+      state: { society_id: id, name : name },
       replace: true,
     });
   }
@@ -54,7 +54,7 @@ export default (props) => {
 
           return (
             
-            <li onClick={()=>changeToSoc(value._id)} style={st} key={key}  >{value.name}</li>
+            <li onClick={()=>changeToSoc(value._id, value.name)} style={st} key={key}  >{value.name}</li>
           )
         })}
       </Menu>
