@@ -6,13 +6,12 @@ import { useQuery } from "react-query";
 import { Button } from "react-bootstrap";
 
 async function fetchPosts(countPage, page, index) {
-  console.log(countPage, page, index);
   let url = `http://localhost:3006/showpost/events/${countPage}?page=${page}&index=${index}`;
   const res = await fetch(url);
   return res.json();
 }
 
-function GeneralBoard() {
+function EventsBoard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [countPage, setCountPage] = useState("");
@@ -24,7 +23,6 @@ function GeneralBoard() {
     () => fetchPosts(countPage, page, index),
     {
       keepPreviousData: true,
-      staleTime: 5000,
     }
   );
 
@@ -85,4 +83,4 @@ function GeneralBoard() {
   );
 }
 
-export default GeneralBoard;
+export default EventsBoard;

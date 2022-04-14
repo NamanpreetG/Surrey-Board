@@ -24,6 +24,7 @@ function SpecificPost() {
   const post_likes = location.state.likes;
   const post_username = location.state.username;
   const post_date = location.state.date;
+  const post_tag = location.state.tag
   useEffect(() => {
     Axios.get(`http://localhost:3006/comments/${post_id}`).then((data) => {
       setComments(data.data);
@@ -55,6 +56,7 @@ function SpecificPost() {
             <Card>
               <Card.Body className="md-5">
                 <Card.Title>{post_title}</Card.Title>
+                <Button>{post_tag}</Button>
                 <Card.Body>{post_description}</Card.Body>
                 <Card.Body>
                   <Row>

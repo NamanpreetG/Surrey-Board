@@ -3,7 +3,7 @@ import Axios from "axios";
 import { Card, Col, Container, Row, Nav, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-function SinglePost({ title, description, date, username, likes, id }) {
+function SinglePost({ title, description, date, username, likes, id, tag }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const formatYmd = date.slice(0, 10);
 
@@ -22,11 +22,17 @@ function SinglePost({ title, description, date, username, likes, id }) {
   };
 
   const goToPost = () => {
-    
     navigate("/specificPost", {
-      state: { id, title, description, likes, username, "date": formatYmd },
+      state: { id, title, description, likes, username, date: formatYmd, tag },
       replace: true,
     });
+  };
+  const sty = {
+    position: "absolute",
+    top: "2%",
+    right: "0",
+    width: "120px",
+    transform: "translateX(-970%)",
   };
 
   return (
@@ -36,11 +42,12 @@ function SinglePost({ title, description, date, username, likes, id }) {
           <Card.Header className="text-center">
             <Nav className="justify-content-center">
               {user.isAdmin && (
-                <Button variant="danger" onClick={deletePost}>
+                <Button style={sty} variant="danger" onClick={deletePost}>
                   Delete Post
                 </Button>
               )}
               <Nav.Link onClick={goToPost}>{title}</Nav.Link>
+              <Button>{tag}</Button>
             </Nav>
 
             <Nav className="justify-content-end">

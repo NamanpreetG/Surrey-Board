@@ -178,8 +178,8 @@ router.get('/events/previous', async (req, res) => {
 });
 
 // Society Board
-router.get('/society/:id', async (req, res) => {
-    Post.find({ society: req.params.id })
+router.post('/society', async (req, res) => {
+    Post.find({ society: req.body.society_id })
         .sort('-date').populate({
 
             model: 'User',

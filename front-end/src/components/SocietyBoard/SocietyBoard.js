@@ -5,14 +5,21 @@ import SinglePost from "../Posts/SinglePost";
 import { useQuery } from "react-query";
 import { Button } from "react-bootstrap";
 
+
+import { useLocation } from 'react-router-dom'
+
+
 async function fetchPosts(countPage, page, index) {
-  console.log(countPage, page, index);
   let url = `http://localhost:3006/showpost/events/${countPage}?page=${page}&index=${index}`;
   const res = await fetch(url);
   return res.json();
 }
 
-function GeneralBoard() {
+
+
+
+function SocietyBoard() {
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [countPage, setCountPage] = useState("");
@@ -23,15 +30,9 @@ function GeneralBoard() {
     ["posts", countPage, page, index],
     () => fetchPosts(countPage, page, index),
     {
-      keepPreviousData: true,
-      staleTime: 5000,
+      keepPreviousData: true
     }
   );
-
-  // used for debugging
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
 
   if (isError) {
     return <h2>{error.message}</h2>;
@@ -89,4 +90,4 @@ function GeneralBoard() {
   );
 }
 
-export default GeneralBoard;
+export default SocietyBoard;

@@ -1,13 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import { slide as Menu } from "react-burger-menu";
 
 import "./sidebar.css";
 
-function Sidebar (props) {
+function Sidebar(props) {
   const [listSocieties, setListOfSocieties] = useState([]);
   const user_values = JSON.parse(localStorage.getItem("user"));
   const user_id = user_values._id;
@@ -22,6 +22,16 @@ function Sidebar (props) {
 
   const st = { fontSize: "16px", textAlign: "center" };
 
+  const navigate = useNavigate();
+
+  function changeToSoc(id) {
+    console.log(id);
+    navigate("/societyBoard", {
+      state: { society_id: "test" },
+      replace: true,
+    });
+  }
+
   return (
     <>
       <Menu>
@@ -35,8 +45,10 @@ function Sidebar (props) {
         <a> Your Societies </a>
 
         {listSocieties.map((value, key) => {
+          // console.log(value._id)
+
           return (
-            <li style={st} key={key} value={value._id}>
+            <li onClick={() => changeToSoc(value._id)} style={st} key={key}>
               {value.name}
             </li>
           );
@@ -44,5 +56,5 @@ function Sidebar (props) {
       </Menu>
     </>
   );
-};
+}
 export default Sidebar;
