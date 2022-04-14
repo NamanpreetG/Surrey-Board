@@ -10,6 +10,8 @@ router.post('/', async (req, res) => {
     const emailExists = await User.findOne({ email: req.body.email })
     if (emailExists) return res.status(200).send({ message: 'User with email ' + req.body.email + ' already exists' })
 
+    const userExists = await User.findOne({ name: req.body.username })
+    if (userExists) return res.status(200).send({ message: 'User with username ' + req.body.username + ' already exists' })
     // hash password
     const salt = await bcrypt.genSalt(10)
     if (req.body.password == "") return res.status(200).send({ message: 'Password must not be blank' })

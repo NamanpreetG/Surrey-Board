@@ -23,10 +23,10 @@ function Register() {
     console.log(res.data.message)
     if (res.data.message == 'user added') {
       navigate("/");
-    } else if (res.data.message === 'User with email ' + regEmail + ' already exists'){
+    } /* else if (res.data.message === 'User with email ' + regEmail + ' already exists'){
       setError(res.data.message);
       setShow(true);
-    }
+    } */
     else {
       setError(res.data.message);
       setShow(true);
