@@ -14,30 +14,30 @@ router.post('/', async (req, res) => {
     if (userExists) return res.status(200).send({ message: 'User with username ' + req.body.username + ' already exists' })
     // hash password
     const salt = await bcrypt.genSalt(10)
-    if (req.body.password == "") return res.status(200).send({ message: 'Password must not be blank' })
-    
+    if (req.body.password == "") return res.status(200).send({ message: 'Password must not be left blank' })
+
     hashed_password = await bcrypt.hash(req.body.password, salt)
-         
-    
-    
+
+
+
 
     // Create a new user to add to the DB
     const user = new User({
         name: req.body.username,
         email: req.body.email,
         password: hashed_password,
-        society : '62581c3735013815fb9302d3'
+        society: '62581c3735013815fb9302d3'
     })
 
     // Check for any errors 
     try {
-         if (user.email === "") {
-            res.status(200).send({ message: 'Email must not be blank' })
-        } 
-        else if (user.name === "") {
-            res.status(200).send({ message: 'Username must not be blank' })
+        if (user.email === "") {
+            res.status(200).send({ message: 'Email must not be left blank' })
         }
-        else { 
+        else if (user.name === "") {
+            res.status(200).send({ message: 'Username must not be left blank' })
+        }
+        else {
             const new_user = await user.save()
             console.log(new_user.email + ' added successfully')
             res.send({ user: new_user, message: 'user added' })
