@@ -32,7 +32,7 @@ function CreateSociety() {
         console.log(res.data.message)
         //console.log(post.society)
         if (res.data.message == 'success') {
-            navigate("/homepage");
+            navigate("/generalBoard");
             console.log('Society created')
         } else {
             setError(res.data.message);
