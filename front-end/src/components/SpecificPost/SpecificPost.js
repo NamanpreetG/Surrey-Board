@@ -55,8 +55,16 @@ function SpecificPost() {
           <Card.Body className="md-5">
             <Card>
               <Card.Body className="md-5">
-                <Card.Title>{post_title}</Card.Title>
-                <Button>{post_tag}</Button>
+                <Container>
+                  <Row>
+                    <Col>
+                      <Button>{post_tag}</Button>
+                    </Col>
+                    <Col>
+                      <Card.Title>{post_title}</Card.Title>
+                    </Col>
+                  </Row>
+                </Container>
                 <Card.Body>{post_description}</Card.Body>
                 <Card.Body>
                   <Row>
@@ -79,7 +87,7 @@ function SpecificPost() {
           </Card.Body>
         </Card>
 
-      <br></br>
+        <br></br>
         <>
           <Form onSubmit={handleSubmit}>
             <FloatingLabel
@@ -90,13 +98,13 @@ function SpecificPost() {
               <Form.Control
                 as="textarea"
                 placeholder="Leave a comment here:"
-                style={{ height: "80px"}}
+                style={{ height: "80px" }}
                 value={addComment}
                 onChange={(e) => setaddComment(e.target.value)}
               />
             </FloatingLabel>
 
-          <br></br>
+            <br></br>
             <div className="d-grid gap-2">
               <Button type="submit" variant="primary" size="md">
                 Post
