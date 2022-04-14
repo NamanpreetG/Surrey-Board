@@ -4,33 +4,44 @@ import { LoginContext, loginContext } from "../../App";
 import SinglePost from "../Posts/SinglePost";
 import { useQuery } from "react-query";
 import { Button } from "react-bootstrap";
+import Axios from "axios";
 
+import { useLocation } from "react-router-dom";
 
-import { useLocation } from 'react-router-dom'
+async function fetchPosts(countPage, page, index, soc_id) {
+  //let url = `http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`
+  // const res = await fetch(url, {
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json'
+  //   },
+  //   body: {
+  //     society_id: soc_id
+  //   }
+  // });
 
-
-async function fetchPosts(countPage, page, index) {
-  let url = `http://localhost:3006/showpost/events/${countPage}?page=${page}&index=${index}`;
-  const res = await fetch(url);
-  return res.json();
+  const res = await Axios.post(
+    `http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`,
+    { society_id: soc_id }
+  );
+  console.log("----> ", res);
+  return res.data;
 }
 
-
-
-
 function SocietyBoard() {
-
   const user = JSON.parse(localStorage.getItem("user"));
-
+  const location = useLocation();
+  const soc_id = location.state.society_id;
+  const soc_name = location.state.name;
   const [countPage, setCountPage] = useState("");
   const [page, setPage] = useState(1);
   const [index, setIndex] = useState(0);
 
   const { isLoading, data, isError, error } = useQuery(
     ["posts", countPage, page, index],
-    () => fetchPosts(countPage, page, index),
+    async () => await fetchPosts(countPage, page, index, soc_id),
     {
-      keepPreviousData: true
+      keepPreviousData: true,
     }
   );
 
@@ -59,7 +70,7 @@ function SocietyBoard() {
         <>
           <div>
             <br />
-            <h1 id="title">Society Board</h1>
+            <h1 id="title">{soc_name} Board</h1>
             <br />
             {data.result &&
               data.result.map((r) => (

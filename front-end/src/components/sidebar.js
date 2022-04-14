@@ -24,10 +24,10 @@ function Sidebar(props) {
 
   const navigate = useNavigate();
 
-  function changeToSoc(id) {
-    console.log(id);
-    navigate("/societyBoard", {
-      state: { society_id: "test" },
+  function changeToSoc(id, name) {
+    // console.log(id)
+    navigate("/SocietyBoard", {
+      state: { society_id: id, name : name },
       replace: true,
     });
   }
@@ -48,10 +48,9 @@ function Sidebar(props) {
           // console.log(value._id)
 
           return (
-            <li onClick={() => changeToSoc(value._id)} style={st} key={key}>
-              {value.name}
-            </li>
-          );
+            
+            <li onClick={()=>changeToSoc(value._id, value.name)} style={st} key={key}  >{value.name}</li>
+          )
         })}
       </Menu>
     </>
