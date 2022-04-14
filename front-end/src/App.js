@@ -9,6 +9,7 @@ import Posts from "./components/CreatePost/ShowPost";
 import Settings from "./components/Settings";
 import CreateSociety from "./components/CreateSociety/CreateSociety";
 import SpecificPost from "./components/SpecificPost/SpecificPost";
+import { PrivateRouteAdmin } from "./components/PrivateRouteAdmin";
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
@@ -43,7 +44,7 @@ const reducer = (state, action) => {
 };
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const user = localStorage.getItem("user")
+  const user = JSON.parse(localStorage.getItem("user"))
   const queryClient = new QueryClient();
 
   return (
@@ -73,7 +74,9 @@ function App() {
                 path="/createsociety"
                 element={
                   <PrivateRoute>
-                    <CreateSociety />
+                    <PrivateRouteAdmin>
+                      <CreateSociety />
+                    </PrivateRouteAdmin>
                   </PrivateRoute>
                 }
               />
