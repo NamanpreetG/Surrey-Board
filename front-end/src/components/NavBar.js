@@ -32,6 +32,7 @@ function NavBar() {
                 {user && "Sign Out"}
               </Nav.Link>
               {user && (<Nav.Link href="/createpost">New Post</Nav.Link>)}
+              {user && (<Nav.Link href="/followsociety">Follow A New Society</Nav.Link>)}
               {(user && user.isAdmin) && (<Nav.Link href="/createsociety">Create Society</Nav.Link>)}
             </Nav>
           </Navbar.Collapse>

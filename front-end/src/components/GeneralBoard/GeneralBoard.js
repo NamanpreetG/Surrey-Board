@@ -32,20 +32,6 @@ function GeneralBoard() {
       staleTime: 0,
     }
   );
-  useEffect(() => {
-    console.log(user_id);
-    Axios.post("http://localhost:3007/society/mysocieties", {
-      user_id,
-    }).then((response) => {
-      const listOfSocieties = response.data.result[0].society
-      console.log(listOfSocieties.length);
-      setUserSocieties(listOfSocieties)
-      if (listOfSocieties.length === 0){
-        console.log("empty");
-        navigate("followSociety")
-      }
-    });
-  }, []);
 
   if (isError) {
     return <h2>{error.message}</h2>;

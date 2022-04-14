@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const user_values = JSON.parse(localStorage.getItem("user"));
 function FollowSociety() {
   const { state, dispatch } = useContext(LoginContext)
-  const user = JSON.parse(localStorage.getItem("user"));
   const [show, setShow] = useState(false);
   const [postSociety, setSociety] = useState("");
   const [societyList, setSocietyList] = useState([]);
