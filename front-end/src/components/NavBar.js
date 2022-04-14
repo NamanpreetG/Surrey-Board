@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./sidebar";
 
 function NavBar() {
-  const {state, dispatch} = useContext(LoginContext);
+  const { state, dispatch } = useContext(LoginContext);
   const user = JSON.parse(localStorage.getItem("user"))
 
 
@@ -24,10 +24,10 @@ function NavBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link onClick={() => 
-              dispatch({
-                type: "LOGOUT"
-              })} href="/">
+              <Nav.Link onClick={() =>
+                dispatch({
+                  type: "LOGOUT"
+                })} href="/">
                 {/* TODO: dont let the user submit a blank username/password/username */}
                 {user && "Sign Out"}
               </Nav.Link>
