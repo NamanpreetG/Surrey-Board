@@ -13,7 +13,6 @@ import {
   Dropdown,
   Alert,
 } from "react-bootstrap";
-// TODO: get rid of homepage, replace with generalBoard
 const user_values = JSON.parse(localStorage.getItem("user"));
 
 function CreatePost() {

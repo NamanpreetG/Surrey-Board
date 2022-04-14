@@ -5,12 +5,17 @@ function SinglePost({ title, description, date, username, likes }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const formatYmd = date.slice(0, 10);
 
+  const deletePost = () => { 
+    
+   }
+
   return (
     <>
       <Container>
         <Card className="mb-4" border="info">
           <Card.Header className="text-center">
             <Nav className="justify-content-center">
+              {user.isAdmin && (<Button variant="danger" id="align-left" onClick={deletePost}>Delete Post</Button>)}
               <Nav.Item>{title}</Nav.Item>
             </Nav>
 
