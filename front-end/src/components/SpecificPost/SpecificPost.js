@@ -88,10 +88,12 @@ function SpecificPost() {
                 </Container>
              
                 <Card.Body>{post_description}</Card.Body>
-                <Card.Body>
-                  <Row>
-                    <Col>
-                      posted on <b>{post_date}</b>
+                <hr></hr>
+                <Card.Body style={{marginLeft: "100px"}} >
+
+                  <Row style={{ fontSize: '14px' }}>
+                    <Col >
+                      Posted: <b >{post_date}</b>
                     </Col>
                     <Col>
                       Liked by{" "}
@@ -100,7 +102,7 @@ function SpecificPost() {
                       </b>
                     </Col>
                     <Col>
-                      posted by <b>{post_username}</b>
+                      Posted by <b>{post_username}</b>
                     </Col>
                   </Row>
                 </Card.Body>
