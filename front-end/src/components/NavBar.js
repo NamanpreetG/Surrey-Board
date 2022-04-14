@@ -15,10 +15,10 @@ function NavBar() {
       {/* Navbar code */}
 
       <Navbar bg="light" expand="lg">
-        <Sidebar
+        {user && (<Sidebar
           pageWrapId={"page-wrap"}
           outerContainerId={"outer-container"}
-        />
+        />)}
         <Container>
           <Navbar.Brand href="/">Surrey Board</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -29,7 +29,7 @@ function NavBar() {
                 type: "LOGOUT"
               })} href="/">
                 {/* TODO: dont let the user submit a blank username/password/username */}
-                {user ? "Sign Out" : "Sign In"}
+                {user && "Sign Out"}
               </Nav.Link>
               {user && (<Nav.Link href="/createpost">New Post</Nav.Link>)}
               {(user && user.isAdmin) && (<Nav.Link href="/createsociety">Create Society</Nav.Link>)}
