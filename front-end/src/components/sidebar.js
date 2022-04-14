@@ -42,10 +42,6 @@ export default (props) => {
         <a className="menu-item" href="/EventsBoard">
           Events Board
         </a>
-
-        <a className="menu-item" href="/SocietyBoard">
-          Society Board
-        </a>
         <br></br>
         <a> Your Societies </a>
 

@@ -10,20 +10,22 @@ import Axios from "axios"
 
 import { useLocation } from 'react-router-dom'
 
-
 async function fetchPosts(countPage, page, index, soc_id) {
-  console.log(countPage, page, index);
+  //let url = `http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`
+  // const res = await fetch(url, {
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json'
+  //   },
+  //   body: {
+  //     society_id: soc_id
+  //   }
+  // });
 
-  var res = await Axios.post(`http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`, { society_id : soc_id }).then((data) => {
-      //console.log(data.data);
-
-  console.log(data.data);
-
-})
-return res.json()
+  const res = await Axios.post(`http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`, { society_id: soc_id })
+  console.log("----> " + res);
+  return res.data
 }
-
-
 
 
 function GeneralBoard() {
@@ -34,10 +36,6 @@ function GeneralBoard() {
 
   console.log(" soc id " + soc_id);
 
-
-
-
-
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [countPage, setCountPage] = useState("");
@@ -46,7 +44,7 @@ function GeneralBoard() {
 
   const { isLoading, data, isError, error } = useQuery(
     ["posts", countPage, page, index],
-    () => fetchPosts(countPage, page, index, soc_id),
+    async () => await fetchPosts(countPage, page, index, soc_id),
     {
       keepPreviousData: true
       //staleTime: 5000,
