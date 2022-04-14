@@ -8,7 +8,7 @@ import CreatePost from "./components/CreatePost/CreatePost";
 import Posts from "./components/CreatePost/ShowPost";
 import Settings from "./components/Settings";
 import CreateSociety from "./components/CreateSociety/CreateSociety";
-import SpecificPost from "./components/SpecificPost/SpecificPost"
+import SpecificPost from "./components/SpecificPost/SpecificPost";
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
@@ -48,71 +48,63 @@ function App() {
 
   return (
     <>
-    <QueryClientProvider client={queryClient}>
-      <LoginContext.Provider value={{ state, dispatch }}>
-        <NavBar />
-        <div className="content">
-          <Routes>
-            <Route
-              path="/"
-              exact
-              element={state.user ? <GeneralBoard /> : <Login />}
-            />
-            <Route exact path="/register" element={<Register />} />
+      <QueryClientProvider client={queryClient}>
+        <LoginContext.Provider value={{ state, dispatch }}>
+          <NavBar />
+          <div className="content">
+            <Routes>
+              <Route
+                path="/"
+                exact
+                element={state.user ? <GeneralBoard /> : <Login />}
+              />
+              <Route exact path="/register" element={<Register />} />
 
-            {/* authenticated links */}
-            <Route
-              path="/EventsBoard"
-              element={
-                <PrivateRoute>
-                  <EventsBoard />
-                </PrivateRoute>
-              }
-            />
-            <Route
-            path="/createsociety"
-            element={
-              <PrivateRoute>
-                <CreateSociety />
-              </PrivateRoute>
-            }
-          />
-            <Route
-              path="/GeneralBoard"
-              element={
-                <PrivateRoute>
-                  <GeneralBoard />
-                </PrivateRoute>
-              }
-            />
-            <Route
-            path="/settings"
-            element={
-              <PrivateRoute>
-                <Settings />
-              </PrivateRoute>
-            }
-          />
-            <Route
-              path="/societyBoard"
-              element={
-                <PrivateRoute>
-                  <SocietyBoard />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/createpost"
-              element={
-                <PrivateRoute>
-                  <CreatePost />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </div>
-      </LoginContext.Provider>
-    </QueryClientProvider>
+              {/* authenticated links */}
+              <Route
+                path="/EventsBoard"
+                element={
+                  <PrivateRoute>
+                    <EventsBoard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/createsociety"
+                element={
+                  <PrivateRoute>
+                    <CreateSociety />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/GeneralBoard"
+                element={
+                  <PrivateRoute>
+                    <GeneralBoard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/societyBoard"
+                element={
+                  <PrivateRoute>
+                    <SocietyBoard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/createpost"
+                element={
+                  <PrivateRoute>
+                    <CreatePost />
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </div>
+        </LoginContext.Provider>
+      </QueryClientProvider>
     </>
   );
 }
