@@ -32,7 +32,7 @@ function CreateSociety() {
         console.log(res.data.message)
         //console.log(post.society)
         if (res.data.message == 'success') {
-            navigate("/homepage");
+            navigate("/generalBoard");
             console.log('Society created')
         } else {
             setError(res.data.message);
@@ -74,7 +74,7 @@ function CreateSociety() {
                                 <Form.Label>Tags</Form.Label>
                                 <div className="form-group">
 
-                                    <textarea className="form-control" type="text" placeholder="Enter Tags" id="tags" rows="3" onChange={(e) => {
+                                    <textarea className="form-control" type="text" placeholder="Enter Tag" id="tags" rows="3" onChange={(e) => {
                                         e.preventDefault();
                                         setSocTag(e.target.value);
                                     }}

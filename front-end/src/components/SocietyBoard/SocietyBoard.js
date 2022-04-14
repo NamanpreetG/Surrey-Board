@@ -1,87 +1,104 @@
 import React from "react";
 import { useContext, useEffect, useState } from "react";
-import { LoginContext } from "../../App";
+import { LoginContext, loginContext } from "../../App";
+import SinglePost from "../Posts/SinglePost";
+import { useQuery } from "react-query";
+import { Button } from "react-bootstrap";
 import Axios from "axios";
-import {
-    Form,
-    FormGroup,
-    Button,
-    Container,
-    Row,
-    Col,
-    Card,
-} from "react-bootstrap";
+
+import { useLocation } from "react-router-dom";
+
+async function fetchPosts(countPage, page, index, soc_id) {
+  //let url = `http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`
+  // const res = await fetch(url, {
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json'
+  //   },
+  //   body: {
+  //     society_id: soc_id
+  //   }
+  // });
+
+  const res = await Axios.post(
+    `http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`,
+    { society_id: soc_id }
+  );
+  console.log("----> ", res);
+  return res.data;
+}
 
 function SocietyBoard() {
-  const {state, dispatch} = useContext(LoginContext);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const location = useLocation();
+  const soc_id = location.state.society_id;
+  const soc_name = location.state.name;
+  const [countPage, setCountPage] = useState("");
+  const [page, setPage] = useState(1);
+  const [index, setIndex] = useState(0);
+
+  const { isLoading, data, isError, error } = useQuery(
+    ["posts", countPage, page, index],
+    async () => await fetchPosts(countPage, page, index, soc_id),
+    {
+      keepPreviousData: true,
+    }
+  );
+
+  if (isError) {
+    return <h2>{error.message}</h2>;
+  }
+
+  const previousPage = () => {
+    setCountPage("previous");
+    setPage((old) => Math.max(old - 1, 1));
+    setIndex(data.result[0].counter);
+  };
+
+  const nextPage = () => {
+    setCountPage("next");
+    setPage((old) => (!data.result || data.next === 0 ? old : old + 1));
+    setIndex(data.result.at(-1).counter);
+  };
 
   return (
-
-    
-    <div>
-      <div className="bg-reddit_dark px-6 py-4 text-gray-400"></div>   
-      <div className ="border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter">
-        <div className="rounded-full bg-gray-500 overflow-hidden w-10 h-10">
-        </div>
-        <div className="pt2 pl-4 text-align: Center"> 
-          <h1 className="text-gray" text-3xl>Society Board</h1> 
-        </div>
-
-       <div className="bg-reddit_dark px-6 py-4"></div>
-       <div className="border border-reddit_border p-2 rounded-md"></div>
-          <div className="rounded-full bg-gray-500 overflow-hidden w-10 h-10 flex"></div>
-        <form action="" className="flex-grow bg-reddit_dark-brightest border border-reddit_border ml-4 mr-2 rounded-md">
-          <input type="text" className="bg-reddit_dark-brightest p-2 px-3 text-sm block w-full rounded-md ml-4" placeholder="New Post.." ></input>
-          
-        </form>
-<div className="px-6 bg-reddit_dark text-gray-300"></div> 
-<div className="border border-reddit_border bg-reddit_dark-brighter p-2">
-  <div className="text-align: left">
- <h2 className="mb-2">An example of an Education Board</h2></div>
- <div className=""><h6 className="text-sm mb-5"> Posted by "Mark Twain", 5 hours ago.</h6></div>
- <div className="rounded-full bg-gray-500 overflow-hidden w-10 h-10 flex"></div>
- <div className="text-l leading-6 "><p>Hi all,
-
-As well as inflation and shrinkflation, has anyone noticed the quality reduction in products (cheapening of ingredients)? What are some examples you have seen?
-
-For me I have seen a greater reduction in quality of ice creams where actual dairy has been replaced by fillers and sugar.
-
-Same applies for chocolate, where you see chocolate now being labelled as chocolately or chocolate-flavored which is not quite the same.
-
-What are some examples you've noticed? </p></div>
-</div>
-
-
-      </div>
-    </div>);
-}
-function Posts() {
-  const [postList, setPostList] = useState([]);
-  const [commentsList, setComments] = useState([]);
- 
-  useEffect(() => {
-      Axios.get("http://localhost:3007/society/showall").then((data) => {
-          setPostList(data.data)
-          console.log(data.data)
-      });
-
-  }, []);
-
-  return (
-      <Container fluid="lg">
-          <div className="center-text">
-              {postList.map((val, key) => {
-                  return (
-                      <div key={key}>
-                          <h1 className="center-text">{val.title}</h1>
-                          <p className="center-text">{val.content}</p>
-                      </div>
-                  );
-              })}
+    // TODO: add tag to SinglePost
+    <>
+      {isLoading ? (
+        <div>Fetching data...</div>
+      ) : (
+        <>
+          <div>
+            <br />
+            <h1 id="title">{soc_name} Board</h1>
+            <br />
+            {data.result &&
+              data.result.map((r) => (
+                <SinglePost
+                  key={r._id}
+                  title={r.title}
+                  description={r.content}
+                  date={r.date}
+                  likes={r.likes}
+                  username={r.user.name}
+                />
+              ))}
           </div>
-      </Container>
+          <div id="pagination-buttons">
+            <Button disabled={page === 1} onClick={() => previousPage()}>
+              Previous Page
+            </Button>
+            <span>
+              <b>{` ${page} `}</b>
+            </span>
+            <Button disabled={data.next === 0} onClick={() => nextPage()}>
+              Next Page
+            </Button>
+          </div>
+        </>
+      )}
+    </>
   );
 }
 
-export default Posts;
-
+export default SocietyBoard;

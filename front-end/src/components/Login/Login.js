@@ -27,7 +27,7 @@ function Login() {
         type: "LOGIN",
         payload: res.data.user
       })
-      navigate("/homepage");
+      navigate("/generalBoard");
     } else {
       setError(res.data.message);
       setShow(true);

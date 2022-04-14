@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
+const society = require('../../societies/models/society')
 
 // Add better validation
 router.post('/', async (req, res) => {
@@ -17,7 +18,8 @@ router.post('/', async (req, res) => {
     const user = new User({
         name: req.body.username,
         email: req.body.email,
-        password: hashed_password
+        password: hashed_password,
+        society : '62581c3735013815fb9302d3'
     })
 
     // Check for any errors 
