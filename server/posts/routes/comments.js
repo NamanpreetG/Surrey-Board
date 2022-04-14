@@ -87,7 +87,7 @@ router.post('/add', async (req, res) => {
     try {
         const comment = await new_comment.save()
         console.log('comment was added');
-        res.send(comment)
+        res.send({comment: comment, message: 'succcess'})
         console.log(comment);
 
     } catch (e) {

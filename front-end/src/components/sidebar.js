@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import { slide as Menu } from "react-burger-menu";
 
@@ -22,6 +22,17 @@ export default (props) => {
 
   const st = { fontSize: "16px", textAlign: "center" };
 
+
+  const navigate = useNavigate()
+
+  function changeToSoc(id) {
+    console.log(id)
+    navigate("/SocietyBoard", {
+      state: { society_id: 'test' },
+      replace: true,
+    });
+  }
+
   return (
     <>
       <Menu>
@@ -31,18 +42,19 @@ export default (props) => {
         <a className="menu-item" href="/EventsBoard">
           Events Board
         </a>
+
+        <a className="menu-item" href="/SocietyBoard">
+          Society Board
+        </a>
         <br></br>
         <a> Your Societies </a>
 
         {listSocieties.map((value, key) => {
-          return (
+          // console.log(value._id)
 
-            // <Link to={{
-            //   pathname: '/GeneralBoard',
-            //   state: { society_id: value._id }
-            // }} >
-              <li style={st} key={key} value={value._id} >{value.name}</li>
-           // </Link>
+          return (
+            
+            <li onClick={()=>changeToSoc(value._id)} style={st} key={key}  >{value.name}</li>
           )
         })}
       </Menu>

@@ -5,6 +5,10 @@ import SinglePost from "../Posts/SinglePost";
 import { useQuery } from "react-query";
 import { Button } from "react-bootstrap";
 
+
+import { useLocation } from 'react-router-dom'
+
+
 async function fetchPosts(countPage, page, index) {
   console.log(countPage, page, index);
   let url = `http://localhost:3006/showpost/events/${countPage}?page=${page}&index=${index}`;
@@ -12,7 +16,11 @@ async function fetchPosts(countPage, page, index) {
   return res.json();
 }
 
+
+
+
 function GeneralBoard() {
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [countPage, setCountPage] = useState("");
@@ -27,11 +35,6 @@ function GeneralBoard() {
       staleTime: 5000,
     }
   );
-
-  // used for debugging
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
 
   if (isError) {
     return <h2>{error.message}</h2>;
