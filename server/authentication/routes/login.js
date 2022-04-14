@@ -8,7 +8,9 @@ dotevn.config()
 
 router.post('/', async (req, res) => {
     const user = await User.findOne({ email: req.body.email })
-
+    if (req.body.email == "") return res.status(200).send({ message: 'Email must not be blank' })
+    
+    if (req.body.password == "") return res.status(200).send({ message: 'Password must not be blank' })
 //    console.log(user)
    
     // Check email
