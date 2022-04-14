@@ -24,7 +24,6 @@ function CreatePost() {
   const [postEvent, setEvent] = useState(Boolean);
   const [error, setError] = useState();
   const [show, setShow] = useState(false);
-  const [returnData, setReturnData] = useState();
   const user_id = user_values._id;
   const navigate = useNavigate();
 
@@ -44,10 +43,8 @@ function CreatePost() {
       user: user_id,
     };
     const res = await Axios.post("http://localhost:3006/post", post);
-    console.log(res.data.message);
-    console.log(post.society);
     if (res.data.message === "post added") {
-      navigate("/homepage");
+      navigate("/generalBoard");
     } else {
       setError(res.data.message);
       setShow(true);
@@ -59,7 +56,7 @@ function CreatePost() {
       user_id,
     }).then((response) => {
       setSocieties(response.data.result[0].society);
-      console.log(response.data.result[0].society)
+      setPostSociety(response.data.result[0].society[0]._id);
     });
   }, []);
 
@@ -116,15 +113,17 @@ function CreatePost() {
                 <div className="form-group">
                   <Form.Select
                     id="society"
+                    value={postSociety}
                     onChange={(e) => {
                       e.preventDefault();
-                      setSocieties(e.target.value);
+                      setPostSociety(e.target.value);
                     }}
                   >
-                    {/* {societies.map((r) => {
-                      <option key={r[0]._id} value={r[0].society[0]}></option>;
-                    })} */}
-                    <option>Select</option>
+                    {societies.map((r) => (
+                      <option key={r._id} value={r._id}>
+                        {r.name}
+                      </option>
+                    ))}
                   </Form.Select>
                 </div>
               </Form.Group>

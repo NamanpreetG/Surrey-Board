@@ -15,7 +15,6 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { useReducer, createContext } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { ReactQueryDevtools } from 'react-query/devtools'
 
 export const LoginContext = createContext();
 
@@ -122,7 +121,6 @@ function App() {
           </Routes>
         </div>
       </LoginContext.Provider>
-    <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
     </>
   );
