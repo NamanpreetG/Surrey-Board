@@ -23,7 +23,7 @@ async function fetchPosts(countPage, page, index, soc_id) {
   // });
 
   const res = await Axios.post(`http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`, { society_id: soc_id })
-  console.log("----> " + res);
+  console.log("----> " , res);
   return res.data
 }
 
@@ -34,7 +34,7 @@ function GeneralBoard() {
   const soc_name = location.state.name
 
 
-  console.log(" soc id " + soc_id);
+  console.log(" soc id " ,  soc_id);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
