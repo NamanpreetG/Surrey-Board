@@ -48,7 +48,7 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  const user = localStorage.getItem("user")
   const queryClient = new QueryClient();
 
   return (
@@ -61,7 +61,7 @@ function App() {
             <Route
               path="/"
               exact
-              element={state.user ? <Homepage /> : <Login />}
+              element={user ? <Homepage /> : <Login />}
             />
             <Route exact path="/register" element={<Register />} />
 
