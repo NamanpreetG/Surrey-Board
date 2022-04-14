@@ -41,7 +41,6 @@ const reducer = (state, action) => {
       return state;
   }
 };
-// TODO: if the user is not subbed to any socs, then redirect them to the follow soc page
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const user = localStorage.getItem("user")

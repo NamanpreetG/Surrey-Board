@@ -28,11 +28,6 @@ function GeneralBoard() {
     }
   );
 
-  // used for debugging
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-
   if (isError) {
     return <h2>{error.message}</h2>;
   }

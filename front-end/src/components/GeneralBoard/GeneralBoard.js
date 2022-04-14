@@ -61,7 +61,7 @@ function GeneralBoard() {
             <br />
             <h1 id="title">General Board</h1>
             <br />
-            {data.result &&
+            {(data && data.result) &&
               data.result.map((r) => (
                 <SinglePost
                   key={r._id}

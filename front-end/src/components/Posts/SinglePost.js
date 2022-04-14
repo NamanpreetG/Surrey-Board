@@ -10,7 +10,6 @@ function SinglePost({ title, description, date, username, likes, id }) {
   const navigate = useNavigate();
 
   const deletePost = async () => {
-    console.log(id);
     const post = {
       post_id: id,
     };
@@ -18,9 +17,16 @@ function SinglePost({ title, description, date, username, likes, id }) {
       data: post,
     });
     if (res.data.message === "Post Deleted") {
-      console.log("deleted");
       window.location.reload(false);
     }
+  };
+
+  const goToPost = () => {
+    
+    navigate("/specificPost", {
+      state: { id, title, description, likes, username, "date": formatYmd },
+      replace: true,
+    });
   };
 
   return (
@@ -34,7 +40,7 @@ function SinglePost({ title, description, date, username, likes, id }) {
                   Delete Post
                 </Button>
               )}
-              <Nav.Item>{title}</Nav.Item>
+              <Nav.Link onClick={goToPost}>{title}</Nav.Link>
             </Nav>
 
             <Nav className="justify-content-end">

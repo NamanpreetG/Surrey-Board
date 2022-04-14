@@ -1,84 +1,129 @@
-import React, { useEffect } from "react";
-import { Card, Form, FloatingLabel, Button } from "react-bootstrap";
-import returnData from "./exampledb.json";
+import React, { useEffect, useState } from "react";
+import {
+  Card,
+  Form,
+  FloatingLabel,
+  Button,
+  Container,
+  Row,
+  Col,
+  Dropdown,
+} from "react-bootstrap";
+import Axios from "axios";
+import { useLocation } from "react-router-dom";
 
-function SpecificPost({
-  title,
-  description,
-  date,
-  username,
-  likes,
-  tag,
-  comment,
-}) {
+function SpecificPost() {
   const user = JSON.parse(localStorage.getItem("user"));
-  const formatYmd = (date) => date.toISOString().slice(0, 10);
-  console.log(returnData);
+  const [comments, setComments] = useState([]);
+  const [addComment, setaddComment] = useState();
+  const user_id = user._id;
+  const location = useLocation();
+  const post_id = location.state.id;
+  const post_title = location.state.title;
+  const post_description = location.state.description;
+  const post_likes = location.state.likes;
+  const post_username = location.state.username;
+  const post_date = location.state.date;
+  useEffect(() => {
+    Axios.get(`http://localhost:3006/comments/${post_id}`).then((data) => {
+      setComments(data.data);
+      console.log(data.data);
+    });
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const submitComment = {
+      post_id,
+      user: user_id,
+      comment: addComment,
+    };
+    const res = await Axios.post(
+      "http://localhost:3006/comments/add",
+      submitComment
+    );
+    if (res.data.message === "success") {
+      console.log(res.data.message);
+      window.location.reload(false);
+    }
+  };
   return (
     <>
-      <Card>
-        <Card.Body className="md-5">
-          <Card>
-            <Card.Body className="md-5">
-              {returnData.post.map((r) => (
-                <div
-                  key={r._id}
-                  title={r.title}
-                  date={r.date}
-                  societytag={r.tag}
-                  likes={r.likes}
-                  content={r.content}
-                >
-                  <Card.Title> {r.title} </Card.Title>
-                  <p>{r.content}</p>
-                  {r.likes} people have liked this
-                  {r.tag}
-                </div>
-              ))}
+      <Container>
+        <Card>
+          <Card.Body className="md-5">
+            <Card>
+              <Card.Body className="md-5">
+                <Card.Title>{post_title}</Card.Title>
+                <Card.Body>{post_description}</Card.Body>
+                <Card.Body>
+                  <Row>
+                    <Col>
+                      posted on <b>{post_date}</b>
+                    </Col>
+                    <Col>
+                      Liked by{" "}
+                      <b>
+                        {post_likes} {post_likes === 1 ? "person" : "people"}
+                      </b>
+                    </Col>
+                    <Col>
+                      posted by <b>{post_username}</b>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card.Body>
+            </Card>
+          </Card.Body>
+        </Card>
 
-              {returnData.user.map((r) => (
-                <div key={r._id} date={r.date} name={r.name}>
-                  Posted by: {r.name}
-                  <p> Posted on: {r.date} </p>
-                </div>
-              ))}
-            </Card.Body>
-          </Card>
-        </Card.Body>
-      </Card>
-
-      <>
-        <FloatingLabel
-          controlId="floatingTextarea2"
-          label="Leave a comment here:"
-          className="xl-5"
-        >
-          <Form.Control
-            as="textarea"
-            placeholder="Leave a comment here:"
-            style={{ height: "100px" }}
-          />
-        </FloatingLabel>
-        <div className="d-grid gap-2">
-          <Button variant="primary" size="md">
-            Post
-          </Button>
-        </div>
-      </>
-
-      <Card>
-        <Card.Body className="md-5">
-          <Card.Title className="md-5">Comments:</Card.Title>
-
-          {returnData.comment.map((r) => (
-            <div key={r._id} date={r.date} name={r.name} content={r.content}>
-              <p>{r.content}</p>
-              Commented by: {r.name}
-              <p> Commented on: {r.date} </p>
+        <>
+          <Form onSubmit={handleSubmit}>
+            <FloatingLabel
+              controlId="floatingTextarea2"
+              label="Leave a comment here:"
+              className="xl-5"
+            >
+              <Form.Control
+                as="textarea"
+                placeholder="Leave a comment here:"
+                style={{ height: "100px" }}
+                value={addComment}
+                onChange={(e) => setaddComment(e.target.value)}
+              />
+            </FloatingLabel>
+            <div className="d-grid gap-2">
+              <Button type="submit" variant="primary" size="md">
+                Post
+              </Button>
             </div>
-          ))}
-        </Card.Body>
-      </Card>
+          </Form>
+        </>
+
+        <Card>
+          <Card.Body className="md-5">
+            <Card.Title className="md-5">Comments:</Card.Title>
+
+            {comments.map((r) => (
+              <Container key={r._id}>
+                <p>{r.comment}</p>
+                <Row>
+                  <Col>
+                    Commented by: <b>{r.user.name}</b>
+                  </Col>
+                  <Col>
+                    <p>
+                      {" "}
+                      Commented on: <b>{r.date}</b>{" "}
+                    </p>
+                  </Col>
+                  <Dropdown.Divider />
+                </Row>
+              </Container>
+            ))}
+          </Card.Body>
+        </Card>
+      </Container>
     </>
   );
 }
