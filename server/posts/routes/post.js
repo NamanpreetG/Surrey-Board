@@ -55,11 +55,11 @@ router.get('/addlike/:post_id', async (req, res) => {
 
 // Delete post 
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete', async (req, res) => {
 
     try {
         const c = await Post.
-            where('_id').equals(req.params.id).
+            where('_id').equals(req.body.post_id).
             remove()
 
         console.log(c)

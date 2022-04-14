@@ -17,34 +17,34 @@ function FollowSociety() {
   const navigate = useNavigate();
   const [error, setError] = useState();
 
- useEffect(() => {
-  Axios.get("http://localhost:3007/society/showall").then((data) => {
+  useEffect(() => {
+    Axios.get("http://localhost:3007/society/showall").then((data) => {
       setSocietyList(data.data)
-      console.log(data.data)
-      console.log(user_values)
-  });
+      // console.log(data.data)
+      // console.log(user_values)
+    });
 
-}, []);
+  }, []);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setShow(false);
-  const followSociety = {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setShow(false);
+    const followSociety = {
       society_id: postSociety,
       user_id: user_id
 
-  };
-  const res = await Axios.post("http://localhost:3007/society/follow", followSociety);
-  console.log(res.data.message)
-  console.log(followSociety)
-  if (res.data.message == 'success') {
+    };
+    const res = await Axios.post("http://localhost:3007/society/follow", followSociety);
+    if (res.data.message == 'success') {
+      console.log(res.data.message);
       navigate("/generalBoard");
-  } else {
+    } else {
+      console.log(res.data.message);
       setError(res.data.message);
       setShow(true);
-  }
+    }
 
-};
+  };
 
   return (
 
@@ -54,20 +54,28 @@ const handleSubmit = async (e) => {
         <h1 className="center-text">Follow Society</h1>
         <Card className="card-padding">
 
+
           <Row>
             <Card.Body>
-              <Form.Select aria-label="Default select example" className="mb-0">
+              <Form.Select aria-label="Default select example" className="mb-0" onChange={(e) => {
+                e.preventDefault();
+                setSociety(e.target.value);
+
+              }}>
                 <option>Select Society to follow</option>
-                <option value="1">Football</option>
-                <option value="2">Rugby</option>
-                <option value="3">Computer Science</option>
+                {societyList.map((value, key) => {
+                  return (
+
+                    <option key={key} value={value._id} >{value.name}</option>
+                  )
+                })}
 
               </Form.Select>
             </Card.Body>
           </Row>
 
           <div id="align-center">
-            <Button onClick={setSociety()}  type="submit" size="lg">
+            <Button type="submit" size="lg">
               Add
             </Button>
 
