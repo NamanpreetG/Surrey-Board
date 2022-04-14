@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import Axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { CardDeck } from "react-bootstrap";
 
 function SpecificPost() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -75,13 +76,24 @@ function SpecificPost() {
           <Card.Body className="md-5">
             <Card>
               <Card.Body className="md-5">
-                <Card.Title>{post_title}</Card.Title>
-                <Button>{post_tag}</Button>
-                <Card.Body>{post_description}</Card.Body>
-                <Card.Body>
+                <Container>
                   <Row>
                     <Col>
-                      posted on <b>{post_date}</b>
+                      <Button>{post_tag}</Button>
+                    </Col>
+                    <Col>
+                      <Card.Title>{post_title}</Card.Title>
+                    </Col>
+                  </Row>
+                </Container>
+             
+                <Card.Body>{post_description}</Card.Body>
+                <hr></hr>
+                <Card.Body style={{marginLeft: "100px"}} >
+
+                  <Row style={{ fontSize: '14px' }}>
+                    <Col >
+                      Posted: <b >{post_date}</b>
                     </Col>
                     <Col>
                       Liked by{" "}
@@ -90,7 +102,7 @@ function SpecificPost() {
                       </b>
                     </Col>
                     <Col>
-                      posted by <b>{post_username}</b>
+                      Posted by <b>{post_username}</b>
                     </Col>
                   </Row>
                 </Card.Body>

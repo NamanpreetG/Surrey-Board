@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 import { Card, Col, Container, Row, Nav, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -28,50 +28,99 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
     });
   };
 
+  const [liked, likedPost] = useState(false)
+  const [likesCount, increaseLike] = useState(likes);
+
+  async function likePost(e) {
+    e.preventDefault()
+    const res = await Axios.post(`http://localhost:3006/post/addlike`, { post_id: id });
+    likedPost(true)
+    increaseLike(likes + 1)
+
+  }
+
   return (
     <>
       <Container>
         <Card className="mb-4" border="info">
           <Card.Header className="text-center">
+
+            <Nav className="justify-end">
+              <Button >{tag}</Button>
+            </Nav>
+
             <Nav className="justify-content-center">
               {user.isAdmin && (
                 <Button variant="danger" onClick={deletePost}>
                   Delete Post
                 </Button>
               )}
-              <Nav.Item>{title}</Nav.Item>
-              <Button>{tag}</Button>
+                <Col>
+                  <Nav.Item style={{ fontSize: '25px' , fontWeight: "bold"}}>{title}</Nav.Item>
+                </Col>
+                
             </Nav>
 
-            <Nav className="justify-content-end">
-              <Nav.Item>Posted on {formatYmd}</Nav.Item>
+            <Nav className="justify-content">
+              <Nav.Item> Posted by <strong>{username}</strong></Nav.Item>
+            </Nav>
+
+            <Nav className="justify-content">
+              <Nav.Item style={{ fontStyle: "italic", fontSize: '14px' }}>{formatYmd}</Nav.Item>
             </Nav>
           </Card.Header>
           <Card.Body>
+
             <Row>
               <Card.Text>{description}</Card.Text>
             </Row>
-            <Row>
-              <Col>
-                <Card.Subtitle>{likes} Likes</Card.Subtitle>
-              </Col>
 
-              <Col>
-                <Card.Subtitle>Posted by {username}</Card.Subtitle>
-              </Col>
-            </Row>
+            <hr></hr>
             <Row>
-              <div className="mb 1">
-                <Button
+              <Col>
+
+                <a><strong>{likesCount}</strong> Likes</a>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+                {!liked ? <Button
+                  onClick={likePost}
                   variant="danger"
                   as="input"
                   type="button"
-                  value="Like"
+                  value=" Like "// make this conditional
                   size="sm"
-                />{" "}
-              </div>
-            </Row>
+                  style={{ padding: '10px 15px' }}
+                /> :
+                  <Button
+                    variant="danger"
+                    as="input"
+                    type="button"
+                    value="Liked"// make this conditional
+                    size="sm"
+                    style={{ padding: '10px 15px' }}
+                  />}{" "}
 
+              </Col>
+            </Row>
+            <br></br>
             <Card.Footer className="text-muted, text-center">
               <Card.Link onClick={goToPost}>View Comments</Card.Link>
             </Card.Footer>
