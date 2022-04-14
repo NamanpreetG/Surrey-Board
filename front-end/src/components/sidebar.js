@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import { Link } from 'react-router-dom';
+
 
 import { slide as Menu } from 'react-burger-menu';
 
@@ -20,9 +22,8 @@ export default props => {
 
   }, []);
 
-  console.log(user_id)
-
   const st = { fontSize: '16px', textAlign: 'center' }
+
 
   return (
     <>
@@ -39,7 +40,12 @@ export default props => {
         {listSocieties.map((value, key) => {
           return (
 
-            <li style={st} key={key} value={value._id} >{value.name}</li>
+            <Link to={{
+              pathname: '/GeneralBoard',
+              state: { society_id: value._id }
+            }} >
+              <li style={st} key={key} value={value._id} >{value.name}</li>
+            </Link>
           )
         })}
 
