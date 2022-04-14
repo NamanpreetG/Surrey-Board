@@ -10,7 +10,8 @@ import {
   Dropdown,
 } from "react-bootstrap";
 import Axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { CardDeck } from "react-bootstrap";
 
 function SpecificPost() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -24,11 +25,16 @@ function SpecificPost() {
   const post_likes = location.state.likes;
   const post_username = location.state.username;
   const post_date = location.state.date;
-  const post_tag = location.state.tag
+  const post_tag = location.state.tag;
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     Axios.get(`http://localhost:3006/comments/${post_id}`).then((data) => {
-      setComments(data.data);
-      console.log(data.data);
+      if (data.data.message !== "No comments found") {
+        setComments(data.data);
+        console.log(data.data);
+      }
     });
   }, []);
 
@@ -48,6 +54,21 @@ function SpecificPost() {
       window.location.reload(false);
     }
   };
+
+  const goToPost = () => {
+    navigate("/specificPost", {
+      state: {
+        id: user_id,
+        title: post_title,
+        description: post_description,
+        likes: post_likes,
+        username: post_username,
+        date: post_date,
+        tag: post_date,
+      },
+      replace: true,
+    });
+  };
   return (
     <>
       <Container>
@@ -55,13 +76,24 @@ function SpecificPost() {
           <Card.Body className="md-5">
             <Card>
               <Card.Body className="md-5">
-                <Card.Title>{post_title}</Card.Title>
-                <Button>{post_tag}</Button>
-                <Card.Body>{post_description}</Card.Body>
-                <Card.Body>
+                <Container>
                   <Row>
                     <Col>
-                      posted on <b>{post_date}</b>
+                      <Button>{post_tag}</Button>
+                    </Col>
+                    <Col>
+                      <Card.Title>{post_title}</Card.Title>
+                    </Col>
+                  </Row>
+                </Container>
+             
+                <Card.Body>{post_description}</Card.Body>
+                <hr></hr>
+                <Card.Body style={{marginLeft: "100px"}} >
+
+                  <Row style={{ fontSize: '14px' }}>
+                    <Col >
+                      Posted: <b >{post_date}</b>
                     </Col>
                     <Col>
                       Liked by{" "}
@@ -70,7 +102,7 @@ function SpecificPost() {
                       </b>
                     </Col>
                     <Col>
-                      posted by <b>{post_username}</b>
+                      Posted by <b>{post_username}</b>
                     </Col>
                   </Row>
                 </Card.Body>
@@ -79,6 +111,7 @@ function SpecificPost() {
           </Card.Body>
         </Card>
 
+        <br></br>
         <>
           <Form onSubmit={handleSubmit}>
             <FloatingLabel
@@ -89,40 +122,46 @@ function SpecificPost() {
               <Form.Control
                 as="textarea"
                 placeholder="Leave a comment here:"
-                style={{ height: "100px" }}
+                style={{ height: "80px" }}
                 value={addComment}
                 onChange={(e) => setaddComment(e.target.value)}
               />
             </FloatingLabel>
+
+            <br></br>
             <div className="d-grid gap-2">
               <Button type="submit" variant="primary" size="md">
                 Post
               </Button>
+              <br></br>
             </div>
           </Form>
         </>
 
         <Card>
           <Card.Body className="md-5">
-            <Card.Title className="md-5">Comments:</Card.Title>
-
-            {comments.map((r) => (
-              <Container key={r._id}>
-                <p>{r.comment}</p>
-                <Row>
-                  <Col>
-                    Commented by: <b>{r.user.name}</b>
-                  </Col>
-                  <Col>
-                    <p>
-                      {" "}
-                      Commented on: <b>{r.date}</b>{" "}
-                    </p>
-                  </Col>
-                  <Dropdown.Divider />
-                </Row>
-              </Container>
-            ))}
+            <Card.Title className="md-5" onClick={goToPost}>
+              Comments:
+            </Card.Title>
+            {console.log(comments)}
+            {comments &&
+              comments.map((r) => (
+                <Container key={r._id}>
+                  <p>{r.comment}</p>
+                  <Row>
+                    <Col>
+                      Commented by: <b>{r.user.name}</b>
+                    </Col>
+                    <Col>
+                      <p>
+                        {" "}
+                        Commented on: <b>{r.date.slice(0, 10)}</b>{" "}
+                      </p>
+                    </Col>
+                    <Dropdown.Divider />
+                  </Row>
+                </Container>
+              ))}
           </Card.Body>
         </Card>
       </Container>

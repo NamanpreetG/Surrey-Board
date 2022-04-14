@@ -40,10 +40,10 @@ router.post('/', async (req, res) => {
 
 
 
-router.get('/addlike/:post_id', async (req, res) => {
+router.post('/addlike', async (req, res) => {
 
     try {
-        const post_change = await Post.updateOne({ _id: req.params.post_id }, { $inc: { likes: 1 } })
+        const post_change = await Post.updateOne({ _id: req.body.post_id }, { $inc: { likes: 1 } })
         // post_change.acknowledged is a Boolean value
         res.send({ added: post_change.acknowledged, message: 'like added' })
 
@@ -52,6 +52,9 @@ router.get('/addlike/:post_id', async (req, res) => {
 
     }
 })
+
+
+
 
 // Delete post 
 

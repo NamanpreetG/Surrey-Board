@@ -32,9 +32,6 @@ function GeneralBoard() {
       staleTime: 0,
     }
   );
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   if (isError) {
     return <h2>{error.message}</h2>;

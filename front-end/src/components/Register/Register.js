@@ -2,12 +2,14 @@ import { useState } from "react";
 import Axios from "axios";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
-import { Form, Button, Container, Row, Card } from "react-bootstrap";
+import { Form, Button, Container, Row, Card, Alert} from "react-bootstrap";
 
 function Register() {
   const [regEmail, setRegEmail] = useState();
   const [regUsername, setRegUsername] = useState("");
   const [regPassword, setRegPassword] = useState("");
+  const [error, setError] = useState();
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,15 +23,26 @@ function Register() {
     console.log(res.data.message)
     if (res.data.message == 'user added') {
       navigate("/");
+    } /* else if (res.data.message === 'User with email ' + regEmail + ' already exists'){
+      setError(res.data.message);
+      setShow(true);
+    } */
+    else {
+      setError(res.data.message);
+      setShow(true);
     }
   };
 
   return (
-    // TODO: add validation checking if the user exists already
     <Container fluid="lg">
       <br />
       <Form onSubmit={handleSubmit}>
         <h1 className="center-text">Register</h1>
+        {show && (
+          <Alert onClose={() => setShow(false)} variant="danger" dismissible>
+            <Alert.Heading>{error}</Alert.Heading>
+          </Alert>
+        )}
         <Card className="card-padding">
           <Row>
             <Card.Body>
