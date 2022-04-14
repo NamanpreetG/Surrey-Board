@@ -69,6 +69,7 @@ function GeneralBoard() {
                   date={r.date}
                   likes={r.likes}
                   username={r.user.name}
+                  id={r._id}
                 />
               ))}
           </div>
