@@ -51,7 +51,6 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
                 </Button>
               )}
               <Row>
-
                 <Col>
                   <Nav.Item >{title}</Nav.Item>
                 </Col>
@@ -104,9 +103,3 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
 }
 
 export default SinglePost;
-
-// date
-// number of likes
-// tags
-// format
-// user name
