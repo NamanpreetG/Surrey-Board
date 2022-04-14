@@ -9,22 +9,11 @@ import Axios from "axios";
 import { useLocation } from "react-router-dom";
 
 async function fetchPosts(countPage, page, index, soc_id) {
-  //let url = `http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`
-  // const res = await fetch(url, {
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'Accept': 'application/json'
-  //   },
-  //   body: {
-  //     society_id: soc_id
-  //   }
-  // });
 
   const res = await Axios.post(
     `http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`,
     { society_id: soc_id }
   );
-  console.log("----> ", res);
   return res.data;
 }
 
@@ -42,6 +31,7 @@ function SocietyBoard() {
     async () => await fetchPosts(countPage, page, index, soc_id),
     {
       keepPreviousData: true,
+      staleTime: 0
     }
   );
 
@@ -81,6 +71,7 @@ function SocietyBoard() {
                   date={r.date}
                   likes={r.likes}
                   username={r.user.name}
+                  tag={r.society.tag}
                 />
               ))}
           </div>

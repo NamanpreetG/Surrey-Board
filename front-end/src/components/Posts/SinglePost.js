@@ -39,7 +39,7 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
                   Delete Post
                 </Button>
               )}
-              <Nav.Item >{title}</Nav.Item>
+              <Nav.Item>{title}</Nav.Item>
               <Button>{tag}</Button>
             </Nav>
 
@@ -51,10 +51,15 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
             <Row>
               <Card.Text>{description}</Card.Text>
             </Row>
+            <Row>
+              <Col>
+                <Card.Subtitle>{likes} Likes</Card.Subtitle>
+              </Col>
 
-            <Card.Link href="#">{likes} Likes</Card.Link>
-
-            <Card.Link href="#">Posted by {username}</Card.Link>
+              <Col>
+                <Card.Subtitle>Posted by {username}</Card.Subtitle>
+              </Col>
+            </Row>
             <Row>
               <div className="mb 1">
                 <Button
@@ -78,9 +83,3 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
 }
 
 export default SinglePost;
-
-// date
-// number of likes
-// tags
-// format
-// user name
