@@ -7,7 +7,7 @@ router.post('/assigntemp', async (req, res)=>{
 
     try {
 
-        const s = await Post.find().update({ user : '6257075ceea7b1a32c170006'})
+        const s = await Post.find().remove()
         console.log(s);
 
         

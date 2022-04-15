@@ -71,6 +71,7 @@ function SpecificPost() {
   };
   return (
     <>
+    <br></br>
       <Container>
         <Card>
           <Card.Body className="md-5">
@@ -84,10 +85,11 @@ function SpecificPost() {
                     <Col>
                       <Card.Title>{post_title}</Card.Title>
                     </Col>
+                    <Col></Col>
                   </Row>
                 </Container>
              
-                <Card.Body>{post_description}</Card.Body>
+                <Card.Body style={{ fontSize: '15px' }} >{post_description}</Card.Body>
                 <hr></hr>
                 <Card.Body style={{marginLeft: "100px"}} >
 
@@ -116,12 +118,12 @@ function SpecificPost() {
           <Form onSubmit={handleSubmit}>
             <FloatingLabel
               controlId="floatingTextarea2"
-              label="Leave a comment here:"
+              label="Leave a comment:"
               className="xl-5"
             >
               <Form.Control
                 as="textarea"
-                placeholder="Leave a comment here:"
+                // placeholder="Leave a comment:"
                 style={{ height: "80px" }}
                 value={addComment}
                 onChange={(e) => setaddComment(e.target.value)}
@@ -130,14 +132,13 @@ function SpecificPost() {
 
             <br></br>
             <div className="d-grid gap-2">
-              <Button type="submit" variant="primary" size="md">
-                Post
+              <Button type="submit" variant="success" size="md">
+                <strong>Post</strong>
               </Button>
               <br></br>
             </div>
           </Form>
         </>
-
         <Card>
           <Card.Body className="md-5">
             <Card.Title className="md-5" onClick={goToPost}>
@@ -148,10 +149,13 @@ function SpecificPost() {
               comments.map((r) => (
                 <Container key={r._id}>
                   <p>{r.comment}</p>
-                  <Row>
+                  <Row style={{ fontSize: '14px' }} >
                     <Col>
                       Commented by: <b>{r.user.name}</b>
                     </Col>
+                    <Col></Col>
+                    <Col></Col>
+                    <Col></Col>
                     <Col>
                       <p>
                         {" "}
