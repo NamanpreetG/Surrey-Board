@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
-const society = require('../../societies/models/society')
 
 // Add better validation
 router.post('/', async (req, res) => {
