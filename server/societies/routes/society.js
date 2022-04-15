@@ -15,12 +15,12 @@ router.post('/addsociety', async (req, res) => {
         })
 
         const new_soc = await soc.save()
-        console.log('Society Added!')
+        //console.log('Society Added!')
         res.send({ post: new_soc, message: 'success' })
 
     } catch (e) {
         res.send({ message: 'error' })
-        console.log(e)
+        //console.log(e)
     }
 
 });
@@ -33,10 +33,10 @@ router.get('/showall', async (req, res) => {
         .exec((err, result) => {
             if (err) {
 
-                console.log(err)
+            //console.log(err)
             }
             res.send(result)
-            console.log(result)
+            //console.log(result)
         })
 });
 
@@ -51,7 +51,7 @@ router.delete('/delete/:id', async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         res.send({ message: 'error' })
     }
 
@@ -70,7 +70,7 @@ router.post('/follow', async (req, res) => {
         res.send({ message: "success" })
 
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         res.send({ message: "error" })
 
     }
@@ -84,7 +84,7 @@ router.post('/mysocieties', async (req, res) => {
         res.send({ result: soc , message : 'success'})
 
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         res.send({ message: 'error' })
 
     }
@@ -101,7 +101,7 @@ router.post('/unfollow', async (req, res) => {
         res.send({ message: "success" })
 
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         res.send({ message: "error" })
 
     }

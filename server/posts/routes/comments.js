@@ -86,12 +86,12 @@ router.post('/add', async (req, res) => {
 
     try {
         const comment = await new_comment.save()
-        console.log('comment was added');
+       //console.log('comment was added');
         res.send({comment: comment, message: "success"})
-        console.log(comment);
+       //console.log(comment);
 
     } catch (e) {
-        console.log(e)
+       //console.log(e)
         res.send({ message: 'Error' })
     }
 
@@ -108,12 +108,12 @@ router.post('/delete/:id', async (req, res) => {
             where('_id').equals(req.params.id).
             remove()
 
-        console.log(c)
+       //console.log(c)
         res.send({ message: 'Comment Deleted' }).status(200)
 
     } catch (error) {
         res.send({ message: 'Error deleting message' })
-        console.log(error);
+       //console.log(error);
     }
 
 })

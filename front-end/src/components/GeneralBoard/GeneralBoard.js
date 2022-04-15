@@ -33,7 +33,6 @@ function GeneralBoard() {
     }
   );
   useEffect(() => {
-    console.log(data);
   }, [data]);
 
   if (isError) {

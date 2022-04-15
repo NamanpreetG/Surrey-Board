@@ -24,12 +24,12 @@ router.post('/', async (req, res) => {
     // Check for any errors 
     try {
         const new_user = await user.save()
-        console.log(new_user.email + ' added successfully')
+       //console.log(new_user.email + ' added successfully')
         res.send({user : new_user, message: 'user added'})
 
     } catch (e) {
-        console.log("CANNOT ADD USER")
-        console.log(e)
+       //console.log("CANNOT ADD USER")
+       //console.log(e)
     }
 
 })

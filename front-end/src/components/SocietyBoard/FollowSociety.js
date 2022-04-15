@@ -20,8 +20,8 @@ function FollowSociety() {
   useEffect(async () => {
     await Axios.get("http://localhost:3007/society/showall").then((data) => {
       setSocietyList(data.data);
-      // console.log(data.data)
-      // console.log(user_values)
+      //console.log(data.data)
+      //console.log(user_values)
     });
   }, []);
 
@@ -37,12 +37,12 @@ function FollowSociety() {
       followSociety
     );
     if (res.data.message == "success") {
-      console.log(res.data.message);
+     //console.log(res.data.message);
       navigate("/generalBoard");
       setError(res.data.message);
       // setShow(true)
     } else {
-      console.log(res.data.message);
+     //console.log(res.data.message);
       setError(res.data.message);
       setShow(true);
     }
