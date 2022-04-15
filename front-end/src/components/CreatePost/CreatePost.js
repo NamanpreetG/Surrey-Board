@@ -29,7 +29,7 @@ function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (postTitle === "" || postContent === "") {
-      setError("Title or description cannot be blank");
+      setError("Title or description must not be left blank");
       setShow(true);
     } else {
       setShow(false);

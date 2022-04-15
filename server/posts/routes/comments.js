@@ -1,76 +1,64 @@
-//require('../../authentication/models/User');
-const Post = require('../models/post')
-const Comments = require('../models/Comments');
-const router = require('express').Router()
-const mongoose = require('mongoose');
+const Post = require("../models/post");
+const Comments = require("../models/Comments");
+const router = require("express").Router();
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
+  name: {
+    type: String,
+    required: true,
+  },
 
+  email: {
+    type: String,
+    required: true,
+  },
+
+  password: {
+    type: String,
+    required: true,
+  },
+
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+
+  society: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Society",
     },
+  ],
 
-    email: {
-        type: String,
-        required: true
-    },
+  date: {
+    type: Date,
+    immutable: true,
+    default: Date.now,
+  },
+});
 
-    password: {
-        type: String,
-        required: true
-
-    },
-
-    isAdmin: {
-        type: Boolean,
-        default: false
-    },
-
-    society: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Society"
-    }],
-
-
-    date: {
-
-        type: Date,
-        immutable: true,
-        default: Date.now
-    }
-
-
-
-})
-
-const User = mongoose.model('User', userSchema)
-
-
+const User = mongoose.model("User", userSchema);
 
 /**
  * SHOW COMMENTS: based on post_id
  */
 
-router.get('/:post_id', async (req, res) => {
-    try {
+router.get("/:post_id", async (req, res) => {
+  try {
+    const c = await Comments.where("post_id")
+      .equals(req.params.post_id)
+      .select("comment")
+      .select("date")
+      .select("user")
+      .populate("user");
 
-        const c = await Comments.
-            where('post_id').equals(req.params.post_id).
-            select('comment').
-            select('date').
-            select('user').
-            populate('user')
-
-        res.send(c)
-
-    } catch (error) {
-        res.send({ message: 'No comments found' })
-    }
-
+    res.send(c);
+  } catch (error) {
+    res.send({ message: "No comments found" });
+  }
 });
-
 
 /**
  * ADD COMMENT
@@ -101,12 +89,9 @@ router.post('/add', async (req, res) => {
  * DELETE COMMENT
  */
 
-router.post('/delete/:id', async (req, res) => {
-
-    try {
-        const c = await Comments.
-            where('_id').equals(req.params.id).
-            remove()
+router.post("/delete/:id", async (req, res) => {
+  try {
+    const c = await Comments.where("_id").equals(req.params.id).remove();
 
        //console.log(c)
         res.send({ message: 'Comment Deleted' }).status(200)
@@ -118,4 +103,4 @@ router.post('/delete/:id', async (req, res) => {
 
 })
 
-module.exports = router
+module.exports = router;

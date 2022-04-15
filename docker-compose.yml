@@ -1,0 +1,29 @@
+version: "3"
+services:
+  front-end:
+    build: ./front-end
+    volumes:
+      - ./front-end:/app
+    ports:
+      - 3000:3000
+
+  authentication:
+    build: ./server/authentication
+    volumes:
+      - ./server/authentication:/app
+    ports:
+      - 3005:3005
+
+  posts:
+    build: ./server/posts
+    volumes:
+      - ./server/posts:/app
+    ports:
+      - 3006:3006
+
+  post:
+    build: ./server/societies
+    volumes:
+      - ./server/societies:/app
+    ports:
+      - 3007:3007
