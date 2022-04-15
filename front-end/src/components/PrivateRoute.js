@@ -8,7 +8,6 @@ export const PrivateRoute = ({ children }) => {
   if (user) {
     return children;
   } else {
-    console.log("state.user does not exist");
   }
 
   return <Navigate to="/" />;

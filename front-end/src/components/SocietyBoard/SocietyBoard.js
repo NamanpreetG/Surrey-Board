@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import { Button } from "react-bootstrap";
 import Axios from "axios";
 
-import { useLocation } from "react-router-dom";
+import { useLocation , useNavigate} from "react-router-dom";
 
 async function fetchPosts(countPage, page, index, soc_id) {
 
@@ -25,6 +25,8 @@ function SocietyBoard() {
   const [countPage, setCountPage] = useState("");
   const [page, setPage] = useState(1);
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
+
 
   const { isLoading, data, isError, error } = useQuery(
     ["posts", countPage, page, index],
@@ -51,6 +53,16 @@ function SocietyBoard() {
     setIndex(data.result.at(-1).counter);
   };
 
+  async function unfollow(){
+    const unfollow = {
+      society_id: soc_id,
+      user_id: user._id
+    };
+    const res = await Axios.post("http://localhost:3007/society/unfollow", unfollow)
+    navigate("/generalBoard");
+
+  }
+
   return (
     // TODO: add tag to SinglePost
     <>
@@ -60,7 +72,10 @@ function SocietyBoard() {
         <>
           <div>
             <br />
-            <h1 id="title">{soc_name} Board</h1>
+            <h1 id="title">{soc_name} Board <Button style={{backgroundColor: "#f44336"}} onClick={unfollow}>
+              unfollow
+            </Button></h1>
+            
             <br />
             {data.result &&
               data.result.map((r) => (

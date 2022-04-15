@@ -38,13 +38,13 @@ router.post('/', async (req, res) => {
         }
         else {
             const new_user = await user.save()
-            console.log(new_user.email + ' added successfully')
+            // console.log(new_user.email + ' added successfully')
             res.send({ user: new_user, message: 'user added' })
         }
     } catch (e) {
         res.status(200).send({ message: 'Email, username or password must not be blank' })
-        console.log("CANNOT ADD USER")
-        console.log(e)
+        //console.log("CANNOT ADD USER")
+        // console.log(e)
     }
 
 })
