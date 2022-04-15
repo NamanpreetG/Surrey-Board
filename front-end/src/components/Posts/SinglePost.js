@@ -47,18 +47,19 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
 
             <Nav className="justify-end">
               <Button >{tag}</Button>
-            </Nav>
-
-            <Nav className="justify-content-center">
               {user.isAdmin && (
                 <Button variant="danger" onClick={deletePost}>
                   Delete Post
                 </Button>
               )}
-                <Col>
-                  <Nav.Item style={{ fontSize: '25px' , fontWeight: "bold"}}>{title}</Nav.Item>
-                </Col>
-                
+            </Nav>
+
+            <Nav className="justify-content-center">
+
+              <Col>
+                <Nav.Item style={{ fontSize: '25px', fontWeight: "bold" }}>{title}</Nav.Item>
+              </Col>
+
             </Nav>
 
             <Nav className="justify-content">
