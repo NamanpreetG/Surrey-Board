@@ -13,7 +13,6 @@ app.use(express.json())
 
 const loginRoute = require('./routes/login')
 const registerRoute = require('./routes/register')
-const testPostRoute = require('./routes/testPost')
 
 
 mongoose.connect(process.env.DBURUI)
@@ -23,7 +22,6 @@ mongoose.connect(process.env.DBURUI)
 
 app.use('/auth/login', loginRoute)
 app.use('/auth/register', registerRoute)
-app.use('/testpost', testPostRoute)
 
 
 

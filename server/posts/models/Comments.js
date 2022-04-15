@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-require('../../authentication/models/User')
-
 
 
 const commentSchema = new mongoose.Schema({
