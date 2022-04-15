@@ -3,19 +3,6 @@ const Post = require('../models/post')
 const router = require('express').Router()
 
 
-router.post('/assigntemp', async (req, res)=>{
-
-    try {
-
-        const s = await Post.find().remove()
-        console.log(s);
-
-        
-    } catch (error) {
-        console.log(error);
-        
-    }
-})
 
 router.post('/', async (req, res) => {
 
