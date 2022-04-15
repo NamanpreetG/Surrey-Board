@@ -17,8 +17,8 @@ function FollowSociety() {
   const [error, setError] = useState();
 
 
-  useEffect(() => {
-    Axios.get("http://localhost:3007/society/showall").then((data) => {
+  useEffect(async () => {
+    await Axios.get("http://localhost:3007/society/showall").then((data) => {
       setSocietyList(data.data);
       // console.log(data.data)
       // console.log(user_values)
