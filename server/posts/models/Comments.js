@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-require('../../authentication/models/User')
 
 
 
