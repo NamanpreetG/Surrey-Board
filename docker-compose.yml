@@ -21,7 +21,7 @@ services:
     ports:
       - 3006:3006
 
-  post:
+  societies:
     build: ./server/societies
     volumes:
       - ./server/societies:/app
