@@ -30,6 +30,7 @@ function Sidebar(props) {
       state: { society_id: id, name : name },
       replace: true,
     });
+    window.location.reload();
   }
 
   return (
