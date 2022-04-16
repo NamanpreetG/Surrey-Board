@@ -39,8 +39,7 @@ function FollowSociety() {
     if (res.data.message == "success") {
       console.log(res.data.message);
       navigate("/generalBoard");
-      setError(res.data.message);
-      // setShow(true)
+      window.location.reload();
     } else {
       console.log(res.data.message);
       setError(res.data.message);
