@@ -106,7 +106,7 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
                   />
                 ) : (
                   <Button
-                    variant="outline-success"
+                    variant="success"
                     as="input"
                     type="button"
                     value="Liked" // make this conditional
