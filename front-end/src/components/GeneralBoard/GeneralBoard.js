@@ -64,7 +64,7 @@ function GeneralBoard() {
                   description={r.content}
                   date={r.date}
                   likes={r.likes}
-                  username={r.user.name}
+                  username={r.user ? r.user.name : ""}
                   id={r._id}
                   tag={r.society.tag}
                 />
