@@ -9,18 +9,6 @@
 
 Alternatively, visit this [link](https://docs.gitlab.com/ee/ssh/) for clearer instructions.
 
-## How to run the app
-
-1. Clone the repo
-   `git clone git@gitlab.surrey.ac.uk:com301424/surrey-board.git`
-2. Go to surrey-board directory: `cd surrey-board`
-3. Go to the front-end directory with `cd ../front-end`
-4. Run `npm install`
-5. Run the front-end with `npm start`
-6. Open two new terminals
-7. For the first terminal go into the authentication dir with `cd server/authentication` and run `npm install` then `npm start`
-8. For the second terminal go into the posts dir with `cd server/posts` and run `npm install` then `npm start`
-
 # How to run docker components
 
 To run run the docker components, run `docker-compose up`.
