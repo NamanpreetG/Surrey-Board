@@ -97,7 +97,7 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
                 {!liked ? (
                   <Button
                     onClick={likePost}
-                    variant="outline-primary"
+                    variant="outline-success"
                     as="input"
                     type="button"
                     value=" Like " // make this conditional
@@ -106,7 +106,7 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
                   />
                 ) : (
                   <Button
-                    variant="outline-primary"
+                    variant="outline-success"
                     as="input"
                     type="button"
                     value="Liked" // make this conditional
