@@ -33,7 +33,7 @@ function SpecificPost() {
     Axios.get(`http://localhost:3006/comments/${post_id}`).then((data) => {
       if (data.data.message !== "No comments found") {
         setComments(data.data);
-        console.log(data.data);
+        //console.log(data.data);
       }
     });
   }, []);
@@ -50,7 +50,7 @@ function SpecificPost() {
       submitComment
     );
     if (res.data.message === "success") {
-      console.log(res.data.message);
+     //console.log(res.data.message);
       window.location.reload(false);
     }
   };

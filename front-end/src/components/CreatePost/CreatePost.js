@@ -50,7 +50,6 @@ function CreatePost() {
     }
   };
   useEffect(() => {
-    console.log(user_id);
     Axios.post("http://localhost:3007/society/mysocieties", {
       user_id,
     }).then((response) => {

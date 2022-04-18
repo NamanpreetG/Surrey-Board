@@ -25,7 +25,6 @@ function Sidebar(props) {
   const navigate = useNavigate();
 
   function changeToSoc(id, name) {
-    // console.log(id)
     navigate("/SocietyBoard", {
       state: { society_id: id, name : name },
       replace: true,
@@ -46,7 +45,6 @@ function Sidebar(props) {
         <a> Your Societies </a>
 
         {listSocieties.map((value, key) => {
-          // console.log(value._id)
 
           return (
             

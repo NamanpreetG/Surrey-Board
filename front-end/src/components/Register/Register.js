@@ -20,7 +20,7 @@ function Register() {
       password: regPassword,
     };
     const res = await Axios.post("http://localhost:3005/auth/register", user);
-    console.log(res.data.message)
+    //console.log(res.data.message)
     if (res.data.message == 'user added') {
       navigate("/");
     } /* else if (res.data.message === 'User with email ' + regEmail + ' already exists'){

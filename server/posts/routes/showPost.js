@@ -27,7 +27,7 @@ router.get('/next', async (req, res) => {
 
     const count_val = parseInt(req.query.index)
 
-    Post.find({ counter: { $lt: count_val } }).limit(10).sort('-counter').populate({
+    Post.find({ counter: { $lt: count_val } }).limit(5).sort('-counter').populate({
 
         model: 'User',
         path: 'user',
@@ -36,13 +36,13 @@ router.get('/next', async (req, res) => {
     }).populate('society').exec((err, result) => {
         if (err) {
             res.send({ messasge: 'error' })
-            console.log(err)
+            //console.log(err)
         }
-        else if (result.length < 10) {
+        else if (result.length < 5) {
             page_num = 0
 
         }
-        console.log('LENGTH IS : ' + result.length)
+        //console.log('LENGTH IS : ' + result.length)
 
         var temp_prev = page_num
         if (page_num == 0) {
@@ -65,8 +65,8 @@ router.get('/previous', async (req, res) => {
 
     const count_val = parseInt(req.query.index)
 
-    console.log(req.query.page - 1)
-    Post.find({ counter: { $gt: count_val } }).limit(10).sort('counter').populate({
+    //console.log(req.query.page - 1)
+    Post.find({ counter: { $gt: count_val } }).limit(5).sort('counter').populate({
 
         model: 'User',
         path: 'user',
@@ -85,7 +85,7 @@ router.get('/', async (req, res) => {
 
     var next = 2
 
-    Post.find({}).limit(10).sort('-counter').populate({
+    Post.find({}).limit(5).sort('-counter').populate({
 
         model: 'User',
         path: 'user',
@@ -94,9 +94,9 @@ router.get('/', async (req, res) => {
     }).populate('society').exec((err, result) => {
         if (err) {
             res.send({ messasge: 'error' })
-            console.log(err)
+            //console.log(err)
         }
-        else if (result.length < 10) {
+        else if (result.length < 5) {
             next = 0
         }
         res.send({ result: result, previous: 0, next: next })
@@ -107,7 +107,7 @@ router.get('/', async (req, res) => {
 router.get('/events', async (req, res) => {
 
     var next = 2
-    Post.find({ isEvent: true }).limit(10).populate({
+    Post.find({ isEvent: true }).limit(5).populate({
 
         model: 'User',
         path: 'user',
@@ -116,7 +116,7 @@ router.get('/events', async (req, res) => {
     }).populate('society').sort('-date').exec((err, result) => {
         if (err) {
             res.send({ message: 'error' })
-        } else if (result.length < 10) {
+        } else if (result.length < 5) {
             next = 0
         }
         res.send({ result: result, previous: 0, next: next })
@@ -134,7 +134,7 @@ router.get('/events/next', async (req, res) => {
 
     const count_val = parseInt(req.query.index)
 
-    Post.find({ counter: { $lt: count_val }, isEvent: true }).limit(10).sort('-counter').populate({
+    Post.find({ counter: { $lt: count_val }, isEvent: true }).limit(5).sort('-counter').populate({
 
         model: 'User',
         path: 'user',
@@ -144,7 +144,7 @@ router.get('/events/next', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        else if (result.length < 10) {
+        else if (result.length < 5) {
             page_num = 0
 
         }
@@ -170,8 +170,8 @@ router.get('/events/previous', async (req, res) => {
 
     const count_val = parseInt(req.query.index)
 
-    console.log(req.query.page - 1)
-    Post.find({ counter: { $gt: count_val }, isEvent: true }).limit(10).sort('counter').populate({
+    //console.log(req.query.page - 1)
+    Post.find({ counter: { $gt: count_val }, isEvent: true }).limit(5).sort('counter').populate({
 
         model: 'User',
         path: 'user',
@@ -203,7 +203,7 @@ router.post('/society', async (req, res) => {
             if (err) {
                 res.send({ message: 'error' })
             }
-            else if (result.length < 10) {
+            else if (result.length < 5) {
                 next = 0
             }
             res.send({ result: result, previous: 0, next: next })
@@ -226,7 +226,7 @@ router.post('/society/next', async (req, res) => {
     const count_val = parseInt(req.query.index)
 
 
-    Post.find({ society: req.body.society_id, counter: { $lt: count_val } }).limit(10).sort('-counter').populate({
+    Post.find({ society: req.body.society_id, counter: { $lt: count_val } }).limit(5).sort('-counter').populate({
 
         model: 'User',
         path: 'user',
@@ -236,7 +236,7 @@ router.post('/society/next', async (req, res) => {
         if (err) {
             res.send({ message: 'error' })
         }
-        else if (result.length < 10) {
+        else if (result.length < 5) {
             page_num = 0
 
         }
@@ -262,8 +262,8 @@ router.post('/society/previous', async (req, res) => {
 
     const count_val = parseInt(req.query.index)
 
-    console.log(req.query.page - 1)
-    Post.find({ society: req.body.society_id, counter: { $gt: count_val } }).limit(10).sort('counter').populate({
+    //console.log(req.query.page - 1)
+    Post.find({ society: req.body.society_id, counter: { $gt: count_val } }).limit(5).sort('counter').populate({
 
         model: 'User',
         path: 'user',

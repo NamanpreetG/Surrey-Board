@@ -16,12 +16,12 @@ router.post('/', async (req, res) => {
     try {
         const newPost = await post.save()
 
-        // console.log('Post Submitted')
+        //console.log('Post Submitted')
         res.send({ post: newPost, message: 'post added' })
 
     } catch (e) {
         res.send({ message: 'Invalid Post' })
-        console.log(e)
+       //console.log(e)
     }
 });
 
@@ -52,12 +52,12 @@ router.delete('/delete', async (req, res) => {
             where('_id').equals(req.body.post_id).
             remove()
 
-        console.log(c)
+       //console.log(c)
         res.send({ message: 'Post Deleted' }).status(200)
 
     } catch (error) {
         res.send({ message: 'Error deleting post' })
-        console.log(error);
+       //console.log(error);
     }
 
 })
