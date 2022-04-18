@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 function SinglePost({ title, description, date, username, likes, id, tag }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const formatYmd = date.slice(0, 10);
+  const [liked, likedPost] = useState(false);
+  const [likesCount, increaseLike] = useState(likes);
 
   const navigate = useNavigate();
 
@@ -28,15 +30,13 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
     });
   };
 
-  const [liked, likedPost] = useState(false)
-  const [likesCount, increaseLike] = useState(likes);
-
   async function likePost(e) {
-    e.preventDefault()
-    const res = await Axios.post(`http://localhost:3006/post/addlike`, { post_id: id });
-    likedPost(true)
-    increaseLike(likes + 1)
-
+    e.preventDefault();
+    await Axios.post(`http://localhost:3006/post/addlike`, {
+      post_id: id,
+    });
+    likedPost(!liked);
+    increaseLike(likes + 1);
   }
 
   return (
@@ -44,9 +44,8 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
       <Container>
         <Card className="mb-4" border="info">
           <Card.Header className="text-center">
-
             <Nav className="justify-end">
-              <Button >{tag}</Button>
+              <Button>{tag}</Button>
               {user.isAdmin && (
                 <Button variant="danger" onClick={deletePost}>
                   Delete Post
@@ -55,23 +54,27 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
             </Nav>
 
             <Nav className="justify-content-center">
-
               <Col>
-                <Nav.Item style={{ fontSize: '25px', fontWeight: "bold" }}>{title}</Nav.Item>
+                <Nav.Item style={{ fontSize: "25px", fontWeight: "bold" }}>
+                  {title}
+                </Nav.Item>
               </Col>
-
             </Nav>
 
             <Nav className="justify-content">
-              <Nav.Item> Posted by <strong>{username}</strong></Nav.Item>
+              <Nav.Item>
+                {" "}
+                Posted by <strong>{username}</strong>
+              </Nav.Item>
             </Nav>
 
             <Nav className="justify-content">
-              <Nav.Item style={{ fontStyle: "italic", fontSize: '14px' }}>{formatYmd}</Nav.Item>
+              <Nav.Item style={{ fontStyle: "italic", fontSize: "14px" }}>
+                {formatYmd}
+              </Nav.Item>
             </Nav>
           </Card.Header>
           <Card.Body>
-
             <Row>
               <Card.Text>{description}</Card.Text>
             </Row>
@@ -79,46 +82,38 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
             <hr></hr>
             <Row>
               <Col>
-
-                <a><strong>{likesCount}</strong> Likes</a>
+                <strong>{likesCount}</strong> Likes
               </Col>
+              <Col></Col>
+              <Col></Col>
+              <Col></Col>
+              <Col></Col>
+              <Col></Col>
+              <Col></Col>
+              <Col></Col>
+              <Col></Col>
+              <Col></Col>
               <Col>
-              </Col>
-              <Col>
-              </Col>
-              <Col>
-              </Col>
-              <Col>
-              </Col>
-              <Col>
-              </Col>
-              <Col>
-              </Col>
-              <Col>
-              </Col>
-              <Col>
-              </Col>
-              <Col>
-              </Col>
-              <Col>
-                {!liked ? <Button
-                  onClick={likePost}
-                  variant="danger"
-                  as="input"
-                  type="button"
-                  value=" Like "// make this conditional
-                  size="sm"
-                  style={{ padding: '10px 15px' }}
-                /> :
+                {!liked ? (
                   <Button
-                    variant="danger"
+                    onClick={likePost}
+                    variant="outline-success"
                     as="input"
                     type="button"
-                    value="Liked"// make this conditional
+                    value=" Like " // make this conditional
                     size="sm"
-                    style={{ padding: '10px 15px' }}
-                  />}{" "}
-
+                    style={{ padding: "10px 15px" }}
+                  />
+                ) : (
+                  <Button
+                    variant="success"
+                    as="input"
+                    type="button"
+                    value="Liked" // make this conditional
+                    size="sm"
+                    style={{ padding: "10px 15px" }}
+                  />
+                )}{" "}
               </Col>
             </Row>
             <br></br>

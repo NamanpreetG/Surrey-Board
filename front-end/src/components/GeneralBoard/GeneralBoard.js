@@ -15,14 +15,9 @@ async function fetchPosts(countPage, page, index) {
 }
 
 function GeneralBoard() {
-  const user = JSON.parse(localStorage.getItem("user"));
-
   const [countPage, setCountPage] = useState("");
   const [page, setPage] = useState(1);
   const [index, setIndex] = useState(0);
-  const [userSocieties, setUserSocieties] = useState();
-  const user_id = user._id;
-  const navigate = useNavigate()
 
   const { isLoading, data, isError, error } = useQuery(
     ["posts", countPage, page, index],
@@ -69,7 +64,7 @@ function GeneralBoard() {
                   description={r.content}
                   date={r.date}
                   likes={r.likes}
-                  username={r.user.name}
+                  username={r.user ? r.user.name : ""}
                   id={r._id}
                   tag={r.society.tag}
                 />
