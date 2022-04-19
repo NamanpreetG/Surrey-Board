@@ -1,9 +1,8 @@
 import React from "react";
-import { useContext, useEffect, useState } from "react";
-import { LoginContext, loginContext } from "../../App";
+import { useState } from "react";
 import SinglePost from "../Posts/SinglePost";
 import { useQuery } from "react-query";
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import Axios from "axios";
 
 import { useLocation , useNavigate} from "react-router-dom";
@@ -39,7 +38,7 @@ function SocietyBoard() {
   );
 
   if (isError) {
-    return <h2>{error.message}</h2>;
+    return <Alert>{error.message}</Alert>;
   }
 
   const previousPage = () => {
@@ -59,7 +58,7 @@ function SocietyBoard() {
       society_id: soc_id,
       user_id: user._id
     };
-    const res = await Axios.post("http://localhost:3007/society/unfollow", unfollow)
+    await Axios.post("http://localhost:3007/society/unfollow", unfollow)
     navigate("/generalBoard");
 
   }

@@ -23,4 +23,4 @@ To run run the docker components, run `docker-compose up`.
    run `npm install` then run `npm start`.
 4. On a new terminal, navigate to `server/posts` and run
    run `npm install` then run `npm start`.
-5. Then navigate to http://localhost:3000
+5. Then navigate to <http://localhost:3000>
