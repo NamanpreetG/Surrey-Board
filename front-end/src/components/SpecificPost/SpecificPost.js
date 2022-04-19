@@ -150,6 +150,9 @@ function SpecificPost() {
                     <Col>
                       Commented by: <b>{r.user.name}</b>
                     </Col>
+                    <Col></Col>
+                    <Col></Col>
+                    <Col></Col>
                     <Col>
                       <p>
                         {" "}
