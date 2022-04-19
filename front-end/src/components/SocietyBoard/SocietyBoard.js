@@ -14,6 +14,7 @@ async function fetchPosts(countPage, page, index, soc_id) {
     `http://localhost:3006/showpost/society/${countPage}?page=${page}&index=${index}`,
     { society_id: soc_id }
   );
+  console.log(res.data);
   return res.data;
 }
 
@@ -85,7 +86,8 @@ function SocietyBoard() {
                   description={r.content}
                   date={r.date}
                   likes={r.likes}
-                  username={r.user.name}
+                  username={r.user ? r.user.name : ""}
+                  id={r._id}
                   tag={r.society.tag}
                 />
               ))}
