@@ -33,7 +33,6 @@ function SpecificPost() {
     Axios.get(`http://localhost:3006/comments/${post_id}`).then((data) => {
       if (data.data.message !== "No comments found") {
         setComments(data.data);
-        //console.log(data.data);
       }
     });
   }, []);
@@ -50,7 +49,6 @@ function SpecificPost() {
       submitComment
     );
     if (res.data.message === "success") {
-     //console.log(res.data.message);
       window.location.reload(false);
     }
   };
@@ -123,7 +121,6 @@ function SpecificPost() {
             >
               <Form.Control
                 as="textarea"
-                // placeholder="Leave a comment:"
                 style={{ height: "80px" }}
                 value={addComment}
                 onChange={(e) => setaddComment(e.target.value)}
@@ -153,9 +150,6 @@ function SpecificPost() {
                     <Col>
                       Commented by: <b>{r.user.name}</b>
                     </Col>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col></Col>
                     <Col>
                       <p>
                         {" "}
