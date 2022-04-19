@@ -8,7 +8,7 @@ dotevn.config()
 
 router.post('/', async (req, res) => {
     const user = await User.findOne({ email: req.body.email })
-    if (req.body.email == "") return res.status(200).send({ message: 'Email must not be left blank' })
+    if (req.body.email == "") return res.status(200).send({ message: 'Fields must not be left blank' })
 
     if (req.body.password == "") return res.status(200).send({ message: 'Password must not be left blank' })
     //    console.log(user)
@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
 
     //JWT: Create and assing
     const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.TOKEN_SECRET)
-    res.header('user_token', token).send({ user: user, message: 'success', token: token })
+    res.header('user_token', token).send({ user: user, message: 'success' })
 
 })
 
