@@ -20,8 +20,6 @@ function FollowSociety() {
   useEffect(async () => {
     await Axios.get("http://localhost:3007/society/showall").then((data) => {
       setSocietyList(data.data);
-      //console.log(data.data)
-      //console.log(user_values)
     });
   }, []);
 
