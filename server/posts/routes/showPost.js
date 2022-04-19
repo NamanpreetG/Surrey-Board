@@ -17,7 +17,6 @@ const Society = mongoose.model('Society', societySchema)
 
 router.get('/next', async (req, res) => {
 
-
     var page_num = 2
 
     if (parseInt(req.query.page) >= 1) {
@@ -190,7 +189,7 @@ router.post('/society', async (req, res) => {
 
     var next = 2
 
-    Post.find({ society: req.body.society_id })
+    Post.find({ society: req.body.society_id }).limit(5)
         .sort('-date').populate({
 
             model: 'User',
@@ -213,41 +212,44 @@ router.post('/society', async (req, res) => {
 
 router.post('/society/next', async (req, res) => {
 
-    // const check_first = await Post.find({ society: req.body.society_id, counter: { $lt: count_val }})
-    //    if (!check_first) return res.send({ next: 0 })
+    try {
+        var page_num = 2
 
-    var page_num = 2
 
-    if (parseInt(req.query.page) >= 1) {
+        if (parseInt(req.query.page) >= 1) {
 
-        page_num = parseInt(req.query.page) + 1
+            page_num = parseInt(req.query.page) + 1
+        }
+
+        const count_val = parseInt(req.query.index)
+
+
+        Post.find({ society: req.body.society_id, counter: { $lt: count_val } }).limit(5).sort('-counter').populate({
+
+            model: 'User',
+            path: 'user',
+            select: 'name isAdmin'
+
+        }).populate('society').exec((err, result) => {
+            if (err) {
+                res.send({ message: 'error' })
+            }
+            else if (result.length < 5) {
+                page_num = 0
+
+            }
+
+            var temp_prev = page_num
+            if (page_num == 0) {
+                temp_prev = req.query.page - 1
+            }
+
+            res.send({ result: result, previous: temp_prev, next: page_num })
+        })
+    } catch (e) {
+        console.log(e);
+
     }
-
-    const count_val = parseInt(req.query.index)
-
-
-    Post.find({ society: req.body.society_id, counter: { $lt: count_val } }).limit(5).sort('-counter').populate({
-
-        model: 'User',
-        path: 'user',
-        select: 'name isAdmin'
-
-    }).populate('society').exec((err, result) => {
-        if (err) {
-            res.send({ message: 'error' })
-        }
-        else if (result.length < 5) {
-            page_num = 0
-
-        }
-
-        var temp_prev = page_num
-        if (page_num == 0) {
-            temp_prev = req.query.page - 1
-        }
-
-        res.send({ result: result, previous: temp_prev, next: page_num })
-    })
 });
 
 router.post('/society/previous', async (req, res) => {
