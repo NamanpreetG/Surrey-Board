@@ -61,14 +61,7 @@ function App() {
               <Route exact path="/register" element={<Register />} />
 
               {/* authenticated links */}
-              <Route
-                path="/EventsBoard"
-                element={
-                  <PrivateRoute>
-                    <EventsBoard />
-                  </PrivateRoute>
-                }
-              />
+              
               <Route
                 path="/createsociety"
                 element={
@@ -118,6 +111,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <FollowSociety />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/EventsBoard"
+                element={
+                  <PrivateRoute>
+                    <EventsBoard />
                   </PrivateRoute>
                 }
               />
