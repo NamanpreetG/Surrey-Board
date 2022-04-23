@@ -11,7 +11,3 @@ async function fetchPosts(countPage, page, index) {
   return res.json();
 }
 
-function EventsBoard() {
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  
