@@ -46,10 +46,10 @@ function Sidebar(props) {
 
         {listSocieties.map((value, key) => {
 
-          return (
+return (
             
-            <li onClick={()=>changeToSoc(value._id, value.name)} style={st} key={key}  >{value.name}</li>
-          )
+  <li onClick={()=>changeToSoc(value._id, value.name)} style={st} key={key}  >{value.name}</li>
+)
         })}
       </Menu>
     </>
