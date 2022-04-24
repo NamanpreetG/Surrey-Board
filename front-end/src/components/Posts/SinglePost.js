@@ -105,14 +105,7 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
                     style={{ padding: "10px 15px" }}
                   />
                 ) : (
-                  <Button
-                    variant="success"
-                    as="input"
-                    type="button"
-                    value="Liked" // make this conditional
-                    size="sm"
-                    style={{ padding: "10px 15px" }}
-                  />
+               
                 )}{" "}
               </Col>
             </Row>
