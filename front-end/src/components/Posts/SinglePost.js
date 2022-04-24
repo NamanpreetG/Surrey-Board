@@ -82,7 +82,7 @@ function SinglePost({ title, description, date, username, likes, id, tag }) {
             <hr></hr>
             <Row>
               <Col>
-                <strong>{likesCount}</strong> Likes
+              
               </Col>
               <Col></Col>
               <Col></Col>
