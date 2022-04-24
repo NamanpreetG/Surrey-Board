@@ -41,9 +41,6 @@ function Sidebar(props) {
         <a className="menu-item" href="/EventsBoard">
           Events Board
         </a>
-        <a className="menu-item" href="/EventsBoard">
-          Education board 
-        </a>
         <br></br>
         <a> Your Societies </a>
 
