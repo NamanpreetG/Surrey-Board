@@ -63,7 +63,25 @@ function EventsBoard() {
                   likes={r.likes}
                   username={r.user ? r.user.name : ""}
                   id={r._id}
-                  tag={r.society.tag}
+                  
                 />
               ))}
-         
+          </div>
+          <div id="pagination-buttons">
+            <Button disabled={page === 1} onClick={() => previousPage()}>
+              Previous Page
+            </Button>
+            <span>
+              <b>{` ${page} `}</b>
+            </span>
+            <Button disabled={data.next === 0} onClick={() => nextPage()}>
+              Next Page
+            </Button>
+          </div>
+        </>
+      )}
+    </>
+  );
+}
+
+export default EventsBoard;
