@@ -43,7 +43,6 @@ function EventsBoard() {
   };
 
   return (
-    // TODO: add tag to SinglePost
     <>
       {isLoading ? (
         <div>Fetching data...</div>
@@ -67,17 +66,7 @@ function EventsBoard() {
                 />
               ))}
           </div>
-          <div id="pagination-buttons">
-            <Button disabled={page === 1} onClick={() => previousPage()}>
-              Previous Page
-            </Button>
-            <span>
-              <b>{` ${page} `}</b>
-            </span>
-            <Button disabled={data.next === 0} onClick={() => nextPage()}>
-              Next Page
-            </Button>
-          </div>
+          
         </>
       )}
     </>
