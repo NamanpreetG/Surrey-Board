@@ -14,7 +14,9 @@ async function fetchPosts(countPage, page, index) {
 function EventsBoard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
-
+  const [countPage, setCountPage] = useState("");
+  const [page, setPage] = useState(1);
+  const [index, setIndex] = useState(0);
 
   const { isLoading, data, isError, error } = useQuery(
     ["posts", countPage, page, index],
