@@ -30,6 +30,11 @@ function EventsBoard() {
     return <h2>{error.message}</h2>;
   }
 
+  const previousPage = () => {
+    setCountPage("previous");
+    setPage((old) => Math.max(old - 1, 1));
+    setIndex(data.result[0].counter);
+  };
 
   const nextPage = () => {
     setCountPage("next");
