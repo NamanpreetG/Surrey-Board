@@ -1,6 +1,5 @@
 # Surrey Board
 
-Alternatively, visit this [link](https://docs.gitlab.com/ee/ssh/) for clearer instructions.
 
 # How to run docker components
 
